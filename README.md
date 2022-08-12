@@ -1,6 +1,5 @@
 # spring_project
 
-DB
 create database shop;
 use shop;
 
@@ -34,6 +33,7 @@ insert into board(b_type,b_title,b_content,b_writer)
 select * from board;
 
 create table item(i_num int primary key auto_increment,
+					i_brand varchar(30) not null,
 					i_type int not null,
 					i_name varchar(30) not null,
                     i_price int not null,
@@ -46,3 +46,11 @@ insert into item(i_type,i_name,i_price,i_stock,i_image,i_explanation)
 			values(1,"반바지",20000,10,"없음","여름에 시원한 반바지");
             
 select * from item;
+
+create table item_type(i_type int primary key,
+						i_type_string varchar(20) not null);
+                        
+insert into item_type(i_type,i_type_string)
+			values(3, "와이셔츠");
+            
+select * from item_type;
