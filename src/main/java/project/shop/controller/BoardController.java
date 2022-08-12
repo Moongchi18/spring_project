@@ -3,14 +3,14 @@ package project.shop.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import project.shop.service.MemberService;
+import project.shop.service.BoardService;
 
 @Controller
 public class BoardController {
 	
 	@Autowired
-	private MemberService service;
-	public BoardController(MemberService service) {
+	private BoardService service;
+	public BoardController(BoardService service) {
 		this.service = service;
 	}
 	
