@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>리뷰 상세페이지</title>
+<script th:inline="javascript">
+	
+	function del(){
+		var result = confirm("정말로 삭제하시겠습니까?")
+		if (result){
+			location.href = `delete?bNum=[[${board.bNum}]]`
+		}
+		return false;
+	}
+	
+
+</script>
+</head>
+<body>
+<table border="1">
+	<tr>
+		<td>제목  </td>
+		<td th:text="${board.bTitle}" >
+	</tr>
+	<tr>
+		<td>작성자  </td>
+		<td th:text="${board.bWriter}">
+	</tr>
+	<tr>
+		<td>작성날짜  </td>
+		<td th:text="${board.bWriteDate}">
+	</tr>
+	<tr>
+		<td>조회수  </td>
+		<td th:text="${board.bReadCount}">
+	</tr>
+	<tr>
+		<td>내용  </td>
+		<td th:text="${board.bContent}">
+	</tr>
+</table>
+<a href="/reviews">목록</a>
+<a th:href="@{/reviews/update(bNum=${board.bNum})}" th:if="${loginId==board.bWriter}">수정</a>
+<a th:onclick="del()" href="#" th:if="${loginId==board.bWriter}">삭제</a>
+
+</body>
+</html>
