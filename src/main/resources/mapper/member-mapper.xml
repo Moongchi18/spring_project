@@ -5,5 +5,23 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="project.shop.repository.mapper.MemberMapper">
+	<insert id="insert" parameterType="vo.MemberVO">
+		INSERT INTO MEMBER(M_TYPE,M_ID,M_PW,M_PHONE,M_EMAIL,M_ADDRESS)
+		VALUES(#{m_type},#{m_id},#{m_pw},#{m_phone},#{m_email},#{m_address})
+	</insert>
+	
+	<select id="selectMember"  parameterType="String" resultType="vo.MemberVO">
+		SELECT * FROM MEMBER WHERE M_ID =#{m_id}
+	</select>
+	
+	<select id="selectMemberNum" resultType="int">
+		SELECT COUNT(M_ID) FROM MEMBER WHERE M_ID=#{m_id} and M_PW=#{m_pw}
+	</select>
+
+	<update id="update" parameterType="vo.MemberVO">
+		UPDATE MEMBER SET M_ID=#{m_id},M_PW=#{m_pw},M_PHONE=#{m_phone},M_EMAIL=#{m_email},M_ADDRESS=#{m_address}
+		WHERE M_NUM=#{m_num}
+	</update>
+
 
 </mapper>

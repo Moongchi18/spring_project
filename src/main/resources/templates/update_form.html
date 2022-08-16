@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>회원님의 수정할 정보를 입력하세요</h2>
+
+	<form action="update" method="post">
+		<table>
+		<tr>
+			<td>아이디 :</td>
+			<td><input type="text" name="m_id" th:value="${original.m_id}" readonly="readonly"></td>
+		</tr>
+		
+		<tr>
+			<td>비밀번호 : </td>
+			<td><input type="text" name="m_pw" th:value="${original.m_pw}"></td>
+		</tr>
+		
+		<tr>
+			<td>전화번호 : </td>
+			<td><input type="tel" name="m_phone" th:value="${original.m_phone}"></td>
+		</tr>
+		
+		<tr>
+			<td>e-mail : </td>
+			<td><input type="text" name="m_email" th:value="${original.m_email}"></td>
+		</tr>
+		
+		<tr>
+			<td>주소 : </td>
+			<td><input type="text" name="m_address" th:value="${original.m_address}"></td>
+		</tr>
+		
+		<tr>
+			<td colspan="2">
+				<input type="hidden" name="memeberNum" th:value="${original.m_num}">
+				<input type="submit" value="작성완료">
+			</td>
+		</tr>
+		
+		</table>
+	</form>
+</body>
+</html>

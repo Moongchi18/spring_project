@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>update_result</title>
+<script th:inline="javascript">
+
+	var updateResult="[[${updateResult}]]";
+	
+	
+	if(updateResult > 0){
+		alert('[[${updateResult}]]' + "수정완료!");
+	}else{
+		alert("수정하기 작업 실패!!");
+	}
+	
+	location.href="bookList";
+	
+</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>쇼핑몰</title>
+<style type="text/css">
+	#title{
+	text-align:center;
+	}
+	#log{
+	text-align:right;
+	}
+</style>
+
+</head>
+<body>
+<div id=title><h1>쇼핑몰!</h1></div>
+<div id=log th:if="${session.loginId==null}">
+	<a href="loginForm">로그인</a>
+	<a href="join">회원가입</a>
+</div>
+<div id=log th:unless="${session.loginId==null}">
+	<a href="logout">로그아웃</a>
+	<a href="myPage">내정보</a>
+</div>
+
+
+
+ </body>
+</html>
