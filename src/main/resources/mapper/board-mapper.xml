@@ -6,4 +6,62 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 <mapper namespace="project.shop.repository.mapper.BoardMapper">
 
+	<!-- 전체 게시글 조회 -->
+	<select id="selectList" resultMap="boardResultMap">
+		SELECT B_NUM,B_TITLE,B_WRITER,B_WRITEDATE,B_READCOUNT FROM BOARD 
+		WHERE B_TYPE=#{bType} 
+		ORDER BY B_NUM DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<!-- 특정 게시물 번호 조회 -->
+	<select id="select" resultMap="boardResultMap">
+		SELECT * FROM BOARD WHERE B_NUM=#{bNum}
+	</select>
+	
+	<!-- 특정 키워드로 특정 게시글 검색 -->
+ 	<select id="selectSearch" resultMap="boardResultMap">
+		SELECT * FROM BOARD WHERE B_TYPE=#{bType} and 
+		(B_TITLE like "%"'#{bTitle}'"%" or B_CONTENT like "%"'#{bContent}'"%")
+		ORDER BY B_NUM DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<!-- 특정타입 게시글 수 구하기 -->
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE B_TYPE=#{bType}
+	</select>
+	
+	<!-- 게시글 입력 -->
+	<insert id="insert" parameterType="vo.BoardVO">
+		INSERT INTO BOARD(B_TYPE,B_TITLE,B_CONTENT,B_WRITEDATE,B_WRITER)
+					VALUES(#{bType},#{bTitle},#{bContent},#{bWriteDate},#{bWriter})
+	</insert>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delete">
+		DELETE FROM BOARD WHERE B_NUM=#{bNum}
+	</delete>
+	
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="vo.BoardVO">
+		UPDATE BOARD SET B_TITLE=#{bTitle}, B_CONTENT=#{bContent}, B_WRITEDATE=#{bWriteDate} 
+		WHERE B_NUM=#{bNum}
+	</update>
+	
+	<!-- 조회수 -->
+	<update id="updateReadCount">
+		UPDATE BOARD SET B_READCOUNT=B_READCOUNT+1 WHERE B_NUM=#{bNum}
+	</update>
+	
+
+	<resultMap type="vo.BoardVO" id="boardResultMap">
+		<result column="B_NUM" property="bNum" />
+		<result column="B_TYPE" property="bType" />
+		<result column="B_TITLE" property="bTitle" />
+		<result column="B_CONTENT" property="bContent" />
+		<result column="B_WRITER" property="bWriter" />
+		<result column="B_WRITEDATE" property="bWriteDate" />
+		<result column="B_READCOUNT" property="bReadCount" />
+	</resultMap>
+
+
 </mapper>

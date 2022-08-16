@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>게시판 검색 목록</title>
+<style type="text/css">
+	#page{
+		float:left;
+		letter-spacing: 5px;
+	}
+</style>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<th>글번호</th>		
+			<th>제목</th>		
+			<th>작성자</th>		
+			<th>작성일</th>		
+			<th>조회수</th>		
+		</tr>
+		<!-- 데이터가 없을 때 -->
+		<tr th:if="${#lists.isEmpty(bPage.boardList)}">
+			<td colspan="5">작성된 게시글이 존재하지 않습니다.</td>		
+		</tr>
+		<tr th:if="${!#lists.isEmpty(bPage.boardList)}" 
+			th:each="boardVO : ${bPage.boardList}">
+			<td th:text="${boardVO.bNum}"></td>		
+			<td><a th:href="@{/reviews/read(bNum=${boardVO.bNum})}" 
+					th:text="${boardVO.bTitle}"></a></td>		
+			<td th:text="${boardVO.bWriter}"></td>		
+			<td th:text="${#dates.format(boardVO.bWriteDate, 'yyyy-MM-dd HH:mm:ss')}"></td>		
+			<td th:text="${boardVO.bReadCount}"></td>		
+		</tr>		
+	</table>
+		
+		<!-- 하단 페이지 링크 부분 -->
+		<!-- 타임리프에서 페이징처리할 때 html단에서 사용하기 위해 
+		numbers.sequence(start,end)형태로 작성 -->
+		<div id="page" th:each="p : ${#numbers.sequence(bPage.startPage,bPage.endPage)}">
+			<a th:text="${p}" th:href="@{/reviews(page=${p})}"></a>
+		</div>
+		<br>
+		<br>
+	<a href="/reviews/write">
+		<button>글쓰기</button>
+	</a>
+ 	<form action="reviews/search" method="post">
+		<input type="text" placeholder="검색어를 입력하세요" name="search">
+		<input type="submit" value="검색">
+	</form>
+</body>
+</html>
