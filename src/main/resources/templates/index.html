@@ -18,6 +18,7 @@
 <div id=log th:if="${session.loginId==null}">
 	<a href="loginForm">로그인</a>
 	<a href="joinForm">회원가입</a>
+	<a href="FindIdForm">아이디 찾기</a>
 </div>
 <div id=log th:unless="${session.loginId==null}">
 	<a href="logout">로그아웃</a>

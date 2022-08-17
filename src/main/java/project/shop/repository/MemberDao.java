@@ -17,9 +17,9 @@ public class MemberDao {
 		MemberMapper mapper=session.getMapper(MemberMapper.class);
 		return mapper.insert(member);
 	}
-	public MemberVO select(String id) {
+	public MemberVO select(String m_id) {
 		MemberMapper mapper=session.getMapper(MemberMapper.class);
-		return mapper.selectMember(id);
+		return mapper.select(m_id);
 	}
 	public int selectMemberNum(String m_id, String m_pw) {
 		MemberMapper mapper=session.getMapper(MemberMapper.class);
@@ -29,9 +29,18 @@ public class MemberDao {
 		MemberMapper mapper=session.getMapper(MemberMapper.class);
 		return mapper.update(member);
 	}
-	public MemberVO selectMember(int MemberNum) {
+	public MemberVO selectMember(int m_num) {
 		MemberMapper mapper = session.getMapper(MemberMapper.class);
-		return mapper.select(MemberNum);
+		return mapper.selectMember(m_num);
 
 	}
+	public MemberVO selectNum(int m_num) {
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+		return mapper.selectNum(m_num);
+	}
+	public MemberVO findid(String m_email) {
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+		return mapper.findid(m_email);
+	}
+
 }

@@ -12,6 +12,38 @@ public class MemberVO {
 	private String m_email;
 	private String m_address;
 	private Date m_date;
+	
+	
+	
+	public MemberVO(int m_num, int m_type, String m_id, String m_pw, String m_phone, String m_email, String m_address,
+			Date m_date) {
+		super();
+		this.m_num = m_num;
+		this.m_type = m_type;
+		this.m_id = m_id;
+		this.m_pw = m_pw;
+		this.m_phone = m_phone;
+		this.m_email = m_email;
+		this.m_address = m_address;
+		this.m_date = m_date;
+	}
+	
+	public MemberVO(int m_type, String m_id, String m_pw, String m_phone, String m_email, String m_address,
+			Date m_date) {
+		super();
+		this.m_type = m_type;
+		this.m_id = m_id;
+		this.m_pw = m_pw;
+		this.m_phone = m_phone;
+		this.m_email = m_email;
+		this.m_address = m_address;
+		this.m_date = m_date;
+	}
+
+
+	public MemberVO() {
+		
+	}
 	public int getM_num() {
 		return m_num;
 	}

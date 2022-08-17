@@ -10,18 +10,25 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		VALUES(#{m_type},#{m_id},#{m_pw},#{m_phone},#{m_email},#{m_address})
 	</insert>
 	
-	<select id="selectMember"  parameterType="String" resultType="vo.MemberVO">
-		SELECT * FROM MEMBER WHERE M_ID =#{m_id}
+	<select id="select"  parameterType="String" resultType="vo.MemberVO">
+		SELECT * FROM MEMBER WHERE M_ID=#{m_id}
 	</select>
-	
+
 	<select id="selectMemberNum" resultType="int">
 		SELECT COUNT(M_ID) FROM MEMBER WHERE M_ID=#{m_id} and M_PW=#{m_pw}
 	</select>
 
+	<select id="selectNum" parameterType="int" resultType="vo.MemberVO">
+		SELECT * FROM MEMBER WHERE M_NUM=#{m_num}
+	</select>
+	
 	<update id="update" parameterType="vo.MemberVO">
 		UPDATE MEMBER SET M_ID=#{m_id},M_PW=#{m_pw},M_PHONE=#{m_phone},M_EMAIL=#{m_email},M_ADDRESS=#{m_address}
 		WHERE M_NUM=#{m_num}
 	</update>
 
-
+	<select id="findid" parameterType="String" resultType="String">
+		SELECT M_ID FROM MEMBER WHERE M_EMAIL=#{m_email}
+	</select>
+	
 </mapper>

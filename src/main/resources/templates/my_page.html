@@ -39,7 +39,9 @@
 		</tr>
 
 	</table>
-		<a href="index">메인으로</a>
-		<a href="updateForm">수정하기</a>
+	
+		<a href="index">[메인으로]</a>
+		<a href="logout">[로그아웃]</a>
+		<a th:href="@{/updateForm(m_num=${memberInfo.m_num})}">[수정하기]</a>
 </body>
 </html>
