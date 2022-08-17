@@ -16,8 +16,6 @@ import vo.BoardVO;
 @Controller
 public class BoardController {
 	
-	String loginId = "임시";
-	
 	@Autowired
 	private BoardService service;
 	public BoardController(BoardService service) {
@@ -44,23 +42,25 @@ public class BoardController {
 //	}
 	
 	@GetMapping("/reviews/write")
-	public String writeForm() {
+	public String writeForm(HttpSession session, Model model) {
+		String loginId = (String)session.getAttribute("loginId");
 		if(loginId != null) {
 			return "reviews/write";			
 		} else {
-//			return "login";
-			return "";
+			model.addAttribute("message", "게시글을 작성하기 위해서는 로그인이 필요합니다.");
+			return "login_form";
 		}
 	}
 	@PostMapping("/reviews/write")
-	public ModelAndView write(BoardVO board) {
+	public ModelAndView write(BoardVO board, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		String loginId= (String)session.getAttribute("loginId");
 		int result;
 		if(loginId != null) {
 			result = service.write(board, loginId, 2);
 		} else {
 			result = 0;
-			mv.addObject("message","로그인이 필요합니다.");
+			mv.addObject("message","게시글 등록을 위해서는 로그인이 필요합니다.");
 			mv.setViewName("login");
 		}
 		mv.addObject("result", result);
@@ -71,6 +71,7 @@ public class BoardController {
 	@GetMapping("/reviews/read")
 	public ModelAndView read(@RequestParam("bNum")int bNum, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		String loginId= (String)session.getAttribute("loginId");
 		BoardVO board = service.readNoCount(bNum);
 		service.read(bNum, loginId);
 		service.readNoCount(bNum);
@@ -80,24 +81,23 @@ public class BoardController {
 		return mv;
 	}
 	
-	@GetMapping("reviews/update")
+	@GetMapping("/reviews/update")
 	public ModelAndView updateForm(int bNum, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		BoardVO board = service.readNoCount(bNum);
 		mv.addObject("original", board);
-//		String loginId = (String)session.getAttribute("loginId");
+		String loginId = (String)session.getAttribute("loginId");
 		if(board.getbWriter().equals(loginId)) {
 			mv.setViewName("reviews/update");
 		} else {
-//			mv.setViewName("login");
-			mv.setViewName("");
+			mv.setViewName("login_form");
 		}
 		return mv;
 	}
 	
-	@PostMapping("reviews/update")
+	@PostMapping("/reviews/update")
 	public String update(BoardVO board, HttpSession session, Model model) {
-//		String loginId = (String)session.getAttribute("loginId");
+		String loginId = (String)session.getAttribute("loginId");
 		boolean result = service.update(board, loginId);
 		if (result) {
 			return "redirect://localhost:8080/reviews/read?bNum="+board.getbNum();
@@ -108,10 +108,10 @@ public class BoardController {
 		
 	}
 	
-	@GetMapping("reviews/delete")
+	@GetMapping("/reviews/delete")
 	public ModelAndView delete(int bNum, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-//		String loginId = (String)session.getAttribute(loginId);
+		String loginId = (String)session.getAttribute("loginId");
 		Boolean result = service.delete(bNum, loginId);
 		if(result) {
 			mv.setViewName("redirect:/reviews");
