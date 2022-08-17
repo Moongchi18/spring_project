@@ -21,13 +21,18 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- 특정 키워드로 특정 게시글 검색 -->
  	<select id="selectSearch" resultMap="boardResultMap">
 		SELECT * FROM BOARD WHERE B_TYPE=#{bType} and 
-		(B_TITLE like "%"'#{bTitle}'"%" or B_CONTENT like "%"'#{bContent}'"%")
+		(B_TITLE like CONCAT('%',#{search1},'%') or B_CONTENT like CONCAT('%',#{search2},'%'))
 		ORDER BY B_NUM DESC LIMIT #{startRow},#{count}
 	</select>
 	
 	<!-- 특정타입 게시글 수 구하기 -->
 	<select id="selectTotalCount" resultType="int">
 		SELECT COUNT(*) FROM BOARD WHERE B_TYPE=#{bType}
+	</select>
+
+	<!-- 특정타입, 특정검색어 게시글 수 구하기 -->
+	<select id="selectSearchTotalCount" resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE B_TYPE=#{bType} and (B_TITLE like CONCAT('%',#{search1},'%') or B_CONTENT like CONCAT('%',#{search2},'%'))
 	</select>
 	
 	<!-- 게시글 입력 -->
@@ -48,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</update>
 	
 	<!-- 조회수 -->
-	<update id="updateReadCount">
+	<update id="updateReviewReadCount">
 		UPDATE BOARD SET B_READCOUNT=B_READCOUNT+1 WHERE B_NUM=#{bNum}
 	</update>
 	
