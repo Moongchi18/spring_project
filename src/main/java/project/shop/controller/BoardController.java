@@ -32,14 +32,15 @@ public class BoardController {
 		return mv;
 	}
 	
-//	@PostMapping("/reviews/search")
-//	public ModelAndView boardSearch(@RequestParam(defaultValue = "1")int page, String search) {
-//		ModelAndView mv = new ModelAndView();
-//		int bType=2;
-//		mv.addObject("bPage", service.boardSearch(bType, search, search, page));
-//		mv.setViewName("reviews/search");
-//		return mv;
-//	}
+	@GetMapping("/reviews/search")
+	public ModelAndView boardSearch(@RequestParam(defaultValue = "1")int page, String search) {
+		ModelAndView mv = new ModelAndView();
+		int bType=2;
+		mv.addObject("bPage", service.boardSearch(bType, search, page));
+		mv.addObject("search", search);
+		mv.setViewName("reviews/search");
+		return mv;
+	}
 	
 	@GetMapping("/reviews/write")
 	public String writeForm(HttpSession session, Model model) {

@@ -27,6 +27,10 @@ public class BoardDao {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		return mapper.selectTotalCount(bType);
 	}
+	public int selectSearchTotalCount(int bType, String search) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		return mapper.selectSearchTotalCount(bType, search, search);
+	}
 	public List<BoardVO> selectList(int bType, int startRow, int count){
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		return mapper.selectList(bType, startRow, count);
@@ -37,7 +41,7 @@ public class BoardDao {
 	}
 	public int updateReadCount(int bNum) {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
-		return mapper.updateReadCount(bNum);
+		return mapper.updateReviewReadCount(bNum);
 	}
 	public int update(BoardVO board) {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
@@ -47,9 +51,9 @@ public class BoardDao {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		return mapper.delete(bNum);
 	}
-	public List<BoardVO> selectSearch(int bType, String bTitle, String bContent, int startRow, int count){
+	public List<BoardVO> selectSearch(int bType, String search, int startRow, int count){
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
-		return mapper.selectSearch(bType, bTitle, bContent, startRow, count);
+		return mapper.selectSearch(bType, search, search, startRow, count);
 	}
 
 }

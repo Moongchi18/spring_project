@@ -3,6 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 검색 목록</title>
+<script th:inline="javascript">
+	var search_text = "test";
+	function search_set(){
+		search_text = document.getElementById('search-text').value;
+	}
+	
+	function search_com(){
+		location.href = `/reviews/search?search=${search_text}`;
+
+	}
+</script>
 <style type="text/css">
 	#page{
 		float:left;
@@ -38,16 +49,15 @@
 		<!-- 타임리프에서 페이징처리할 때 html단에서 사용하기 위해 
 		numbers.sequence(start,end)형태로 작성 -->
 		<div id="page" th:each="p : ${#numbers.sequence(bPage.startPage,bPage.endPage)}">
-			<a th:text="${p}" th:href="@{/reviews(page=${p})}"></a>
+			<a th:text="${p}" th:href="@{/reviews/search(search=${search},page=${p})}"></a>
 		</div>
 		<br>
+	<input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요" name="search">
+	<button onclick="search_com()">검색</button>
 		<br>
 	<a href="/reviews/write">
 		<button>글쓰기</button>
 	</a>
- 	<form action="reviews/search" method="post">
-		<input type="text" placeholder="검색어를 입력하세요" name="search">
-		<input type="submit" value="검색">
-	</form>
+	<br>
 </body>
 </html>

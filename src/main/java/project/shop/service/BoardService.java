@@ -20,6 +20,10 @@ public class BoardService {
 	}
 	/////////////////////////////
 	private static final int COUNT_PER_PAGE = 10;
+	public int selectSearchTotalCount(int bType, String search) {
+		
+		return dao.selectSearchTotalCount(bType, search);
+	}
 	
 	public BoardPageVO makeBoardPage(int bType, int currentPage) {
 		int totalCount = dao.selectTotalCount(bType);
@@ -40,11 +44,11 @@ public class BoardService {
 		
 		List<BoardVO> boardList=dao.selectList(bType, startRow, COUNT_PER_PAGE);
 //		System.out.println(bType + ", " +  startRow + ", " +  totalCount);
-		return new BoardPageVO(boardList,currentPage,startPage,endPage,totalPage);
+		return new BoardPageVO(null,boardList,currentPage,startPage,endPage,totalPage);
 	}
 	
-	public BoardPageVO boardSearch(int bType, String bTitle, String bContent, int currentPage) {
-		int totalCount = dao.selectTotalCount(bType);
+	public BoardPageVO boardSearch(int bType, String search, int currentPage) {
+		int totalCount = dao.selectSearchTotalCount(bType, search);
 		int totalPage = totalCount / COUNT_PER_PAGE;
 
 		if(totalCount%COUNT_PER_PAGE!=0) {
@@ -61,10 +65,10 @@ public class BoardService {
 		
 		int startRow=(currentPage-1)*COUNT_PER_PAGE;
 		
-		List<BoardVO> boardList=dao.selectSearch(bType, bTitle, bContent, startRow, COUNT_PER_PAGE);
-		System.out.println(bType + ", " +  startRow + ", " +  bTitle);
+		List<BoardVO> boardList=dao.selectSearch(bType, search, startRow, COUNT_PER_PAGE);
+		System.out.println(bType + ", " +  startRow + ", " +  search);
 
-		return new BoardPageVO(boardList,currentPage,startPage,endPage,totalPage);
+		return new BoardPageVO(null,boardList,currentPage,startPage,endPage,totalPage);
 	}
 	
 

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project.shop.repository.mapper.ItemMapper">
+	
+	<!-- 모든 상품 게시글 수 구하기 -->
+	<select id="selectAllItemCount" resultType="int">
+		SELECT COUNT(*) FROM ITEM
+	</select>
+	
+	<!-- 특정 타입 게시글 수 구하기 -->
+	<select id="selectTypeCount" resultType="int">
+		SELECT COUNT(*) FROM ITEM WHERE I_TYPE=#{iType}
+	</select>
+
+	<!-- 특정 브랜드 게시글 수 구하기 -->
+	<select id="selectBrandCount" resultType="int">
+		SELECT COUNT(*) FROM ITEM WHERE I_BRAND=#{iBrand}
+	</select>
+	
+	
+	<!-- 전체 상품리스트 조회 -->
+	<select id="selectAll" resultMap="itemResultMap">
+		SELECT * FROM ITEM ORDER BY I_NUM DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<!-- 상품 분류에 따른 상품 조회 -->
+	<select id="selectType" resultMap="itemResultMap">
+		SELECT * FROM ITEM WHERE I_TYPE=#{iType}
+		ORDER BY I_NUM DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<!-- 브랜드에 따른 상품 조회 -->
+	<select id="selectBrand" resultMap="itemResultMap">
+		SELECT * FROM ITEM WHERE I_BRAND=#{iBrand}
+		ORDER BY I_NUM DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<!-- 상품 상세조회 -->
+	<select id="selectItem" resultMap="itemResultMap" parameterType="vo.ItemVO">
+		SELECT * FROM ITEM WHERE I_NUM=#{iNum}
+	</select>
+	
+	
+	<!-- 상품 입력 -->
+	<insert id="insertItem" parameterType="vo.ItemVO">
+		INSERT INTO ITEM(I_BRAND,I_REGISTER,I_TYPE,I_NAME,I_PRICE,I_STOCK,I_IMAGE,I_EXPLANATION)
+				VALUES(#{iBrand},#{iRegister},#{iType},#{iName},#{iPrice},#{iStock},#{iImage},#{iExplanation})
+	</insert>
+	
+	
+	<!-- 상품 삭제 -->
+	<delete id="deleteItem">
+		DELETE FROM ITEM WHERE I_NUM=#{iNum}
+	</delete>
+	
+	
+	<!-- 상품 수정 -->
+	<update id="updateItem" parameterType="vo.ItemVO">
+		UPDATE ITEM SET I_BRAND=#{iBrand},I_TYPE=#{iType},I_NAME=#{iName},
+		I_PRICE=#{iPrice},I_STOCK=#{iStock},I_IMAGE=#{iImage},I_EXPLANATION=#{iExplanation}
+		WHERE I_NUM=#{iNum}
+	</update>
+	
+	<!-- 조회수 -->
+	<update id="updateItemReadCount">
+		UPDATE ITEM SET I_READCOUNT=I_READCOUNT+1 WHERE I_NUM=#{iNum}
+	</update>
+	
+
+	<resultMap type="vo.ItemVO" id="itemResultMap">
+		<result column="i_num" property="iNum"/>
+		<result column="i_brand" property="iBrand"/>
+		<result column="i_register" property="iRegister"/>
+		<result column="i_type" property="iType"/>
+		<result column="i_name" property="iName"/>
+		<result column="i_price" property="iPrice"/>
+		<result column="i_stock" property="iStock"/>
+		<result column="i_image" property="iImage"/>
+		<result column="i_explanation" property="iExplanation"/>
+		<result column="i_readcount" property="iReadCount"/>
+		<result column="i_date" property="iDate"/>
+	</resultMap>
+
+</mapper>

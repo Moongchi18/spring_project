@@ -10,11 +10,13 @@ public interface BoardMapper {
 	
 	public int insert(BoardVO board);
 	public int selectTotalCount(int bType);
+	public int selectSearchTotalCount(int bType, String search1, String search2);
 	public List<BoardVO> selectList(@Param("bType")int bType, @Param("startRow")int startRow, @Param("count")int count);
 	public BoardVO select(int bNum);
-	public int updateReadCount(int bNum);
+	public int updateReviewReadCount(int bNum);
 	public int update(BoardVO board);
 	public int delete(int bNum);
-	public List<BoardVO> selectSearch(int bType, String bTitle, String bContent, int startRow, int count);
+	public List<BoardVO> selectSearch(int bType, String search1, String search2, int startRow, int count);
+	
 
 }

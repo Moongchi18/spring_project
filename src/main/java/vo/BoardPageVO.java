@@ -6,20 +6,31 @@ import java.util.List;
 public class BoardPageVO {
 	
 	private List<BoardVO> boardList;
+	private List<ItemVO> itemList;
 	
 	private int currentPage;
 	private int startPage;
 	private int endPage;
 	private int totalPage;
 	
-	public BoardPageVO(List<BoardVO> boardList, int currentPage, int startPage, int endPage, int totalPage) {
+	public BoardPageVO(List<ItemVO> itemList, List<BoardVO> boardList, int currentPage, int startPage, int endPage, int totalPage) {
+		this.itemList = itemList;
 		this.boardList = boardList;
 		this.currentPage = currentPage;
 		this.startPage = startPage;
 		this.endPage = endPage;
 		this.totalPage = totalPage;
 	}
-	
+
+
+
+	public List<ItemVO> getItemList() {
+		return itemList;
+	}
+
+	public void setItemList(List<ItemVO> itemList) {
+		this.itemList = itemList;
+	}
 
 	public List<BoardVO> getBoardList() {
 		return boardList;
@@ -63,8 +74,8 @@ public class BoardPageVO {
 
 	@Override
 	public String toString() {
-		return "BoardPageVO [boardList=" + boardList + ", currentPage=" + currentPage + ", startPage=" + startPage
-				+ ", endPage=" + endPage + ", totalPage=" + totalPage + "]";
+		return "BoardPageVO [boardList=" + boardList + ", itemList=" + itemList + ", currentPage=" + currentPage
+				+ ", startPage=" + startPage + ", endPage=" + endPage + ", totalPage=" + totalPage + "]";
 	}
 	
 	
