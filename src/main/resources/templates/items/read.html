@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상품 상세 페이지</title>
+<script th:inline="javascript">
+	function del_item(){
+		var item_delete = confirm("정말로 상품을 삭제하시겠습니까?")
+		if(item_delete){
+			location.href=`/items/delete?iNum=[[${item.iNum}]]`;
+		} else {
+			return false;
+		}
+	}
+</script>
+<style type="text/css">
+	.item-wrapper{
+		text-align: center;
+	}
+	.top-explanation{
+		width:70%;
+		height:1000px;
+		margin:100px;
+		border: 1px solid black;
+		
+	}
+	.image{
+		float:left;
+		width:500px;
+		height:500px;
+	}
+	.explanation1{
+		float:left;
+		width:700px;
+		height:500px;
+		text-align: center;
+		vertical-align: middle;
+	}
+	.explanation-detail{
+		
+		position:relative;
+		width:1200px;
+		height:auto;
+		border: 1px solid black;
+		
+	}
+	
+</style>
+</head>
+<body>
+<div class="item-wrapper" th:each="i : ${item}">
+	<div class="top-explanation">
+		<div class="image">
+			<img th:src="@{${'../img/'+i.iImage+'.png'}}" alt=" ">
+		</div>
+		<div class="explanation1">
+			<table>
+				<tr>
+					<th>상품번호</th>
+					<td th:text="${i.iNum}"></td>
+				</tr>
+				<tr>
+					<th>판매자</th>
+					<td th:text="${i.iRegister}"></td>
+				</tr>
+				<tr>
+					<th>브랜드</th>
+					<td th:text="${i.iBrand}"></td>
+				</tr>
+				<tr>
+					<th>상품종류</th>
+					<td th:text="${i.iType}"></td>
+				</tr>
+				<tr>
+					<th>상품명</th>
+					<td th:text="${i.iName}"></td>
+				</tr>
+				<tr>
+					<th>가격</th>
+					<td th:text="${i.iPrice}"></td>
+				</tr>
+				<tr>
+					<th>재고</th>
+					<td th:text="${i.iStock}"></td>
+				</tr>
+				<tr>
+					<th>등록일</th>
+					<td th:text="${i.iDate}"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<a href="/items"><button>목록</button></a>
+	<a th:href="@{/items/update(iNum=${i.iNum})}" th:if="${session.loginId==i.iRegister}"><button>수정</button></a>
+	<!-- <a th:href="@{/items/delete(iNum=${i.iNum})}" th:if="${session.loginId==i.iRegister}"><button th:onclick="del()">삭제</button></a> -->
+	<button th:onclick="del_item()" th:if="${session.loginId==i.iRegister}">삭제</button>
+	<hr>
+	<div class="explanation-detail">
+		<div th:text="${i.iExplanation}"></div>
+	</div>
+</div>
+<!-- <script th:inline="javascript">
+	function del(){
+		var result = confirm("정말 삭제하시겠습니까?");
+		if (result=true){
+			// 자바스크립트에서 파라미터를 포함해서 넘겨줄 때 따옴표말고 ``로 감싸줘서 보내줌
+			location.href = `delete?boardNum=[[${board.boardNum}]]`;
+		}
+		return false;
+	}
+</script> -->
+
+
+</body>
+</html>

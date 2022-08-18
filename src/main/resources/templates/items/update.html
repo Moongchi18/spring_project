@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상품 수정 페이지</title>
+<style type="text/css">
+	/* input, textarea{
+		position:relative;
+		left:120px;
+	} */
+	input[name], textarea[name]{
+		position:absolute;
+		left:120px;
+	}
+	.input-list{
+		padding-top: 10px;
+	}
+	.input-submit{
+		padding-left:180px;
+		padding-top:30px;
+	}
+</style>
+</head>
+<body>
+<form action="/items/update" method="post">
+	<div class="input-wrapper" th:each="i : ${item}">
+		<div class="input-list">
+			판매자 : <input type="text" name=" " th:value="${session.loginId}" disabled="disabled">
+					<input type="hidden" name=iRegister th:value="${session.loginId}">
+					<input type="hidden" name=iNum th:value="${i.iNum}">
+		</div>
+		<div class="input-list">
+			브랜드 : <input type="text" name="iBrand" th:value="${i.iBrand}">
+		</div>
+		<div class="input-list">
+			상품종류 : <input type="text" name="iType" th:value="${i.iType}">
+		</div>
+		<div class="input-list">
+			상품명 : <input type="text" name="iName" th:value="${i.iName}">
+		</div>
+		<div class="input-list">
+			재고 : <input type="text" name="iStock" th:value="${i.iStock}">
+		</div>
+		<div class="input-list">
+			가격 : <input type="text" name="iPrice" th:value="${i.iPrice}">
+		</div>
+		<div class="input-list">
+			대표사진 : <input type="text" name="iImage" th:value="${i.iImage}">
+		</div>
+		<div class="input-list">
+			상품설명 : <textarea name="iExplanation" th:value="${i.iExplanation}" th:text="${i.iExplanation}"></textarea>
+		</div>
+		<div class="input-submit">
+			<input type="submit" value="상품 수정">
+		</div>
+	</div>
+</form>
+</body>
+</html>

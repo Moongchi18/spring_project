@@ -44,10 +44,11 @@ public class MemberController {
 	@RequestMapping("/login")
 	public String login(String m_id,String m_pw, HttpSession session) {
 		MemberVO member = service.getMemberInfo(m_id);
-		
+		System.out.println(member);
 		if(service.login(m_id, m_pw)) {
 			session.setAttribute("loginId", m_id);
-			session.setAttribute("m_type", member.getM_pw());
+			session.setAttribute("m_type", member.getM_type());
+
 			return "index";
 		}else {
 			return "login_fail";
@@ -98,6 +99,7 @@ public class MemberController {
 		return "find_id";
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping("/FindId")
 	public ModelAndView findid(String m_email) {
 		ModelAndView mv = new ModelAndView();
@@ -173,6 +175,21 @@ public class MemberController {
 	
 
 }
+=======
+//	@RequestMapping("/FindId")
+//	public String find_id(MemberVO member) {
+//		if(service.findid(member))
+//		
+//	}
+	
+//	@RequestMapping("/join")
+//	public String join(MemberVO member) {
+//		if(service.join(member)) {
+//			return "join_success";
+//		}else {
+//			return "join_fail";
+//		}
+>>>>>>> e01d8ae86e39346dd11e70e372f8a57b72552b11
 
 
 
