@@ -7,17 +7,18 @@
 <body>
 
 	<div>
-		<h1>아이디 찾기</h1>
+		<h1>비밀번호 찾기</h1>
 		<p>이메일을 입력해주세요!</p>
 	</div>
 	<div th:text="${message}" th:if="${result==null}">
 	</div>
 
-	<form action="FindId" method="post">
+	<form action="FindPw" method="post">
 		<div>
+			<input type="text" name="m_id" placeholder="Enter Id">
 			<input type="text" name="m_email" placeholder="Enter Email Address">
 		</div>
-		<input type="submit" value="아이디찾기">
+		<input type="submit" value="비밀번호찾기">
 	</form>
 	<hr>
 		<a href="index">메인페이지</a>

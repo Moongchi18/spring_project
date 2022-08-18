@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>계정을 삭제하시겠습니까?</h2>
+<form action="/delete" method="post">
+	<input type="hidden" name="m_id" th:value="${m_id}" >
+	<input type="hidden" name="m_pw" th:value="${m_pw}">
+	<input type="submit" value="예">
+	<a href="myPage">돌아가기</a>
+</form>
+
+</body>
+</html>

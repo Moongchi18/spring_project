@@ -6,8 +6,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 <mapper namespace="project.shop.repository.mapper.MemberMapper">
 	<insert id="insert" parameterType="vo.MemberVO">
-		INSERT INTO MEMBER(M_TYPE,M_ID,M_PW,M_PHONE,M_EMAIL,M_ADDRESS)
-		VALUES(#{m_type},#{m_id},#{m_pw},#{m_phone},#{m_email},#{m_address})
+		INSERT INTO MEMBER(M_ID,M_PW,M_PHONE,M_EMAIL,M_ADDRESS)
+		VALUES(#{m_id},#{m_pw},#{m_phone},#{m_email},#{m_address})
 	</insert>
 	
 	<select id="select"  parameterType="String" resultType="vo.MemberVO">
@@ -27,8 +27,19 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		WHERE M_NUM=#{m_num}
 	</update>
 
-	<select id="findid" parameterType="String" resultType="String">
+	<select id="findid" parameterType="String" resultType="vo.MemberVO">
 		SELECT M_ID FROM MEMBER WHERE M_EMAIL=#{m_email}
 	</select>
 	
+	<select id="findpw" parameterType="String" resultType="vo.MemberVO">
+		SELECT M_PW FROM MEMBER WHERE M_ID=#{m_id} and M_EMAIL=#{m_email}
+	</select>
+	
+	<select id="selectidpw" parameterType="String" resultType="vo.MemberVO">
+		SELECT * FROM MEMBER WHERE M_ID=#{m_id} and M_PW=#{m_pw}
+	</select>
+	
+	<delete id="deleteMember">
+		DELETE FROM MEMBER WHERE M_ID=#{m_id} and M_PW=#{m_pw}
+	</delete>
 </mapper>

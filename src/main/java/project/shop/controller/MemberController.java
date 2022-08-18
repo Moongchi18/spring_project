@@ -42,7 +42,7 @@ public class MemberController {
 		return "login_form";
 	}
 	@RequestMapping("/login")
-	public String login(String m_id,@RequestParam("m_pw")String m_pw, HttpSession session) {
+	public String login(String m_id,String m_pw, HttpSession session) {
 		MemberVO member = service.getMemberInfo(m_id);
 		
 		if(service.login(m_id, m_pw)) {
@@ -75,7 +75,7 @@ public class MemberController {
 		return "index";
 	}
 	
-	@GetMapping("/updateForm")
+	@PostMapping("/updateForm")
 	public ModelAndView updateForm(@RequestParam("m_num")int m_num) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("original", service.selectNum(m_num));
@@ -89,7 +89,6 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView();
 		int result = service.update(member);
 		
-		mv.addObject("updatem_num", member.getM_num());
 		mv.addObject("updateResult",result);
 		mv.setViewName("update_result");
 		return mv;
@@ -100,24 +99,82 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/FindId")
-	public String find_id(MemberVO member) {
-		if(service.findid(member))
+	public ModelAndView findid(String m_email) {
+		ModelAndView mv = new ModelAndView();
+		MemberVO result = service.findid(m_email);
 		
+		if(result != null) {
+			mv.addObject("findidsuccess",result);
+			mv.setViewName("find_successid");
+		}else {
+			mv.addObject("message", "이메일 주소를 다시 확인해주세요");
+			mv.addObject("result", result);
+			mv.setViewName("find_id");
+		}
+		return mv;	
+	}
+	@RequestMapping("/FindPasswordForm")
+	public String FindPwForm() {
+		return "find_pw";
+	}
+	@RequestMapping("/FindPw")
+	public ModelAndView findpw(String m_id, String m_email) {
+		ModelAndView mv = new ModelAndView();
+		MemberVO result = service.findpw(m_id, m_email);
+		
+		if(result != null) {
+			mv.addObject("findpwsuccess",result);
+			mv.setViewName("find_successpw");
+		}else {
+			mv.addObject("message", "이메일 주소또는 아이디를 다시 확인해주세요");
+			mv.setViewName("find_pw");
+		}
+		return mv;	
+	}
+	@RequestMapping("/deleteform")
+	public ModelAndView deleteform(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		
+//		mv.addObject("memberInfo", memberInfo);
+		mv.setViewName("delete_member");
+		return mv;
+		}
+	
+	@RequestMapping("/deleteMember")
+	public ModelAndView deleteMember(String m_id, String m_pw) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println(m_id + " / " + m_pw);
+		MemberVO result = service.getMemberInfo2(m_id, m_pw);
+		
+		if(result != null) {
+			mv.addObject(result);
+			mv.addObject("m_id", m_id);
+			mv.addObject("m_pw", m_pw);
+			mv.setViewName("delete_success");
+		}else {
+			mv.addObject("message", "아이디와 비밀번호가 회원정보와 다릅니다.");
+			mv.setViewName("delete_member");
+		}
+		return mv;
+	}
+	@RequestMapping("/delete")
+	public ModelAndView delete(String m_id, String m_pw, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		
+		System.out.println("m_id : " + m_id);
+		System.out.println("m_pw : " + m_pw);
+		int result = service.delete(m_id, m_pw);
+		session.invalidate();
+		
+		mv.addObject("deletecomplete",result);
+		mv.setViewName("index");
+		return mv;
 	}
 	
-	@RequestMapping("/join")
-	public String join(MemberVO member) {
-		if(service.join(member)) {
-			return "join_success";
-		}else {
-			return "join_fail";
-		}
-
-
-
-
-
-
-
 
 }
+
+
+
+
+

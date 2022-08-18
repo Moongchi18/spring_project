@@ -13,5 +13,7 @@ public interface MemberMapper {
 	public MemberVO selectMember(int m_num);
 	public MemberVO selectNum(int m_num);
 	public MemberVO findid(String m_email);
-
+	public MemberVO findpw(String m_id,String m_email);
+	public MemberVO selectidpw(String m_id,String m_pw);
+	public int deleteMember(String m_id,String m_pw);
 }

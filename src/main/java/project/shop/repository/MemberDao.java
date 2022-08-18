@@ -42,5 +42,16 @@ public class MemberDao {
 		MemberMapper mapper = session.getMapper(MemberMapper.class);
 		return mapper.findid(m_email);
 	}
-
+	public MemberVO findpw(String m_id, String m_email) {
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+		return mapper.findpw(m_id, m_email);
+	}
+	public MemberVO selectidpw(String m_id, String m_pw) {
+		MemberMapper mapper=session.getMapper(MemberMapper.class);
+		return mapper.selectidpw(m_id, m_pw);
+	}
+	public int delete(String m_id, String m_pw) {
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+		return mapper.deleteMember(m_id, m_pw);
+	}
 }

@@ -42,6 +42,14 @@
 	
 		<a href="index">[메인으로]</a>
 		<a href="logout">[로그아웃]</a>
-		<a th:href="@{/updateForm(m_num=${memberInfo.m_num})}">[수정하기]</a>
+		<form action="/updateForm" method="post">
+			<input type="hidden" name="m_num" th:value="${memberInfo.m_num}">
+			<input type="submit" value="수정하기">
+<!-- 			<a th:href="@{/updateForm(m_num=${memberInfo.m_num})}">[수정하기]</a> -->
+		</form>
+		<form action="/deleteform" method="post">
+			<input type="hidden" name="memberInfo" th:value="${memberInfo}">
+			<a href="/deleteform">[회원탈퇴]</a>
+		</form>
 </body>
 </html>

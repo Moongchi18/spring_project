@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원탈퇴</title>
+</head>
+<body>
+	<div>
+	<h2>회원탈퇴를 하려면 비밀번호를 입력해주세요.</h2>
+	</div>
+	<div th:text="${message}" th:if="${result==null}">
+	</div>
+
+	<form action="/deleteMember" method="post">
+		<div>
+			<input type="text" name="m_id" placeholder="Enter Id">
+			<input type="text" name="m_pw" placeholder="Enter Password">
+		</div>
+		<!-- <input type="hidden" name="memberInfo" th:value="${memberInfo}"> -->
+		<input type="submit" value="회원탈퇴">
+		<a href="myPage">아니오</a>
+	</form>
+	
+	
+</body>
+</html>
