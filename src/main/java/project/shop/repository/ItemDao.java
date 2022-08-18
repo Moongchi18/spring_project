@@ -68,4 +68,9 @@ public class ItemDao {
 		return mapper.deleteItem(iNum);
 	}
 	
+	public int insertItem(ItemVO item) {
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		return mapper.insertItem(item);
+	}
+	
 }

@@ -6,8 +6,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 <mapper namespace="project.shop.repository.mapper.MemberMapper">
 	<insert id="insert" parameterType="vo.MemberVO">
-		INSERT INTO MEMBER(M_TYPE,M_ID,M_PW,M_PHONE,M_EMAIL,M_ADDRESS)
-		VALUES(#{m_type},#{m_id},#{m_pw},#{m_phone},#{m_email},#{m_address})
+		INSERT INTO MEMBER(M_ID,M_PW,M_PHONE,M_EMAIL,M_ADDRESS)
+		VALUES(#{m_id},#{m_pw},#{m_phone},#{m_email},#{m_address})
 	</insert>
 	
 	<select id="select"  parameterType="String" resultType="vo.MemberVO">

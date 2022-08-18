@@ -96,10 +96,23 @@ public class ItemService {
 		return dao.selectItem(iNum);
 	}
 	
+	public boolean insert(ItemVO item, String loginId, int m_type) {
+		boolean result = false;
+		if(loginId != null && m_type>1) {
+			result = (dao.insertItem(item)>0) ? true:false; 
+		}
+		return result; 
+	}
+	
 	public boolean update(ItemVO item, String loginId) {
 		if(loginId != null && loginId.equals(item.getiRegister())) {
-			dao.updateItem(item);
-			return true;
+			int update = dao.updateItem(item);
+			System.out.println("update" +update);
+			if(update>0) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}

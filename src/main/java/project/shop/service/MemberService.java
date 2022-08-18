@@ -29,13 +29,13 @@ public class MemberService {
 	}
 	return false;
 	}
-	public boolean findid(String m_email) {
-		if(dao.findid(m_email) = 1) {
-			return true;
-		}else {
-			return false;
-		}
-	}
+//	public boolean findid(String m_email) {
+//		if(dao.findid(m_email) == 1) {
+//			return true;
+//		}else {
+//			return false;
+//		}
+//	}
 	//로그인 메소드
 	public boolean login(String m_id,String m_pw) {
 		if(dao.selectMemberNum(m_id, m_pw) == 1) {
