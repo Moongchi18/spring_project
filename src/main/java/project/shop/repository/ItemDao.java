@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project.shop.repository.mapper.ItemMapper;
+import vo.ItemTypeVO;
 import vo.ItemVO;
 
 @Component
@@ -71,6 +72,15 @@ public class ItemDao {
 	public int insertItem(ItemVO item) {
 		ItemMapper mapper = session.getMapper(ItemMapper.class);
 		return mapper.insertItem(item);
+	}
+	
+	public List<ItemTypeVO> selectAllTypeString(){
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		return mapper.selectAllTypeString();
+	}
+	public ItemTypeVO selectTypeString(int iType){
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		return mapper.selectTypeString(iType);
 	}
 	
 }

@@ -99,7 +99,7 @@ public class MemberController {
 		return "find_id";
 	}
 	
-<<<<<<< HEAD
+
 	@RequestMapping("/FindId")
 	public ModelAndView findid(String m_email) {
 		ModelAndView mv = new ModelAndView();
@@ -175,21 +175,7 @@ public class MemberController {
 	
 
 }
-=======
-//	@RequestMapping("/FindId")
-//	public String find_id(MemberVO member) {
-//		if(service.findid(member))
-//		
-//	}
-	
-//	@RequestMapping("/join")
-//	public String join(MemberVO member) {
-//		if(service.join(member)) {
-//			return "join_success";
-//		}else {
-//			return "join_fail";
-//		}
->>>>>>> e01d8ae86e39346dd11e70e372f8a57b72552b11
+
 
 
 

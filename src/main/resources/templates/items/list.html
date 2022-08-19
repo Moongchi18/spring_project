@@ -88,7 +88,11 @@
 </style>
 </head>
 <body>
-<div class="list-wrapper" >
+<!-- <div class="list-type" th:each="s : ${allTypeString}">
+	<input type="text" th:text="${s.i_type_string}">
+</div>
+ -->
+ <div class="list-wrapper" >
 	<ul class="list" th:each="i : ${iPage.itemList}">
 		<li class="items-wrapper">
 			<a class="item-click" th:href="@{/items/read(iNum=${i.iNum})}"></a>
@@ -109,7 +113,7 @@
 	</ul>
 </div>
 		<div id="page" th:each="p : ${#numbers.sequence(iPage.startPage,iPage.endPage)}">
-			<a th:text="${p}" th:href="@{/items(page=${p})}"></a>
+			<a th:text="${p}" th:href="@{/items(iType=${type},page=${p})}"></a>
 		</div>
 		<br>
 	<input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요" name="search">

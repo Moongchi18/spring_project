@@ -13,7 +13,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<!-- 특정 타입 게시글 수 구하기 -->
 	<select id="selectTypeCount" resultType="int">
-		SELECT COUNT(*) FROM ITEM WHERE I_TYPE=#{iType}
+		SELECT COUNT(*) FROM ITEM WHERE (I_TYPE=#{iType} or
+		<![CDATA[I_TYPE>=#{iType}*10 and I_TYPE<(#{iType}+1)*10)]]>		
 	</select>
 
 	<!-- 특정 브랜드 게시글 수 구하기 -->
@@ -29,7 +30,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<!-- 상품 분류에 따른 상품 조회 -->
 	<select id="selectType" resultMap="itemResultMap">
-		SELECT * FROM ITEM WHERE I_TYPE=#{iType}
+		SELECT * FROM ITEM WHERE (I_TYPE=#{iType} or 
+		<![CDATA[I_TYPE>=#{iType}*10 and I_TYPE<(#{iType}+1)*10)]]>
 		ORDER BY I_NUM DESC LIMIT #{startRow},#{count}
 	</select>
 	
@@ -70,6 +72,15 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		UPDATE ITEM SET I_READCOUNT=I_READCOUNT+1 WHERE I_NUM=#{iNum}
 	</update>
 	
+	<!-- 상품타입 문자 전체조회 -->
+	<select id="selectAllTypeString" resultMap="itemTypeMap">
+		SELECT * FROM ITEM_TYPE
+	</select>
+	
+	<!-- 상품타입 숫자로 해당 상품타입 문자 조회 -->
+	<select id="selectTypeString" resultMap="itemTypeMap">
+		SELECT * FROM ITEM_TYPE WHERE I_TYPE=#{iType}
+	</select>
 
 	<resultMap type="vo.ItemVO" id="itemResultMap">
 		<result column="i_num" property="iNum"/>
@@ -84,5 +95,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<result column="i_readcount" property="iReadCount"/>
 		<result column="i_date" property="iDate"/>
 	</resultMap>
-
+	
+	<resultMap type="vo.ItemTypeVO" id="itemTypeMap">
+		<result column="i_type" property="iType" />
+		<result column="i_type_string" property="iTypeString" />
+	</resultMap>
 </mapper>

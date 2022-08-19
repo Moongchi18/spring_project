@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import project.shop.repository.ItemDao;
 import vo.BoardPageVO;
+import vo.ItemTypeVO;
 import vo.ItemVO;
 
 @Component
@@ -21,10 +22,15 @@ public class ItemService {
 	//////////////////////////////////////
 	private static final int COUNT_PER_PAGE = 20;
 
-	public BoardPageVO makeItemPage(int currentPage) {
-		int totalCount = dao.selectAllItemCount();
+	public BoardPageVO makeItemPage(int currentPage, int iType) {
+		int totalCount;
+		if (iType==0) {
+			totalCount = dao.selectAllItemCount();
+		} else {
+			totalCount = dao.selectTypeCount(iType);
+		}
 		int totalPage = totalCount / COUNT_PER_PAGE;
-
+		
 		if(totalCount%COUNT_PER_PAGE!=0) {
 			totalPage++;
 		}
@@ -38,7 +44,17 @@ public class ItemService {
 		
 		int startRow=(currentPage-1)*COUNT_PER_PAGE;
 		
-		List<ItemVO> itemList=dao.selectAll(startRow, COUNT_PER_PAGE);
+		List<ItemVO> itemList;
+		if (iType==0) {
+			itemList=dao.selectAll(startRow, COUNT_PER_PAGE);			
+		} else {
+			itemList=dao.selectType(iType, startRow, COUNT_PER_PAGE);
+		}
+		
+//		System.out.println("currentPage : " + currentPage );
+//		System.out.println("startPage : " + startPage );
+//		System.out.println("endPage : " + endPage );
+//		System.out.println("totalPage : " + totalPage );
 		return new BoardPageVO(itemList,null,currentPage,startPage,endPage,totalPage);
 	}
 	
@@ -126,5 +142,13 @@ public class ItemService {
 		} else {
 			return false;
 		}
+	}
+	
+	public List<ItemTypeVO> selectAllTypeString(){
+		return dao.selectAllTypeString();
+	}
+	
+	public ItemTypeVO selectTypeString(int iType) {
+		return dao.selectTypeString(iType);
 	}
 }
