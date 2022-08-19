@@ -38,7 +38,9 @@ public class ItemService {
 		int startPage = (currentPage-1)/10*10+1;
 		int endPage = startPage + 9;
 		
-		if(totalPage < endPage) {
+		if(totalPage==0) {
+		endPage=1;
+		} else if(totalPage < endPage) {
 			endPage=totalPage;
 		}
 		
@@ -152,6 +154,7 @@ public class ItemService {
 		return dao.selectTypeString(iType);
 	}
 	
+<<<<<<< HEAD
 	public List<ItemVO> mainItempage(int iType) {
 		
 		int startRow = 0;
@@ -194,4 +197,35 @@ public class ItemService {
 //		}
 //		return new BoardPageVO(itemList,null,currentPage,startPage,endPage,totalPage);
 //	}
+=======
+	public BoardPageVO searchItem(String search, int currentPage) {
+		int totalCount=dao.selectSearchCount(search) ;
+		int totalPage = totalCount / COUNT_PER_PAGE;
+		
+		if(totalCount%COUNT_PER_PAGE!=0) {
+			totalPage++;
+		}
+		
+		int startPage = (currentPage-1)/10*10+1;
+		int endPage = startPage + 9;
+		
+		if(totalPage==0) {
+		endPage=1;
+		} else if(totalPage < endPage) {
+			endPage=totalPage;
+		}
+		
+		int startRow=(currentPage-1)*COUNT_PER_PAGE;
+		
+		List<ItemVO> itemList = dao.selectSearch(search, startRow, COUNT_PER_PAGE);
+		
+		System.out.println("currentPage : " + currentPage );
+		System.out.println("startPage : " + startPage );
+		System.out.println("endPage : " + endPage );
+		System.out.println("totalPage : " + totalPage );
+		return new BoardPageVO(itemList,null,currentPage,startPage,endPage,totalPage);
+	}
+	
+	
+>>>>>>> 83f2d098e9b4ebaf73cbb42167721fa527a1907d
 }

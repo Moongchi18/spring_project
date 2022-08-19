@@ -82,5 +82,12 @@ public class ItemDao {
 		ItemMapper mapper = session.getMapper(ItemMapper.class);
 		return mapper.selectTypeString(iType);
 	}
-	
+	public int selectSearchCount(String search) {
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		return mapper.selectSearchCount(search, search);
+	}
+	public List<ItemVO> selectSearch(String search, int startRow, int count){
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		return mapper.selectSearch(search, search, startRow, count);
+	}
 }
