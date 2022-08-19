@@ -27,17 +27,6 @@ public class MemberService {
 	}
 	return false;
 	}
-<<<<<<< HEAD
-	
-=======
-//	public boolean findid(String m_email) {
-//		if(dao.findid(m_email) == 1) {
-//			return true;
-//		}else {
-//			return false;
-//		}
-//	}
->>>>>>> e01d8ae86e39346dd11e70e372f8a57b72552b11
 	//로그인 메소드
 	public boolean login(String m_id,String m_pw) {
 		if(dao.selectMemberNum(m_id, m_pw) == 1) {
@@ -75,6 +64,9 @@ public class MemberService {
 	}
 	public int delete(String m_id, String m_pw) {
 		return dao.delete(m_id, m_pw);
+	}
+	public int idChk(String m_id) {
+		return dao.idChk(m_id);
 	}
 }
 

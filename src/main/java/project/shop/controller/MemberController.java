@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,13 +30,38 @@ public class MemberController {
 	public String joinForm() {
 		return "join_form";
 	}
+	
 	@RequestMapping("/join")
-	public String join(MemberVO member) {
-		if(service.join(member)) {
-			return "join_success";
-		}else {
+	public String join(MemberVO member, HttpSession session) {
+		if(session.getAttribute("checkId")=="ok"){			
+			if(service.join(member)) {
+				session.setAttribute("checkId", "x");
+				return "join_success";
+			}else {
+				session.setAttribute("checkId", "x");
+				return "join_fail";
+			}
+		} else {
+			session.setAttribute("checkId", "x");
 			return "join_fail";
 		}
+			
+	}
+	@RequestMapping("/joincheck")
+	public ModelAndView idchk(String m_id, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		int idchk = service.idChk(m_id);
+		System.out.println(idchk);
+		System.out.println(m_id);
+		mv.addObject("id", m_id);
+		if(idchk == 1) {
+			mv.addObject("message", "중복된 아이디입니다.");
+		}else {
+			mv.addObject("message", "사용가능한 아이디입니다..");
+			session.setAttribute("checkId", "ok");
+		}
+		mv.setViewName("join_form");
+		return mv;
 	}
 	@RequestMapping("/loginForm")
 	public String loginForm() {
@@ -99,7 +125,7 @@ public class MemberController {
 		return "find_id";
 	}
 	
-<<<<<<< HEAD
+
 	@RequestMapping("/FindId")
 	public ModelAndView findid(String m_email) {
 		ModelAndView mv = new ModelAndView();
@@ -175,21 +201,6 @@ public class MemberController {
 	
 
 }
-=======
-//	@RequestMapping("/FindId")
-//	public String find_id(MemberVO member) {
-//		if(service.findid(member))
-//		
-//	}
-	
-//	@RequestMapping("/join")
-//	public String join(MemberVO member) {
-//		if(service.join(member)) {
-//			return "join_success";
-//		}else {
-//			return "join_fail";
-//		}
->>>>>>> e01d8ae86e39346dd11e70e372f8a57b72552b11
 
 
 

@@ -1,8 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>쇼핑몰 회원가입</title>
+<script th:inline="javascript">
+	var value;
+ 	function inputId(){
+ 		value = document.getElementById("input_id").value;
+	}
+	 
+	function sendValue(){
+ 		location.href=`/joincheck?m_id=${value}`;
+ 		console.log(value);
+	}
+</script>
 </head>
 <body>
 	<div>
@@ -11,10 +22,15 @@
 			<table>
 				<tr>
 					<td>아이디 : </td>
-					<td><input type="text" name="m_id" size="10" required></td>
+					<td><input onchange="inputId()" th:value="${id}" id="input_id" type="text" name="m_id" size="10" required></td>
+					<td><button onclick="sendValue()" class="idChk" type ="button" id="idChk">중복확인</button></td>
+					
 				</tr>
-				
 				<tr>
+					<td th:text="${id}">ff</td>				
+					<td th:text="${message}">ff</td>				
+				</tr>
+				<tr >
 					<td>비밀번호 : </td>
 					<td><input type="text" name="m_pw" size="10" required></td>
 				</tr>

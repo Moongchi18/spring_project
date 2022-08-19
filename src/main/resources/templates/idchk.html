@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>중복체크창</title>
+<script th:inline="javascript">
+	var idchk="[[${inputValue}]]"
+	
+	var inputValue;
+ 	function inputId(){
+		inputValue = document.getElementById("input_id").value;
+	}
+	 
+	function sendValue(){
+ 		window.open(`/idchk?id=${inputValue}`);
+ 		console.log(inputValue);
+	}
+</script>
+</head>
+<body>
+	<form action="idchk" method=post>
+		
+	</form>
+</body>
+</html>
