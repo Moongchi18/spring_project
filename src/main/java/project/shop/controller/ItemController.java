@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.shop.service.ItemService;
+import vo.ItemTypeVO;
 import vo.ItemVO;
 
 @Controller
@@ -29,10 +30,33 @@ public class ItemController {
 
 		mv.addObject("iPage", service.makeItemPage(page, iType));
 		mv.addObject("allTypeString", service.selectAllTypeString());
-
+		System.out.println(service.selectAllTypeString().get(1));
+		
 		mv.addObject("type", iType);
+		
+		ItemTypeVO typeString = service.selectTypeString(iType);
+		if (typeString==null) {
+			mv.addObject("typeString", null);
+		} else {
+			mv.addObject("typeString", typeString);
+		}
+			
+		
 		mv.setViewName("items/list");
 
+		return mv;
+	}
+	
+	@GetMapping("items/search")
+	public ModelAndView itemSearch(@RequestParam(defaultValue = "1")int page, String search) {
+		System.out.println(search);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("allTypeString", service.selectAllTypeString());
+
+		mv.addObject("iPage", service.searchItem(search, page));
+		mv.addObject("search",search);
+		mv.setViewName("items/search");
+		
 		return mv;
 	}
 
@@ -133,5 +157,6 @@ public class ItemController {
 		}
 		return mv;
 	}
+
 
 }

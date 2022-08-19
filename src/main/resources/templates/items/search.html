@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>상품 목록</title>
+<title>상품 검색 목록</title>
 <script th:inline="javascript">
 	var search_text = "test";
 	function search_set(){
@@ -10,6 +10,7 @@
 	}
 	
 	function search_com(){
+		console.log(search_text);
 		location.href = `/items/search?search=${search_text}`;
 
 	}
@@ -103,7 +104,6 @@
 	<a class="list_type_item" th:each="s : ${allTypeString}" th:href="@{items(iType=${s.iType})}" th:text="${s.iTypeString} + '  '" th:if="${s.iType>=30 && s.iType<40}"></a>
 
 
-<h2 th:text="${typeString==null} ? '전체목록':${typeString.iTypeString}"></h2>
 <div class="list-wrapper" >
 	<ul class="list" th:each="i : ${iPage.itemList}">
 		<li class="items-wrapper">
@@ -125,7 +125,7 @@
 	</ul>
 </div>
 		<div id="page" th:each="p : ${#numbers.sequence(iPage.startPage,iPage.endPage)}">
-			<a th:text="${p}" th:href="@{/items(iType=${type},page=${p})}"></a>
+			<a th:text="${p}" th:href="@{/items/search(search=${search},page=${p})}"></a>
 		</div>
 		<br>
 	<input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요" name="search">

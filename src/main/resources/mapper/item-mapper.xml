@@ -81,7 +81,20 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<select id="selectTypeString" resultMap="itemTypeMap">
 		SELECT * FROM ITEM_TYPE WHERE I_TYPE=#{iType}
 	</select>
-
+	
+	<!-- 브랜드명, 상품명 게시글 개수 -->
+	<select id="selectSearchCount" resultType="int">
+		SELECT COUNT(*) FROM ITEM WHERE 
+		I_BRAND LIKE CONCAT('%',#{search1},'%') OR I_NAME LIKE CONCAT('%',#{search2},'%')
+	</select>
+	
+	<!-- 브랜드명, 상품명 게시글 검색 -->
+	<select id="selectSearch" resultMap="itemResultMap">
+		SELECT * FROM ITEM WHERE 
+		I_BRAND LIKE CONCAT('%',#{search1},'%') OR I_NAME LIKE CONCAT('%',#{search2},'%')
+		ORDER BY I_NUM DESC LIMIT #{startRow},#{count}
+	</select>
+	
 	<resultMap type="vo.ItemVO" id="itemResultMap">
 		<result column="i_num" property="iNum"/>
 		<result column="i_brand" property="iBrand"/>
