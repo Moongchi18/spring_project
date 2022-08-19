@@ -49,7 +49,7 @@ public class BoardController {
 			return "reviews/write";			
 		} else {
 			model.addAttribute("message", "게시글을 작성하기 위해서는 로그인이 필요합니다.");
-			return "login_form";
+			return "redirect:/loginForm";
 		}
 	}
 	@PostMapping("/reviews/write")
@@ -62,7 +62,7 @@ public class BoardController {
 		} else {
 			result = 0;
 			mv.addObject("message","게시글 등록을 위해서는 로그인이 필요합니다.");
-			mv.setViewName("login");
+			mv.setViewName("login_form");
 		}
 		mv.addObject("result", result);
 		mv.setViewName("redirect:/reviews");

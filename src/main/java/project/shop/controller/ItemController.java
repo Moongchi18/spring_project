@@ -22,17 +22,20 @@ public class ItemController {
 		this.service = service;
 	}
 	/////////////////////////////////////////
-	
 	@GetMapping("/items")
-	public ModelAndView itemList(@RequestParam(defaultValue = "1")int page, HttpSession session) {
+	public ModelAndView allItemList(@RequestParam(defaultValue = "1")int page, HttpSession session, @RequestParam(defaultValue = "0")int iType) {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("iPage", service.makeItemPage(page));
-		mv.setViewName("items/list");
-		System.out.println("mtype : " + session.getAttribute("type"));
-		System.out.println("loginId : " + session.getAttribute("loginId"));
 		
+
+		mv.addObject("iPage", service.makeItemPage(page, iType));
+		mv.addObject("allTypeString", service.selectAllTypeString());
+
+		mv.addObject("type", iType);
+		mv.setViewName("items/list");
+
 		return mv;
 	}
+
 	
 	@GetMapping("/items/write")
 	public String itemWriteForm(HttpSession session, Model model) {
@@ -53,8 +56,13 @@ public class ItemController {
 		int m_type = (int)session.getAttribute("m_type");
 		boolean result = service.insert(item, loginId, m_type);
 		
+		int iType=item.getiType();
+		if(iType>=10) {
+			iType/=10;
+		}
+		
 		if(result) {
-			mv.setViewName("redirect:/items");			
+			mv.setViewName("redirect:/items?iType="+iType);			
 		} else {
 			mv.addObject("message", "상품등록을 위해서는 로그인이 필요합니다.");
 			mv.setViewName("login_form");
@@ -68,7 +76,7 @@ public class ItemController {
 		String loginId = (String)session.getAttribute("loginId");
 		ItemVO item = service.read(iNum,loginId);
 		if (item==null) {
-			mv.setViewName("redirect:/items");
+			mv.setViewName("redirect:/items?iType=0");
 		} else {
 			mv.addObject("item", item);
 			mv.setViewName("items/read");
@@ -109,14 +117,21 @@ public class ItemController {
 	@GetMapping("/items/delete")
 	public ModelAndView itemDelete(int iNum, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		ItemVO item = service.readNoCount(iNum);
+		int iType=item.getiType();
+		if (iType>=10) {
+			iType=iType/10;
+		}
+		
 		String loginId = (String)session.getAttribute("loginId");
 
 		boolean result = service.delete(iNum, loginId);
 		if(result) {
-			mv.setViewName("redirect:/items");
+			mv.setViewName("redirect:/items?iType="+iType);
 		} else {
 			mv.setViewName("redirect://localhost:8080/items/read?iNum="+iNum);
 		}
 		return mv;
 	}
+
 }

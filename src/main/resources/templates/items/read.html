@@ -12,6 +12,13 @@
 			return false;
 		}
 	}
+	function list(){
+		var iType = '[[${item.iType}]]'
+		if(iType>=10){
+			iType=parseInt(iType/10);
+		}
+		location.href=`/items?iType=${iType}`;
+	}
 </script>
 <style type="text/css">
 	.item-wrapper{
@@ -90,7 +97,9 @@
 			</table>
 		</div>
 	</div>
-	<a href="/items"><button>목록</button></a>
+		<button onclick="list()">목록</button>
+<!-- 	<a href="/items">
+	</a>-->	
 	<a th:href="@{/items/update(iNum=${i.iNum})}" th:if="${session.loginId==i.iRegister}"><button>수정</button></a>
 	<!-- <a th:href="@{/items/delete(iNum=${i.iNum})}" th:if="${session.loginId==i.iRegister}"><button th:onclick="del()">삭제</button></a> -->
 	<button th:onclick="del_item()" th:if="${session.loginId==i.iRegister}">삭제</button>
@@ -98,18 +107,7 @@
 	<div class="explanation-detail">
 		<div th:text="${i.iExplanation}"></div>
 	</div>
+	<a href="/">메인으로 돌아가기</a>
 </div>
-<!-- <script th:inline="javascript">
-	function del(){
-		var result = confirm("정말 삭제하시겠습니까?");
-		if (result=true){
-			// 자바스크립트에서 파라미터를 포함해서 넘겨줄 때 따옴표말고 ``로 감싸줘서 보내줌
-			location.href = `delete?boardNum=[[${board.boardNum}]]`;
-		}
-		return false;
-	}
-</script> -->
-
-
 </body>
 </html>

@@ -21,14 +21,9 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 		
-	@RequestMapping("/index")
-	public String index() {
-		return "index";
-	}
-	
 	@RequestMapping("/joinForm")
 	public String joinForm() {
-		return "join_form";
+		return "member/join_form";
 	}
 	
 	@RequestMapping("/join")
@@ -36,14 +31,14 @@ public class MemberController {
 		if(session.getAttribute("checkId")=="ok"){			
 			if(service.join(member)) {
 				session.setAttribute("checkId", "x");
-				return "join_success";
+				return "member/join_success";
 			}else {
 				session.setAttribute("checkId", "x");
-				return "join_fail";
+				return "member/join_fail";
 			}
 		} else {
 			session.setAttribute("checkId", "x");
-			return "join_fail";
+			return "member/join_fail";
 		}
 			
 	}
@@ -60,12 +55,12 @@ public class MemberController {
 			mv.addObject("message", "사용가능한 아이디입니다..");
 			session.setAttribute("checkId", "ok");
 		}
-		mv.setViewName("join_form");
+		mv.setViewName("member/join_form");
 		return mv;
 	}
 	@RequestMapping("/loginForm")
 	public String loginForm() {
-		return "login_form";
+		return "member/login_form";
 	}
 	@RequestMapping("/login")
 	public String login(String m_id,String m_pw, HttpSession session) {
@@ -75,9 +70,9 @@ public class MemberController {
 			session.setAttribute("loginId", m_id);
 			session.setAttribute("m_type", member.getM_type());
 
-			return "index";
+			return "redirect:/";
 		}else {
-			return "login_fail";
+			return "member/login_fail";
 		}
 	}
 	@RequestMapping("/myPage")
@@ -91,7 +86,7 @@ public class MemberController {
 			
 			MemberVO member = service.getMemberInfo(loginId);
 			mv.addObject("memberInfo",member);
-			mv.setViewName("my_page");
+			mv.setViewName("member/my_page");
 		}else {
 			System.out.println("로그인 정보 없음");
 		}return mv;
@@ -99,14 +94,14 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "index";
+		return "redirect:/";
 	}
 	
 	@PostMapping("/updateForm")
 	public ModelAndView updateForm(@RequestParam("m_num")int m_num) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("original", service.selectNum(m_num));
-		mv.setViewName("update_form");
+		mv.setViewName("member/update_form");
 		return mv;
 	}
 	
@@ -117,12 +112,12 @@ public class MemberController {
 		int result = service.update(member);
 		
 		mv.addObject("updateResult",result);
-		mv.setViewName("update_result");
+		mv.setViewName("member/update_result");
 		return mv;
 	}
 	@RequestMapping("/FindIdForm")
 	public String FindIdForm() {
-		return "find_id";
+		return "member/find_id";
 	}
 	
 
@@ -133,17 +128,17 @@ public class MemberController {
 		
 		if(result != null) {
 			mv.addObject("findidsuccess",result);
-			mv.setViewName("find_successid");
+			mv.setViewName("member/find_successid");
 		}else {
 			mv.addObject("message", "이메일 주소를 다시 확인해주세요");
 			mv.addObject("result", result);
-			mv.setViewName("find_id");
+			mv.setViewName("member/find_id");
 		}
 		return mv;	
 	}
 	@RequestMapping("/FindPasswordForm")
 	public String FindPwForm() {
-		return "find_pw";
+		return "member/find_pw";
 	}
 	@RequestMapping("/FindPw")
 	public ModelAndView findpw(String m_id, String m_email) {
@@ -152,10 +147,10 @@ public class MemberController {
 		
 		if(result != null) {
 			mv.addObject("findpwsuccess",result);
-			mv.setViewName("find_successpw");
+			mv.setViewName("member/find_successpw");
 		}else {
 			mv.addObject("message", "이메일 주소또는 아이디를 다시 확인해주세요");
-			mv.setViewName("find_pw");
+			mv.setViewName("member/find_pw");
 		}
 		return mv;	
 	}
@@ -164,7 +159,7 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView();
 		
 //		mv.addObject("memberInfo", memberInfo);
-		mv.setViewName("delete_member");
+		mv.setViewName("member/delete_member");
 		return mv;
 		}
 	
@@ -178,10 +173,10 @@ public class MemberController {
 			mv.addObject(result);
 			mv.addObject("m_id", m_id);
 			mv.addObject("m_pw", m_pw);
-			mv.setViewName("delete_success");
+			mv.setViewName("member/delete_success");
 		}else {
 			mv.addObject("message", "아이디와 비밀번호가 회원정보와 다릅니다.");
-			mv.setViewName("delete_member");
+			mv.setViewName("member/delete_member");
 		}
 		return mv;
 	}
@@ -195,7 +190,7 @@ public class MemberController {
 		session.invalidate();
 		
 		mv.addObject("deletecomplete",result);
-		mv.setViewName("index");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 	

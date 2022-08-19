@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import vo.ItemTypeVO;
 import vo.ItemVO;
 
 
@@ -24,6 +25,9 @@ public interface ItemMapper {
 	public int updateItem(ItemVO item);
 	
 	public int deleteItem(int iNum);
+	
+	public List<ItemTypeVO> selectAllTypeString();
+	public ItemTypeVO selectTypeString(int iType);
 //	public List<ItemVO> selectSearch(int iType, String search1, String search2, int startRow, int count);
 	
 
