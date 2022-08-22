@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project.shop.repository.mapper.ItemMapper;
+import vo.ItemOptionVO;
 import vo.ItemTypeVO;
 import vo.ItemVO;
 
@@ -54,6 +55,16 @@ public class ItemDao {
 		return mapper.selectItem(iNum);
 	}
 	
+	public ItemVO selectItemById(String iRegister) {
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		return mapper.selectItemById(iRegister);
+	}
+	
+	public ItemOptionVO selectItemOption(int iNum) {
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		return mapper.selectItemOption(iNum);
+	}
+	
 	public int updateItemReadCount(int iNum) {
 		ItemMapper mapper = session.getMapper(ItemMapper.class);
 		return mapper.updateItemReadCount(iNum);
@@ -64,6 +75,11 @@ public class ItemDao {
 		return mapper.updateItem(item);
 	}
 	
+	public int updateItemOption(ItemOptionVO io) {
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		return mapper.updateItemOption(io);
+	}
+	
 	public int deleteItem(int iNum) {
 		ItemMapper mapper = session.getMapper(ItemMapper.class);
 		return mapper.deleteItem(iNum);
@@ -72,6 +88,11 @@ public class ItemDao {
 	public int insertItem(ItemVO item) {
 		ItemMapper mapper = session.getMapper(ItemMapper.class);
 		return mapper.insertItem(item);
+	}
+	
+	public int insertItemOption(ItemOptionVO io) {
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		return mapper.insertItemOption(io);
 	}
 	
 	public List<ItemTypeVO> selectAllTypeString(){

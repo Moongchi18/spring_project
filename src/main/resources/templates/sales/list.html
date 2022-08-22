@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>판매관리 페이지</title>
+</head>
+<body>
+<div>
+	<table th:each="o : ${order}">
+		<tr>
+			<th>주문번호</th>
+			<th>주문날짜</th>
+			<th>상품번호</th>
+			<th>상품명</th>
+			<th>주문고객Id</th>
+			<th>주문금액</th>
+			<th>배송지</th>
+			<th>주문상태</th>
+			<th>배송상태</th>
+		</tr>
+		<tr>
+			<td th:text="o.oNum"></td>
+			<td th:text="o.oDate"></td>
+			<td th:text="o.iNum"></td>
+		<td th:text="iName"></td>
+			<td th:text="o.mId"></td>
+			<td th:text="o.oPrice"></td>
+			<td th:text="o.oAddress"></td>
+			<td th:text="o.oStatus"></td>
+			<td th:text="o.oDeliveryStatus"></td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

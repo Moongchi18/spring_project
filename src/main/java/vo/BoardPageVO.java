@@ -7,13 +7,15 @@ public class BoardPageVO {
 	
 	private List<BoardVO> boardList;
 	private List<ItemVO> itemList;
+	private List<OrderVO> orderList;
 	
 	private int currentPage;
 	private int startPage;
 	private int endPage;
 	private int totalPage;
 	
-	public BoardPageVO(List<ItemVO> itemList, List<BoardVO> boardList, int currentPage, int startPage, int endPage, int totalPage) {
+	public BoardPageVO(List<OrderVO> orderList, List<ItemVO> itemList, List<BoardVO> boardList, int currentPage, int startPage, int endPage, int totalPage) {
+		this.orderList = orderList;
 		this.itemList = itemList;
 		this.boardList = boardList;
 		this.currentPage = currentPage;
@@ -21,6 +23,24 @@ public class BoardPageVO {
 		this.endPage = endPage;
 		this.totalPage = totalPage;
 	}
+	
+
+
+
+
+	public List<OrderVO> getOrderList() {
+		return orderList;
+	}
+
+
+
+
+
+	public void setOrderList(List<OrderVO> orderList) {
+		this.orderList = orderList;
+	}
+
+
 
 
 

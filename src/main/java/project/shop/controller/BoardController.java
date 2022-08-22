@@ -62,7 +62,7 @@ public class BoardController {
 		} else {
 			result = 0;
 			mv.addObject("message","게시글 등록을 위해서는 로그인이 필요합니다.");
-			mv.setViewName("login_form");
+			mv.setViewName("member/login_form");
 		}
 		mv.addObject("result", result);
 		mv.setViewName("redirect:/reviews");
@@ -91,7 +91,7 @@ public class BoardController {
 		if(board.getbWriter().equals(loginId)) {
 			mv.setViewName("reviews/update");
 		} else {
-			mv.setViewName("login_form");
+			mv.setViewName("member/login_form");
 		}
 		return mv;
 	}

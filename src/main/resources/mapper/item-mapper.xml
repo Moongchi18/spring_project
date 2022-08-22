@@ -42,15 +42,31 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</select>
 	
 	<!-- 상품 상세조회 -->
-	<select id="selectItem" resultMap="itemResultMap" parameterType="vo.ItemVO">
+	<select id="selectItem" resultMap="itemResultMap" resultType="vo.ItemVO">
 		SELECT * FROM ITEM WHERE I_NUM=#{iNum}
 	</select>
 	
+	<!-- 상품 등록id로 가장 최근 상품조회 -->
+	<select id="selectItemById" resultMap="itemResultMap" resultType="vo.ItemVO">
+		SELECT * FROM ITEM WHERE I_REGISTER=#{iRegister} ORDER BY I_DATE DESC LIMIT 1
+	</select>
+	
+	<!-- 상품 옵션 조회 -->
+	<select id="selectItemOption" resultMap="itemOptionMap" parameterType="vo.ItemOptionVO">
+		SELECT * FROM ITEM_OPTION WHERE I_NUM=#{iNum}
+	</select>
 	
 	<!-- 상품 입력 -->
 	<insert id="insertItem" parameterType="vo.ItemVO">
 		INSERT INTO ITEM(I_BRAND,I_REGISTER,I_TYPE,I_NAME,I_PRICE,I_STOCK,I_IMAGE,I_EXPLANATION)
 				VALUES(#{iBrand},#{iRegister},#{iType},#{iName},#{iPrice},#{iStock},#{iImage},#{iExplanation})
+	</insert>
+	
+	<!-- 상품옵션 입력 -->
+	<insert id="insertItemOption" parameterType="vo.ItemOptionVO">
+		INSERT INTO ITEM_OPTION(I_NUM,I_PRICE,IO_COLOR1,IO_COLOR2,IO_COLOR3,IO_COLOR4,IO_COLOR5,IO1,IO2,IO3,IO4,IO5)
+					VALUES(#{iNum},#{iPrice},#{ioColor1},#{ioColor2, jdbcType=VARCHAR},#{ioColor3, jdbcType=VARCHAR},#{ioColor4, jdbcType=VARCHAR},
+					#{ioColor5, jdbcType=VARCHAR},#{io1},#{io2, jdbcType=VARCHAR},#{io3, jdbcType=VARCHAR},#{io4, jdbcType=VARCHAR},#{io5, jdbcType=VARCHAR})
 	</insert>
 	
 	
@@ -67,6 +83,14 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		WHERE I_NUM=#{iNum}
 	</update>
 	
+	<!-- 상품옵션 수정 -->
+	<update id="updateItemOption" parameterType="vo.ItemOptionVO">
+		UPDATE ITEM_OPTION SET I_PRICE=#{iPrice},IO_COLOR1=#{ioColor1},IO_COLOR2=#{ioColor2},IO_COLOR3=#{ioColor3},IO_COLOR4=#{ioColor4},IO_COLOR5=#{ioColor5},
+		IO1=#{io1},IO2=#{io2},IO3=#{io3},IO4=#{io4},IO5=#{io5}
+		WHERE I_NUM=#{iNum}
+		
+	</update>
+		
 	<!-- 조회수 -->
 	<update id="updateItemReadCount">
 		UPDATE ITEM SET I_READCOUNT=I_READCOUNT+1 WHERE I_NUM=#{iNum}
@@ -112,5 +136,20 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<resultMap type="vo.ItemTypeVO" id="itemTypeMap">
 		<result column="i_type" property="iType" />
 		<result column="i_type_string" property="iTypeString" />
+	</resultMap>
+	
+	<resultMap type="vo.ItemOptionVO" id="itemOptionMap">
+		<result column="i_num" property="iNum" />
+		<result column="i_price" property="iPrice" />
+		<result column="io_color1" property="ioColor1" />
+		<result column="io_color2" property="ioColor2" />
+		<result column="io_color3" property="ioColor3" />
+		<result column="io_color4" property="ioColor4" />
+		<result column="io_color5" property="ioColor5" />
+		<result column="io1" property="io1" />
+		<result column="io2" property="io2" />
+		<result column="io3" property="io3" />
+		<result column="io4" property="io4" />
+		<result column="io5" property="io5" />
 	</resultMap>
 </mapper>

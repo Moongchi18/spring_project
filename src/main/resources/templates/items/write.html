@@ -25,8 +25,8 @@
 <form action="/items/write" method="post">
 	<div class="input-wrapper">
 		<div class="input-list">
-			판매자 : <input type="text" name="iRegister" th:text="${session.loginId}" 
-			th:value="${session.loginId}">
+			판매자 : <input type="text" name="iRegister" th:value="${session.loginId}" readonly="readonly">
+
 		</div>
 		<div class="input-list">
 			브랜드 : <input type="text" name="iBrand">

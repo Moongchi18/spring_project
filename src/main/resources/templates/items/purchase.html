@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상품 구입</title>
+</head>
+<body>
+<div class="item-info">
+	<form action="/items/purchase-request" method="post">
+		<ul>
+			<li><img th:src="@{${'../img/'+item.iImage+'.png'}}" alt="" ></li>
+			<li>
+				<span class="list-name">상품번호</span>
+				<input class="list-content" name="iNum" readonly="readonly" th:value="${item.iNum}">
+			</li>
+			<li>
+				<span class="list-name">브랜드</span>
+				<input class="list-content" readonly="readonly" th:value="${item.iBrand}">
+			</li>
+			<li>
+				<span class="list-name">상품종류</span>
+				<input class="list-content" readonly="readonly" th:value="${iTypeString}">
+			</li>
+			<li>
+				<span class="list-name">상품명</span>
+				<input class="list-content" readonly="readonly" th:value="${item.iName}">
+			</li>
+			<li>
+				<span class="list-name">색상</span>
+				<input class="list-content" name=ioColor readonly="readonly" th:value="${color}">
+			</li>
+			<li>
+				<span class="list-name">선택 옵션</span>
+				<input class="list-content" name=ioOption readonly="readonly" th:value="${option}">
+			</li>
+			<li>
+				<span class="list-name">가격</span>
+				<input class="list-content" name="iPrice" th:value="${item.iPrice}">
+			</li>
+			<li>
+				<span class="list-name">개수</span>
+				<input class="list-content" name="oCount" readonly="readonly" th:value="${count}">
+			</li>
+			<li>
+				<span class="list-name">배송비</span>
+				<input class="list-content" name="oDeliveryFee" th:value="${oDeliveryFee}" readonly="readonly">
+			</li>
+			<li>
+				<span class="list-name">총 가격</span>
+				<input class="list-content" name="oPrice" readonly="readonly" th:value="${item.iPrice * count + oDeliveryFee}">
+			</li>
+			<li>
+				<span class="list-name">배송지</span>
+				<input class="list-content" name="oAddress" th:value="${mAddress}">
+			</li>
+			<li>
+				<span class="list-name">요청사항</span>
+				<input class="list-content" name="oRequest" value="로켓배송해주세요" >
+			</li>
+		</ul>
+		<input type="hidden" name="mId" th:value="${session.loginId}">
+		<input type="hidden" name="iRegister" th:value="item.iRegister">
+		<input type="submit" value="구매하기">
+	</form>
+</div>
+
+</body>
+</html>

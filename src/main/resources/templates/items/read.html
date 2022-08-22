@@ -76,7 +76,7 @@
 				</tr>
 				<tr>
 					<th>상품종류</th>
-					<td th:text="${i.iType}"></td>
+					<td th:text="${iTypeString.iTypeString}"></td>
 				</tr>
 				<tr>
 					<th>상품명</th>
@@ -97,17 +97,36 @@
 			</table>
 		</div>
 	</div>
-		<button onclick="list()">목록</button>
-<!-- 	<a href="/items">
-	</a>-->	
+	<button onclick="list()">목록</button>
+	<a th:href="@{/items/sales(iNum=${i.iNum})}" th:if="${session.loginId==i.iRegister}"><button>판매관리</button></a>
 	<a th:href="@{/items/update(iNum=${i.iNum})}" th:if="${session.loginId==i.iRegister}"><button>수정</button></a>
-	<!-- <a th:href="@{/items/delete(iNum=${i.iNum})}" th:if="${session.loginId==i.iRegister}"><button th:onclick="del()">삭제</button></a> -->
 	<button th:onclick="del_item()" th:if="${session.loginId==i.iRegister}">삭제</button>
+	<a href="/"><button>메인 페이지</button></a>
 	<hr>
 	<div class="explanation-detail">
 		<div th:text="${i.iExplanation}"></div>
 	</div>
-	<a href="/">메인으로 돌아가기</a>
+	<div>
+		<form action="/items/purchase" method="post" th:unless="${session.loginId==i.iRegister}">
+			<select name="color">
+				<option th:value="${io.ioColor1}" th:text="${io.ioColor1}" selected="selected"></option>
+				<option th:value="${io.ioColor2}" th:text="${io.ioColor2}" th:if="${io.ioColor2!=null}"></option>
+				<option th:value="${io.ioColor3}" th:text="${io.ioColor3}" th:if="${io.ioColor3!=''}"></option>
+				<option th:value="${io.ioColor4}" th:text="${io.ioColor4}" th:if="${io.ioColor4!=''}"></option>
+				<option th:value="${io.ioColor5}" th:text="${io.ioColor5}" th:if="${io.ioColor5!=''}"></option>
+			</select>
+			<select name="option">
+				<option th:value="${io.io1}" th:text="${io.io1}" selected="selected"></option>
+				<option th:value="${io.io2}" th:text="${io.io2}" th:if="${io.io2!=null}"></option>
+				<option th:value="${io.io3}" th:text="${io.io3}" th:if="${io.io3!=''}"></option>
+				<option th:value="${io.io4}" th:text="${io.io4}" th:if="${io.io4!=''}"></option>
+				<option th:value="${io.io5}" th:text="${io.io5}" th:if="${io.io5!=''}"></option>
+			</select>
+			<input type="number" name="count" value="1">
+			<input type="hidden" name="iNum" th:value="${item.iNum}">
+			<input type="submit" value="구매하기">
+		</form>
+	</div>
 </div>
 </body>
 </html>

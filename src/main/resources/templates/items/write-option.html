@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상품 옵션 등록</title>
+
+</head>
+<body>
+<form action="/items/write-option" method="post">
+	<div class="option-wrapper">
+		<div class="option-list">
+			판매자 : <input type="text" name="iRegister" th:value="${session.loginId}" readonly="readonly">
+		</div>
+		<div class="option-list">
+			상품번호 : <input type="text" name="iNum" th:value="${iNum}" readonly="readonly">
+		</div>
+		<div class="option-list">
+			가격 : <input type="text" name="iPrice" th:value="${iPrice}" readonly="readonly">
+		</div>
+		<div class="option-list">
+			색상1 : <input type="text" name="ioColor1" required="required">
+		</div>
+		<div class="option-list">
+			색상2 : <input type="text" name="ioColor2">
+		</div>
+		<div class="option-list">
+			색상3 : <input type="text" name="ioColor3">
+		</div>
+		<div class="option-list">
+			색상4 : <input type="text" name="ioColor4">
+		</div>
+		<div class="option-list">
+			색상5 : <input type="text" name="ioColor5">
+		</div>
+		<div class="option-list">
+			옵션1 : <input type="text" name="io1" required="required">
+		</div>
+		<div class="option-list">
+			옵션2 : <input type="text" name="io2">
+		</div>
+		<div class="option-list">
+			옵션3 : <input type="text" name="io3">
+		</div>
+		<div class="option-list">
+			옵션4 : <input type="text" name="io4">
+		</div>
+		<div class="option-list">
+			옵션5 : <input type="text" name="io5">
+		</div>
+		<div class="input-submit">
+			<input type="hidden" name="iType" th:value="${iType}" >
+			<input type="submit" value="상품 옵션 등록">
+		</div>
+	</div>
+</form>
+</body>
+</html>

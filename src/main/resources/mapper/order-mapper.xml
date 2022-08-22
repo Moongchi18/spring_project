@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project.shop.repository.mapper.OrderMapper">
+	
+	
+	<insert id="insertOrder" parameterType="vo.OrderVO">
+		INSERT INTO ORDER_LIST(I_NUM,I_REGISTER,IO_COLOR,IO_OPTION,M_NUM,M_ID,I_PRICE,O_COUNT,O_DELIVERY_FEE,O_PRICE,O_ADDRESS,O_REQUEST,O_STATUS,O_DELIVERY_STATUS)
+					VALUES(#{iNum},#{iRegister},#{ioColor},#{ioOption},#{mNum},#{mId},#{iPrice},#{oCount},#{oDeliveryFee},#{oPrice},#{oAddress},#{oRequest},#{oStatus},#{oDeliveryStatus})
+	</insert>
+	
+	<select id="selectOrder" resultMap="orderResultMap">
+		SELECT * FROM ORDER_LIST WHERE O_NUM=#{oNum}
+	</select>
+
+	<select id="selectOrderCount" resultType="int">
+		SELECT COUNT(*) FROM ORDER_LIST WHERE I_REGISTER=#{loginId}
+	</select>
+	
+	<select id="selectOrderList" resultMap="orderResultMap">
+		SELECT * FROM ORDER_LIST WHERE I_REGISTER=#{loginId} ORDER BY O_NUM DESC LIMIT #{startRow},#{count}
+	</select>
+
+	
+	<resultMap type="vo.OrderVO" id="orderResultMap">
+		<result column="o_num" property="oNum" />
+		<result column="o_date" property="oDate" />
+		<result column="i_num" property="iNum" />
+		<result column="i_register" property="iRegister" />
+		<result column="io_color" property="ioColor" />
+		<result column="io_option" property="ioOption" />
+		<result column="m_num" property="mNum" />
+		<result column="m_id" property="mId" />
+		<result column="i_price" property="iPrice" />
+		<result column="o_count" property="oCount" />
+		<result column="o_delivery_fee" property="oDeliveryFee" />
+		<result column="o_price" property="oPrice" />
+		<result column="o_address" property="oAddress" />
+		<result column="o_request" property="oRequest" />
+		<result column="o_status" property="oStatus" />
+		<result column="o_delivery_status" property="oDeliveryStatus" />
+	</resultMap>
+
+</mapper>

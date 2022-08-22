@@ -44,7 +44,7 @@ public class BoardService {
 		
 		List<BoardVO> boardList=dao.selectList(bType, startRow, COUNT_PER_PAGE);
 //		System.out.println(bType + ", " +  startRow + ", " +  totalCount);
-		return new BoardPageVO(null,boardList,currentPage,startPage,endPage,totalPage);
+		return new BoardPageVO(null,null,boardList,currentPage,startPage,endPage,totalPage);
 	}
 	
 	public BoardPageVO boardSearch(int bType, String search, int currentPage) {
@@ -68,7 +68,7 @@ public class BoardService {
 		List<BoardVO> boardList=dao.selectSearch(bType, search, startRow, COUNT_PER_PAGE);
 		System.out.println(bType + ", " +  startRow + ", " +  search);
 
-		return new BoardPageVO(null,boardList,currentPage,startPage,endPage,totalPage);
+		return new BoardPageVO(null,null,boardList,currentPage,startPage,endPage,totalPage);
 	}
 	
 
