@@ -203,6 +203,7 @@ public class ItemService {
 		System.out.println("totalPage : " + totalPage );
 		return new BoardPageVO(null,itemList,null,currentPage,startPage,endPage,totalPage);
 	}
+<<<<<<< HEAD
 	
 	public ItemOptionVO readOption(int iNum) {
 		
@@ -229,3 +230,9 @@ public class ItemService {
 		return result;		
 	}
 }
+=======
+	public ItemVO selectReadCount() {
+		return dao.selectReadCount();
+	}
+}	
+>>>>>>> c762ebd40eb65d4333c325a3001d0cea7f6e642c

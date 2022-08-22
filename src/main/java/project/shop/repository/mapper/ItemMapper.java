@@ -36,6 +36,5 @@ public interface ItemMapper {
 	public int selectSearchCount(String search1, String search2);
 	public List<ItemVO> selectSearch(String search1, String search2, int startRow, int count);
 //	public List<ItemVO> selectSearch(int iType, String search1, String search2, int startRow, int count);
-	
-
+	public ItemVO selectReadCount();
 }

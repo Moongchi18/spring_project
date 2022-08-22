@@ -119,6 +119,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		ORDER BY I_NUM DESC LIMIT #{startRow},#{count}
 	</select>
 	
+	<!-- 조회수높은순으로 상품 조회 -->
+	<select id="selectReadCount" resultMap="itemResultMap">
+		SELECT * FROM ITEM ORDER BY I_READCOUNT DESC LIMIT 1
+	</select>
+	
 	<resultMap type="vo.ItemVO" id="itemResultMap">
 		<result column="i_num" property="iNum"/>
 		<result column="i_brand" property="iBrand"/>

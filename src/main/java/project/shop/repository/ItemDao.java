@@ -111,4 +111,9 @@ public class ItemDao {
 		ItemMapper mapper = session.getMapper(ItemMapper.class);
 		return mapper.selectSearch(search, search, startRow, count);
 	}
+	public ItemVO selectReadCount() {
+		ItemMapper mapper = session.getMapper(ItemMapper.class);
+		return mapper.selectReadCount();
+	}
+
 }
