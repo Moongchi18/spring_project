@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>상품 목록</title>
 <script th:inline="javascript">
+
 	var search_text = "test";
 	function search_set(){
 		search_text = document.getElementById('search-text').value;
@@ -15,6 +16,37 @@
 	}
 </script>
 <style type="text/css">
+	#menu{
+		width:1800px;
+		height:35px;
+	}
+	#menu ul li{
+		background-color: #666;
+		list-style: none;
+		vertical-align:middle;
+		text-align:center;
+		width:200px;
+		height:35px;
+		line-height: 34.2px;
+	}
+	#menu .link{
+		width:190px;
+		text-decoration:none;
+		display:block;
+		color:#fff;
+		font-weight:bold;
+	}
+	#menu .link:hover{
+		background-color:#666;
+		color:#ff42e7;
+	}
+	#log-wrapper>div>ul>li{
+		float:right;
+	}
+	#menu-list>ul>li{
+		float:left;
+	}
+
 	#page{
 		float:left;
 		letter-spacing: 5px;
@@ -88,6 +120,7 @@
 </style>
 </head>
 <body>
+<div th:replace="/index.html :: fragment-nav"></div>
 <a th:href="@{items(iType=0)}">전체목록</a>
 <br>
 <a class="list_type_item" th:href="@{/items(iType=${allTypeString[0].iType})}" th:text="${allTypeString[0].iTypeString}"></a>
