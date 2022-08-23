@@ -6,12 +6,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 <mapper namespace="project.shop.repository.mapper.OrderMapper">
 	
-	
+	<!-- 주문내역 작성 -->
 	<insert id="insertOrder" parameterType="vo.OrderVO">
 		INSERT INTO ORDER_LIST(I_NUM,I_NAME,I_REGISTER,IO_COLOR,IO_OPTION,M_NUM,M_ID,I_PRICE,O_COUNT,O_DELIVERY_FEE,O_PRICE,O_ADDRESS,O_REQUEST,O_STATUS,O_DELIVERY_STATUS)
 					VALUES(#{iNum},#{iName},#{iRegister},#{ioColor},#{ioOption},#{mNum},#{mId},#{iPrice},#{oCount},#{oDeliveryFee},#{oPrice},#{oAddress},#{oRequest},#{oStatus},#{oDeliveryStatus})
 	</insert>
 	
+	<!-- 주문내역 선택 -->
 	<select id="selectOrder" resultMap="orderResultMap">
 		SELECT * FROM ORDER_LIST WHERE O_NUM=#{oNum}
 	</select>
@@ -27,6 +28,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<select id="selectOrderList" resultMap="orderResultMap">
 		SELECT * FROM ORDER_LIST WHERE I_REGISTER=#{loginId} ORDER BY O_NUM DESC LIMIT #{startRow},#{count}
 	</select>
+	
+	<update id="updateOrderStatus" parameterType="vo.OrderVO">
+		UPDATE ORDER_LIST SET O_STATUS=#{oStatus}, O_DELIVERY_STATUS=#{oDeliveryStatus} WHERE O_NUM=#{oNum}
+	</update>
 
 	
 	<resultMap type="vo.OrderVO" id="orderResultMap">

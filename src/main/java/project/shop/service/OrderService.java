@@ -79,5 +79,15 @@ public class OrderService {
 		OrderList=dao.selectOrderList(loginId, startRow,COUNT_PER_PAGE);
 		return new BoardPageVO(OrderList, null, null, currentPage, startPage, endPage, totalPage);
 	}
+	
+	public boolean updateOrderStatus(OrderVO order, String loginId) {
+		boolean result=false;
+		
+		if(order.getiRegister().equals(loginId)) {
+			int update = dao.updateOrderStatus(order);
+			result = update == 1 ? true:false;
+		}	
+		return result;
+	}
 
 }

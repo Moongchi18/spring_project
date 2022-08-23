@@ -43,4 +43,8 @@ public class OrderDao {
 		return mapper.selectOrderById(loginId);
 	}
 	
+	public int updateOrderStatus(OrderVO order) {
+		OrderMapper mapper = session.getMapper(OrderMapper.class);
+		return mapper.updateOrderStatus(order);
+	}
 }

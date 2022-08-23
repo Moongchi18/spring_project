@@ -3,33 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <title>판매관리 페이지</title>
+<style type="text/css">
+	.order-head-wrapper, .order-value-wrapper{
+		display:flex;
+		width: 1600px;
+		text-align: center;
+		margin: 20px;
+		padding:10px;
+	}
+	.order-head{
+		font-weight:bold;
+		width:150px;
+	}
+	.order-value{
+		width:150px;
+	}
+	li{
+		list-style:none; 
+	}
+	a{
+		text-decoration: none;
+		color:black;
+	}
+</style>
 </head>
 <body>
-<div>
-	<table>
-		<tr>
-			<th>주문번호</th>
-			<th>주문날짜</th>
-			<th>상품번호</th>
-			<th>상품명</th>
-			<th>주문고객Id</th>
-			<th>주문금액</th>
-			<th>배송지</th>
-			<th>주문상태</th>
-			<th>배송상태</th>
-		</tr>
-		<tr th:each="o : ${pageList.orderList}">
-			<td th:text="${o.oNum}"></td>
-			<td th:text="${o.oDate}"></td>
-			<td th:text="${o.iNum}"></td>
-			<td th:text="${o.iName}"></td>
-			<td th:text="${o.mId}"></td>
-			<td th:text="${o.oPrice}"></td>
-			<td th:text="${o.oAddress}"></td>
-			<td th:text="${o.oStatus}"></td>
-			<td th:text="${o.oDeliveryStatus}"></td>
-		</tr>
-	</table>
+<div id="order-wrapper">
+	<ul>
+		<li class="order-head-wrapper">
+			<span class="order-head" >주문번호</span>
+			<span class="order-head">주문날짜</span>
+			<span class="order-head">상품번호</span>
+			<span class="order-head">상품명</span>
+			<span class="order-head">주문고객Id</span>
+			<span class="order-head">주문금액</span>
+			<span class="order-head">배송지</span>
+			<span class="order-head">주문상태</span>
+			<span class="order-head">배송상태</span>
+			<span class="order-head">수정</span>
+		</li>
+		<li th:each="o : ${pageList.orderList}">
+			<form class="order-value-wrapper" action="sales/update" method="post">
+				<span class="order-value" th:text="${o.oNum}"></span>
+				<span class="order-value" th:text="${#dates.format(o.oDate, 'yy.MM.dd')}"></span>
+				<span class="order-value" th:text="${o.iNum}"></span>
+				<a class="order-value" th:text="${o.iName}" th:href="@{/sales/read(oNum=${o.oNum})}"></a>
+				<span class="order-value" th:text="${o.mId}"></span>
+				<span class="order-value" th:text="${o.oPrice}"></span>
+				<span class="order-value" th:text="${o.oAddress}"></span>
+				
+				<select class="order-value" name="oStatus" th:value="${o.oStatus}">
+					<option th:selected="${o.oStatus}=='판매대기'">판매대기</option>
+					<option th:selected="${o.oStatus}=='판매거절'">판매거절</option>
+					<option th:selected="${o.oStatus}=='판매승인'">판매승인</option>
+					<option th:selected="${o.oStatus}=='배송중'">배송중</option>
+					<option th:selected="${o.oStatus}=='판매완료'">판매완료</option>
+					<option th:selected="${o.oStatus}=='반품'">반품</option>
+					<option th:selected="${o.oStatus}=='교환'">교환</option>
+				</select>
+				<select class="order-value" name="oDeliveryStatus" th:value="${o.oDeliveryStatus}">
+					<option th:selected="${o.oDeliveryStatus}=='대기'" value="대기">대기</option>
+					<option th:selected="${o.oDeliveryStatus}=='배송시작'" value="배송시작">배송시작</option>
+					<option th:selected="${o.oDeliveryStatus}=='배송완료'" value="배송완료">배송완료</option>
+				</select>
+				
+				<input type="hidden" name="oNum" th:value="${o.oNum}">
+				<input type="hidden" name="iNum" th:value="${o.iNum}">
+				<input type="hidden" name="iName" th:value="${o.iName}">
+				<input type="hidden" name="iRegister" th:value="${o.iRegister}">
+				<input type="hidden" name="mId" th:value="${o.mId}">
+				<input type="hidden" name="oPrice" th:value="${o.oPrice}">
+				<input type="hidden" name="oAddress" th:value="${o.oAddress}">
+				
+				<input type="submit" value="수정하기">
+			</form>
+		</li>
+	</ul>
 </div>
 </body>
 </html>

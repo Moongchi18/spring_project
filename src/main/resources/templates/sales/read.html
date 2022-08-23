@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>주문내역 상세페이지</title>
+</head>
+<body>
+<form action="/sales/update" method="post" th:each="o : ${order}">
+	<table>
+		<tr>
+			<th>주문번호</th>
+			<td><input th:value="${o.oNum}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>주문일</th>
+			<td><input th:value="${#dates.format(o.oDate,'yy.MM.dd hh:mm')}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>상품번호</th>
+			<td><input th:value="${o.iNum}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>상품명</th>
+			<td><input th:value="${o.iName}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>선택색상</th>
+			<td><input th:value="${o.ioColor}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>선택옵션</th>
+			<td><input th:value="${o.ioOption}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>주문고객번호</th>
+			<td><input th:value="${o.mNum}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>주문고객ID</th>
+			<td><input th:value="${o.mId}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>상품가격</th>
+			<td><input th:value="${o.iPrice}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>주문개수</th>
+			<td><input th:value="${o.oCount}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>택배비</th>
+			<td><input th:value="${o.oDeliveryFee}==null ? 0:3000" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>주문가격</th>
+			<td><input th:value="${o.oPrice}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>주소</th>
+			<td><input th:value="${o.oAddress}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>요청사항</th>
+			<td><input th:value="${o.oRequest}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>주문상태</th>
+			<td>
+				<select class="order-value" name="oStatus" th:value="${o.oStatus}">
+					<option th:selected="${o.oStatus}=='판매대기'">판매대기</option>
+					<option th:selected="${o.oStatus}=='판매거절'">판매거절</option>
+					<option th:selected="${o.oStatus}=='판매승인'">판매승인</option>
+					<option th:selected="${o.oStatus}=='배송중'">배송중</option>
+					<option th:selected="${o.oStatus}=='판매완료'">판매완료</option>
+					<option th:selected="${o.oStatus}=='반품'">반품</option>
+					<option th:selected="${o.oStatus}=='교환'">교환</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>배송상태</th>
+			<td>
+				<select class="order-value" name="oDeliveryStatus" th:value="${o.oDeliveryStatus}">
+					<option th:selected="${o.oDeliveryStatus}=='대기'" value="대기">대기</option>
+					<option th:selected="${o.oDeliveryStatus}=='배송시작'" value="배송시작">배송시작</option>
+					<option th:selected="${o.oDeliveryStatus}=='배송완료'" value="배송완료">배송완료</option>
+				</select>
+			</td>
+		</tr>
+	</table>
+				
+	<input type="hidden" name="oNum" th:value="${o.oNum}">
+	<input type="hidden" name="iNum" th:value="${o.iNum}">
+	<input type="hidden" name="iName" th:value="${o.iName}">
+	<input type="hidden" name="iRegister" th:value="${o.iRegister}">
+	<input type="hidden" name="mId" th:value="${o.mId}">
+	<input type="hidden" name="oPrice" th:value="${o.oPrice}">
+	<input type="hidden" name="oAddress" th:value="${o.oAddress}">
+	
+	<input type="submit" value="수정하기">
+</form>
+
+</body>
+</html>
