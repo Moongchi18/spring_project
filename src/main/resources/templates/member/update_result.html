@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>update_result</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 <script th:inline="javascript">
 
 	var updateResult="[[${updateResult}]]";
@@ -19,5 +20,6 @@
 </script>
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 </body>
 </html>

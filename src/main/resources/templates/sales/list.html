@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>판매관리 페이지</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 <style type="text/css">
 	.order-head-wrapper, .order-value-wrapper{
 		display:flex;
@@ -28,6 +29,7 @@
 </style>
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 <div id="order-wrapper">
 	<ul>
 		<li class="order-head-wrapper">

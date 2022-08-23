@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>리뷰 수정 실패</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 <script type="text/javascript">
 	var bNum = '[[${bNum}]]'
 	alert(bNum + "번 게시물 수정 실패");
@@ -10,6 +11,6 @@
 </script>
 </head>
 <body>
-
+<nav th:replace="/header.html :: fragment-nav"></nav>
 </body>
 </html>

@@ -2,9 +2,11 @@
 <html xmlns:th = "http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 <title>마이페이지</title>
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 	<h2>내 정보</h2>
 	
 	<table>

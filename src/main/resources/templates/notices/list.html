@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>이벤트/공지사항 목록</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 <script th:inline="javascript">
 	var search_text = "test";
 	function search_set(){
@@ -53,7 +54,7 @@
 </style>
 </head>
 <body>
-<div th:replace="/index.html :: fragment-nav"></div>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 	<table border="1">
 		<tr>
 			<th>글번호</th>		

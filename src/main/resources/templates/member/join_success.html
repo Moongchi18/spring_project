@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>회원가입 완료</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
+
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 <h2>회원가입이 완료되었습니다.</h2>
 <a href="/"><button>메인으로</button></a>
 <a href="loginForm"><button>로그인</button></a>

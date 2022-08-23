@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>회원가입 실패</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
+
 <script type="text/javascript">
 
 alert("회원가입 실패")
@@ -11,5 +13,6 @@ alert("회원가입 실패")
 
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 </body>
 </html>

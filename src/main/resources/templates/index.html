@@ -20,121 +20,17 @@
 	}
 </script>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/index.css}" rel="stylesheet"/>
 <style type="text/css">
-	.best-item{
-	text-align:center;
-	margin:auto;
-	}
-	.list-wrapper{
-		display:flex;
-		flex-wrap:wrap;
-		padding:15px;
-		}
-	.list{
-		border:1px solid black;
-		margin-left:6px;
-		margin-right:6px;
-		padding:0;
-		font-size:14px;
-	}
-	.items-wrapper{
-		width:calc(33.333%);
-		padding: 0 11px;
-		margin-bottom:20px;
-		position:relative;
-		margin:0;
-	    list-style: none;
 
-	}
-	.item-wrapper{
-		height:100%;
-		padding-bottom:117px;
-	}
-	.item-picture{
-		position:relative;
-		width:410px;
-		height: 410px;
-		text-align: center;
-		vertical-align: middle;
-		
-		
-	}
-	.item-picture>img{
-		position:relative;
-		width:410px;
-		height: 410px;
-		text-align:center;
-		vertical-align:middle;
-		
-	}
-	.item-explain{
-		left:0;
-		margin:0;
-		padding:0;
-		width:433px;
-		height:auto;
-		border-top : 1px solid black;
-	    text-align: center;
-	    position: absolute;
-
-		}
 	
-	.item-click{
-		z-index:15;
-		position:absolute;
-		display:inherit;
-		width: 400px;
-		height:400px;
-		padding:10px;
-		padding-bottom: 117px;
-	}
-
-
 	
 </style>
 
 </head>
 <body>
-<div id=title><h1>쇼핑몰!</h1></div>
-<nav id=menu th:fragment="fragment-nav">
-<div id="menu-list">
-	<ul>
-		<li><a th:href="@{/items(iType=0)}">전체상품</a></li>
-		<li><a th:href="@{/items(iType=1)}">상의</a></li>
-		<li><a th:href="@{/items(iType=2)}">하의</a></li>
-		<li><a th:href="@{/items(iType=3)}">기타</a></li>
-		<li><a href="/reviews">리뷰 게시판</a></li>
-		<li><a href="/sales" th:if="${session.m_type > 2}">판매관리</a></li>
-		
-	</ul>
-</div>
-<div id="log-wrapper">
-	<!-- 검색기능 -->
-	<div class=log th:unless="${session.loginId==null}">	
-		<ul>
-			<li><a href="logout">로그아웃</a></li>
-			<li><a href="myPage">내정보</a></li>
-			
-		</ul>
-	</div>
-	
-		
-	<div class=log th:if="${session.loginId==null}">
-		<ul>
-			<li><a href="loginForm">로그인</a></li>
-			<li><a href="joinForm">회원가입</a></li>
-<!-- 			<li><button onclick="search_com()">검색</button></li>
-			<li><input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요" name="search"></li>
- -->		</ul>
-	</div>
-	<div class="search-wrapper">
-		<input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요" name="search">
-		<button onclick="search_com()">검색</button>
-	</div>
-	
-</div>
-</nav>
-<div id="demo" class="carousel slide" data-ride="carousel">
+<nav th:replace="/header.html :: fragment-nav"></nav>
+<div id="demo" class="carousel slide" data-ride="carousel" style="margin-top:60px;">
   <ul class="carousel-indicators">
     <li data-target="#demo" data-slide-to="0" class="active"></li>
     <li data-target="#demo" data-slide-to="1"></li>
@@ -199,7 +95,6 @@
 				</div>
 			</div>
 </div>
-
 
  </body>
 </html>

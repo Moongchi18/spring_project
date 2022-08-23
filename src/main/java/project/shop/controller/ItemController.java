@@ -42,7 +42,7 @@ public class ItemController {
 
 		mv.addObject("iPage", service.makeItemPage(page, iType));
 		mv.addObject("allTypeString", service.selectAllTypeString());
-		System.out.println(service.selectAllTypeString().get(1));
+//		System.out.println(service.selectAllTypeString().get(1));
 		
 		mv.addObject("type", iType);
 		

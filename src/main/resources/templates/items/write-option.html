@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 옵션 등록</title>
-
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 <form action="/items/write-option" method="post">
 	<div class="option-wrapper">
 		<div class="option-list">

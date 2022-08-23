@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰 작성</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 <form action="/reviews/write" method="post">
 	<table border="1">
 		<tr>

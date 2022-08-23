@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 수정 페이지</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 <style type="text/css">
 	/* input, textarea{
 		position:relative;
@@ -22,6 +23,7 @@
 </style>
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 <form action="/items/update" method="post">
 	<div class="input-wrapper" th:each="i : ${item}">
 		<div class="input-list">

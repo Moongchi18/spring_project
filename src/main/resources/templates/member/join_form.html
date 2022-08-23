@@ -14,8 +14,11 @@
  		console.log(value);
 	}
 </script>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
+
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 	<div>
 		<h2>쇼핑몰 회원가입</h2>
 		<form action="join" method="post">

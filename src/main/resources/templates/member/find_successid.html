@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>아이디 찾기 완료</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 	<h2>회원님의 아이디는</h2>
 	<div th:text="${findidsuccess.m_id}"></div>
 	

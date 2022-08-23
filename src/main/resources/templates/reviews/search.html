@@ -14,7 +14,8 @@
 
 	}
 </script>
-<link th:href="@{/css/nav.css}" rel="stylesheet" />
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
+
 <style type="text/css">
 #page {
 	float: center;
@@ -210,9 +211,9 @@ section.notice {
 }
 </style>
 </head>
+
 <body>
-	<div th:replace="/index.html :: fragment-nav"></div>
-	<section class="notice">
+<nav th:replace="/header.html :: fragment-nav"></nav>	<section class="notice">
 		<div class="page-title">
 			<div class="container">
 				<h3>리뷰 게시판</h3>

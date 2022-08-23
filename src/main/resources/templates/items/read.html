@@ -20,6 +20,7 @@
 		location.href=`/items?iType=${iType}`;
 	}
 </script>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 <style type="text/css">
 	.item-wrapper{
 		text-align: center;
@@ -55,6 +56,7 @@
 </style>
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 <div class="item-wrapper" th:each="i : ${item}">
 	<div class="top-explanation">
 		<div class="image">

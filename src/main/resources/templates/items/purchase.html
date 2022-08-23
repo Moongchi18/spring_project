@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 구입</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 <div class="item-info">
 	<form action="/items/purchase-request" method="post">
 		<ul>

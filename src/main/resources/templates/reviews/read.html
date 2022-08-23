@@ -12,7 +12,7 @@
 		return false;
 	}
 </script>
-<link th:href="@{/css/nav.css}" rel="stylesheet" />
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 <style type="text/css">
 table {
 	border-collapse: collapse;
@@ -78,8 +78,7 @@ section.notice {
 </style>
 </head>
 <body>
-	<div th:replace="/index.html :: fragment-nav"></div>
-	<section class="notice">
+<nav th:replace="/header.html :: fragment-nav"></nav>	<section class="notice">
 		<table class="board-table">
 			<tr>
 				<td>제목</td>

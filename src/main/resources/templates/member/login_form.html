@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
 	<div>
 		<h2>로그인 창</h2>
 		<p th:if="${message!=null}" th:text="${message}"></p>
