@@ -95,8 +95,8 @@
 
 </head>
 <body>
-<div id=title><h1>쇼핑몰!</h1></div>
 <nav id=menu th:fragment="fragment-nav">
+<div id=title><h1>쇼핑몰!</h1></div>
 <div id="menu-list">
 	<ul>
 		<li><a th:href="@{/items(iType=0)}">전체상품</a></li>
@@ -134,7 +134,7 @@
 	
 </div>
 </nav>
-<div id="demo" class="carousel slide" data-ride="carousel">
+<div id="demo" class="carousel slide" data-ride="carousel" style="margin-top:60px">
   <ul class="carousel-indicators">
     <li data-target="#demo" data-slide-to="0" class="active"></li>
     <li data-target="#demo" data-slide-to="1"></li>
