@@ -12,4 +12,5 @@ public interface OrderMapper {
 	public List<OrderVO> selectOrderList(String loginId, int startRow, int count);
 	public List<OrderVO> selectOrderById(String loginId);
 	public int updateOrderStatus(OrderVO order);
+	public List<OrderVO> selectMyOrderList(String loginId, int startRow, int count);
 }

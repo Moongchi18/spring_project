@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.shop.service.MemberService;
+import project.shop.service.OrderService;
 import vo.BoardVO;
 import vo.MemberVO;
 @Controller
@@ -21,6 +22,9 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 		
+	@Autowired
+	private OrderService orderservice;
+	
 	@RequestMapping("/joinForm")
 	public String joinForm() {
 		return "member/join_form";
@@ -76,7 +80,7 @@ public class MemberController {
 		}
 	}
 	@RequestMapping("/myPage")
-	public ModelAndView myPage(HttpSession session) {
+	public ModelAndView myPage(@RequestParam(defaultValue = "1")int page, HttpSession session) {
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -85,6 +89,8 @@ public class MemberController {
 		if(loginId != null && loginId.length() > 0) {
 			
 			MemberVO member = service.getMemberInfo(loginId);
+			
+			mv.addObject("MyOrderList", orderservice.MyOrderPage(loginId, page));
 			mv.addObject("memberInfo",member);
 			mv.setViewName("member/my_page");
 		}else {

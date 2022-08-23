@@ -47,4 +47,8 @@ public class OrderDao {
 		OrderMapper mapper = session.getMapper(OrderMapper.class);
 		return mapper.updateOrderStatus(order);
 	}
+	public List<OrderVO> selectMyOrderList(String loginId, int startRow, int count) {
+		OrderMapper mapper = session.getMapper(OrderMapper.class);
+		return mapper.selectMyOrderList(loginId, startRow, count);
+	}
 }

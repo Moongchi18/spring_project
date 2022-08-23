@@ -42,7 +42,7 @@
 			<span class="order-head">배송상태</span>
 			<span class="order-head">수정</span>
 		</li>
-		<li th:each="o : ${pageList.orderList}">
+		<li th:each="o : ${pageList.OrderList}">
 			<form class="order-value-wrapper" action="sales/update" method="post">
 				<span class="order-value" th:text="${o.oNum}"></span>
 				<span class="order-value" th:text="${#dates.format(o.oDate, 'yy.MM.dd')}"></span>

@@ -89,5 +89,28 @@ public class OrderService {
 		}	
 		return result;
 	}
+	public BoardPageVO MyOrderPage(String loginId, int currentPage){
+		int totalCount = dao.selectOrderCount(loginId);
+		int totalPage = totalCount / COUNT_PER_PAGE;
+		
+		if(totalCount%COUNT_PER_PAGE!=0) {
+			totalPage++;
+		}
+		
+		int startPage = (currentPage-1)/10*10+1;
+		int endPage = startPage + 9;
+		
+		if(totalPage==0) {
+			endPage=1;
+		} else if(totalPage < endPage) {
+			endPage=totalPage;
+		}
+		
+		int startRow=(currentPage-1)*COUNT_PER_PAGE;
+		
+		List<OrderVO> OrderList;
+		OrderList=dao.selectMyOrderList(loginId, startRow,COUNT_PER_PAGE);
+		return new BoardPageVO(OrderList, null, null, currentPage, startPage, endPage, totalPage);
+	}
 
 }

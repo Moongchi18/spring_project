@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,6 +33,15 @@ public class OrderController {
 		
 		mv.addObject("pageList", service.makeOrderPage(loginId, page));
 		mv.setViewName("sales/list");
+		return mv;
+	}
+	@RequestMapping("/myPage/MyOrder")
+	public ModelAndView MyOrder(@RequestParam(defaultValue = "1")int page, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String loginId = (String)session.getAttribute("loginId");
+		
+		mv.addObject("MyOrderList", service.MyOrderPage(loginId, page));
+		mv.setViewName("member/MyOrder");
 		return mv;
 	}
 	

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>내 주문 목록 페이지</title>
+<style type="text/css">
+	.order-head-wrapper, .order-value-wrapper{
+		display:flex;
+		width: 1600px;
+		text-align: center;
+		margin: 20px;
+		padding:10px;
+	}
+	.order-head{
+		font-weight:bold;
+		width:150px;
+	}
+	.order-value{
+		width:150px;
+	}
+	li{
+		list-style:none; 
+	}
+	a{
+		text-decoration: none;
+		color:black;
+	}
+</style>
+</head>
+<body>
+<div id="order-wrapper">
+	<ul>
+		<li class="order-head-wrapper">
+			<span class="order-head" >주문번호</span>
+			<span class="order-head">주문날짜</span>
+			<span class="order-head">상품번호</span>
+			<span class="order-head">상품명</span>
+			<span class="order-head">주문고객Id</span>
+			<span class="order-head">주문금액</span>
+			<span class="order-head">배송지</span>
+			<span class="order-head">주문상태</span>
+			<span class="order-head">배송상태</span>
+		</li>
+		<li class=order-value-wrapper th:each="mo: ${MyOrderList.OrderList}">
+			<span class="order-value" th:text="${mo.oNum}"></span>
+			<span class="order-value" th:text="${#dates.format(mo.oDate, 'yy.MM.dd')}"></span>
+			<span class="order-value" th:text="${mo.iNum}"></span>
+			<a class="order-value" th:text="${mo.iName}" th:href="@{/sales/read(oNum=${mo.oNum})}"></a>
+			<span class="order-value" th:text="${mo.mId}"></span>
+			<span class="order-value" th:text="${mo.oPrice}"></span>
+			<span class="order-value" th:text="${mo.oAddress}"></span>
+			<span class="order-value" th:text="${mo.oStatus}"></span>
+			<span class="order-value" th:text="${mo.oDeliveryStatus}"></span>
+		</li>
+	</ul>
+</div>
+</body>
+</html>
