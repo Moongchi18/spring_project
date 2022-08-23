@@ -4,94 +4,274 @@
 <meta charset="UTF-8">
 <title>게시판 글 목록</title>
 <script th:inline="javascript">
-	var search_text = "test";
+	var search = "test";
 	function search_set(){
-		search_text = document.getElementById('search-text').value;
+		search = document.getElementById('search').value;
 	}
 	
 	function search_com(){
-		location.href = `/reviews/search?search=${search_text}`;
+		location.href = `/reviews/search?search=${search}`;
 
 	}
 </script>
+<link th:href="@{/css/nav.css}" rel="stylesheet" />
 <style type="text/css">
-#menu{
-		width:1800px;
-		height:35px;
-	}
-	#menu ul li{
-		background-color: #666;
-		list-style: none;
-		vertical-align:middle;
-		text-align:center;
-		width:200px;
-		height:35px;
-		line-height: 34.2px;
-	}
-	#menu .link{
-		width:190px;
-		text-decoration:none;
-		display:block;
-		color:#fff;
-		font-weight:bold;
-	}
-	#menu .link:hover{
-		background-color:#666;
-		color:#ff42e7;
-	}
-	#log-wrapper>div>ul>li{
-		float:right;
-	}
-	#menu-list>ul>li{
-		float:left;
-	}
+#page {
+	float: center;
+	letter-spacing: 5px;
+	text-align: center;
+}
 
-	#page{
-		float:left;
-		letter-spacing: 5px;
-	}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+section.notice {
+	padding: 80px 0;
+}
+
+.page-title {
+	margin-bottom: 60px;
+}
+
+.page-title h3 {
+	font-size: 28px;
+	color: #333333;
+	font-weight: 400;
+	text-align: center;
+}
+
+#board-search .search-window {
+	padding: 15px 0;
+	background-color: #f9f7f9;
+}
+
+#board-search .search-window .search-wrap {
+	position: relative;
+	/*   padding-right: 124px; */
+	margin: 0 auto;
+	width: 80%;
+	max-width: 564px;
+}
+
+#board-search .search-window .search-wrap input {
+	height: 40px;
+	width: 100%;
+	font-size: 14px;
+	padding: 7px 14px;
+	border: 1px solid #ccc;
+}
+
+#board-search .search-window .search-wrap input:focus {
+	border-color: #333;
+	outline: 0;
+	border-width: 1px;
+}
+
+#board-search .search-window .search-wrap .btn {
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 108px;
+	padding: 0;
+	font-size: 16px;
+}
+
+.board-table {
+	font-size: 13px;
+	width: 100%;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+.board-table a {
+	color: #333;
+	display: inline-block;
+	line-height: 1.4;
+	word-break: break-all;
+	vertical-align: middle;
+}
+
+.board-table a:hover {
+	text-decoration: underline;
+}
+
+.board-table th {
+	text-align: center;
+}
+
+.board-table .th-num {
+	width: 100px;
+	text-align: center;
+}
+
+.board-table .th-date {
+	width: 200px;
+}
+
+.board-table th, .board-table td {
+	padding: 14px 0;
+}
+
+.board-table tbody td {
+	border-top: 1px solid #e7e7e7;
+	text-align: center;
+}
+
+.board-table tbody th {
+	padding-left: 28px;
+	padding-right: 14px;
+	border-top: 1px solid #e7e7e7;
+	text-align: left;
+}
+
+.board-table tbody th p {
+	display: none;
+}
+
+.btn {
+	display: inline-block;
+	padding: 0 30px;
+	font-size: 15px;
+	font-weight: 400;
+	background: transparent;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	text-transform: uppercase;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.btn-dark {
+	background: #555;
+	color: #fff;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+	background: #373737;
+	border-color: #373737;
+	color: #fff;
+}
+
+.btn-dark {
+	background: #555;
+	color: #fff;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+	background: #373737;
+	border-color: #373737;
+	color: #fff;
+}
+/* reset */
+* {
+	list-style: none;
+	text-decoration: none;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.clearfix:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.container {
+	width: 1100px;
+	margin: 0 auto;
+}
+
+.blind {
+	position: absolute;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	margin: -1px;
+	width: 1px;
+	height: 1px;
+}
 </style>
 </head>
 <body>
-<div th:replace="/index.html :: fragment-nav"></div>
-	<table border="1">
-		<tr>
-			<th>글번호</th>		
-			<th>제목</th>		
-			<th>작성자</th>		
-			<th>작성일</th>		
-			<th>조회수</th>		
-		</tr>
-		<!-- 데이터가 없을 때 -->
-		<tr th:if="${#lists.isEmpty(bPage.boardList)}">
-			<td colspan="5">작성된 게시글이 존재하지 않습니다.</td>		
-		</tr>
-		<tr th:if="${!#lists.isEmpty(bPage.boardList)}" 
-			th:each="boardVO : ${bPage.boardList}">
-			<td th:text="${boardVO.bNum}"></td>		
-			<td><a th:href="@{/reviews/read(bNum=${boardVO.bNum})}" 
-					th:text="${boardVO.bTitle}"></a></td>		
-			<td th:text="${boardVO.bWriter}"></td>		
-			<td th:text="${#dates.format(boardVO.bWriteDate, 'yyyy-MM-dd HH:mm:ss')}"></td>		
-			<td th:text="${boardVO.bReadCount}"></td>		
-		</tr>		
-	</table>
-		
+	<div th:replace="/index.html :: fragment-nav"></div>
+	<section class="notice">
+		<div class="page-title">
+			<div class="container">
+				<h3>리뷰 게시판</h3>
+			</div>
+		</div>
+
+		<div id="board-list">
+			<div class="container">
+				<table class="board-table">
+					<thead>
+						<tr>
+							<th scope="col" class="th-num">글번호</th>
+							<th scope="col" class="th-title">제목</th>
+							<th scope="col" class="th-writer">작성자</th>
+							<th scope="col" class="th-date">작성일</th>
+							<th scope="col" class="th-readnum">조회수</th>
+						</tr>
+					</thead>
+					<!-- 데이터가 없을 때 -->
+					<tr th:if="${#lists.isEmpty(bPage.boardList)}">
+						<td colspan="5">작성된 게시글이 존재하지 않습니다.</td>
+					</tr>
+					<tr th:if="${!#lists.isEmpty(bPage.boardList)}"
+						th:each="boardVO : ${bPage.boardList}">
+						<td th:text="${boardVO.bNum}"></td>
+						<td><a th:href="@{/reviews/read(bNum=${boardVO.bNum})}"
+							th:text="${boardVO.bTitle}"></a></td>
+						<td th:text="${boardVO.bWriter}"></td>
+						<td
+							th:text="${#dates.format(boardVO.bWriteDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+						<td th:text="${boardVO.bReadCount}"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div id="board-search">
+			<div class="container">
+				<div class="search-window">
+					<div class="search-wrap">
+						<label for="search" class="blind">리뷰 검색</label> <input
+							onchange="search_set()" id="search" type="search"
+							placeholder="검색어를 입력하세요" name="search">
+						<button class="btn btn-dark" onclick="search_com()">검색</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 		<!-- 하단 페이지 링크 부분 -->
 		<!-- 타임리프에서 페이징처리할 때 html단에서 사용하기 위해 
 		numbers.sequence(start,end)형태로 작성 -->
-		<div id="page" th:if="${!#lists.isEmpty(bPage.boardList)}"  
+		<div id="page" th:if="${!#lists.isEmpty(bPage.boardList)}"
 			th:each="p : ${#numbers.sequence(bPage.startPage,bPage.endPage)}">
 			<a th:text="${p}" th:href="@{/reviews(page=${p})}"></a>
 		</div>
-		<br>
-	<input onchange="search_set()" id="search-text" type="search" placeholder="검색어를 입력하세요" name="search">
-	<button onclick="search_com()">검색</button>
-		<br>
-	<a href="/reviews/write">
-		<button>글쓰기</button>
-	</a>
-	<br>
-	<a href="/">메인으로 돌아가기</a>
+		<br> <br> <a href="/reviews/write">
+			<button>글쓰기</button>
+		</a> <br> <a href="/">메인으로 돌아가기</a>
+	</section>
 </body>
 </html>

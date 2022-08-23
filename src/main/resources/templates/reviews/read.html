@@ -4,44 +4,108 @@
 <meta charset="UTF-8">
 <title>리뷰 상세페이지</title>
 <script th:inline="javascript">
-	
-	function del(){
+	function del() {
 		var result = confirm("정말로 삭제하시겠습니까?")
-		if (result){
+		if (result) {
 			location.href = `delete?bNum=[[${board.bNum}]]`
 		}
 		return false;
 	}
-	
-
 </script>
+<link th:href="@{/css/nav.css}" rel="stylesheet" />
+<style type="text/css">
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+section.notice {
+	padding: 80px 0;
+}
+
+.board-table {
+	font-size: 13px;
+	width: 100%;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+.board-table a {
+	color: #333;
+	display: inline-block;
+	line-height: 1.4;
+	word-break: break-all;
+	vertical-align: middle;
+}
+
+.board-table a:hover {
+	text-decoration: underline;
+}
+
+.board-table th {
+	text-align: center;
+}
+
+.board-table .th-num {
+	width: 100px;
+	text-align: center;
+}
+
+.board-table .th-date {
+	width: 200px;
+}
+
+.board-table th, .board-table td {
+	padding: 14px 0;
+}
+
+.board-table tbody td {
+	border-top: 1px solid #e7e7e7;
+	text-align: center;
+	border: 1px solid #444444;
+}
+
+.board-table tbody th {
+	padding-left: 28px;
+	padding-right: 14px;
+	border-top: 1px solid #e7e7e7;
+	text-align: left;
+}
+
+.board-table tbody th p {
+	display: none;
+}
+</style>
 </head>
 <body>
-<table border="1">
-	<tr>
-		<td>제목  </td>
-		<td th:text="${board.bTitle}" >
-	</tr>
-	<tr>
-		<td>작성자  </td>
-		<td th:text="${board.bWriter}">
-	</tr>
-	<tr>
-		<td>작성날짜  </td>
-		<td th:text="${board.bWriteDate}">
-	</tr>
-	<tr>
-		<td>조회수  </td>
-		<td th:text="${board.bReadCount}">
-	</tr>
-	<tr>
-		<td>내용  </td>
-		<td th:text="${board.bContent}">
-	</tr>
-</table>
-<a href="/reviews">목록</a>
-<a th:href="@{/reviews/update(bNum=${board.bNum})}" th:if="${loginId==board.bWriter}">수정</a>
-<a th:onclick="del()" href="#" th:if="${loginId==board.bWriter}">삭제</a>
-
+	<div th:replace="/index.html :: fragment-nav"></div>
+	<section class="notice">
+		<table class="board-table">
+			<tr>
+				<td>제목</td>
+				<td th:text="${board.bTitle}">
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td th:text="${board.bWriter}">
+			</tr>
+			<tr>
+				<td>작성날짜</td>
+				<td th:text="${board.bWriteDate}">
+			</tr>
+			<tr>
+				<td>조회수</td>
+				<td th:text="${board.bReadCount}">
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td th:text="${board.bContent}">
+			</tr>
+		</table>
+		<a href="/reviews">목록</a> <a
+			th:href="@{/reviews/update(bNum=${board.bNum})}"
+			th:if="${loginId==board.bWriter}">수정</a> <a th:onclick="del()"
+			href="#" th:if="${loginId==board.bWriter}">삭제</a>
+	</section>
 </body>
 </html>

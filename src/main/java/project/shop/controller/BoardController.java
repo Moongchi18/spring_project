@@ -36,7 +36,9 @@ public class BoardController {
 	public ModelAndView boardSearch(@RequestParam(defaultValue = "1")int page, String search) {
 		ModelAndView mv = new ModelAndView();
 		int bType=2;
+		System.out.println("search : " + search);
 		mv.addObject("bPage", service.boardSearch(bType, search, page));
+		System.out.println(service.boardSearch(bType, search, page));
 		mv.addObject("search", search);
 		mv.setViewName("reviews/search");
 		return mv;

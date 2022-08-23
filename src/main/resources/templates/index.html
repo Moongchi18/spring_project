@@ -19,42 +19,11 @@
 
 	}
 </script>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
 <style type="text/css">
-	#menu{
-		width:1800px;
-		height:35px;
-	}
-	#menu ul li{
-		background-color: #666;
-		list-style: none;
-		vertical-align:middle;
-		text-align:center;
-		width:150px;
-		height:35px;
-		line-height: 34.2px;
-	}
-	#menu .link{
-		width:190px;
-		text-decoration:none;
-		display:block;
-		color:#fff;
-		font-weight:bold;
-	}
-	#menu .link:hover{
-		background-color:#666;
-		color:#ff42e7;
-	}
-	#log-wrapper>div>ul>li{
-		float:right;
-	}
-	#menu-list>ul>li{
-		float:left;
-	}
-	#title{
+	.best-item{
 	text-align:center;
-	}
-	.log{
-	text-align:right;
+	margin:auto;
 	}
 	.list-wrapper{
 		display:flex;
@@ -94,6 +63,8 @@
 		position:relative;
 		width:410px;
 		height: 410px;
+		text-align:center;
+		vertical-align:middle;
 		
 	}
 	.item-explain{
@@ -107,11 +78,6 @@
 	    position: absolute;
 
 		}
-	a {
-		color:black;
-		text-decoration: none;
-		
-	}
 	
 	.item-click{
 		z-index:15;
@@ -122,10 +88,7 @@
 		padding:10px;
 		padding-bottom: 117px;
 	}
-	.search-wrapper{
-		float: right;
-		margin-right: 10px;
-	}
+
 
 	
 </style>
@@ -219,7 +182,8 @@
 		</li>
 	</ul>
 </div>
-<div>
+<h3 class="best-item">인기상품</h3>
+<div class="best-item">
 	<a class="item-click" th:href="@{/items/read(iNum=${readcountbest.iNum})}" ></a>
 			<div class="item-wrapper">
 				<div class="item-picture" >

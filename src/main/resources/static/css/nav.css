@@ -1,0 +1,47 @@
+@charset "EUC-KR";
+
+#menu{
+		width:1800px;
+		height:35px;
+	}
+	#menu ul li{
+		background-color: #666;
+		list-style: none;
+		vertical-align:middle;
+		text-align:center;
+		width:150px;
+		height:35px;
+		line-height: 34.2px;
+	}
+	#menu .link{
+		width:190px;
+		text-decoration:none;
+		display:block;
+		color:#fff;
+		font-weight:bold;
+	}
+	#menu .link:hover{
+		background-color:#666;
+		color:#ff42e7;
+	}
+	#log-wrapper>div>ul>li{
+		float:right;
+	}
+	#menu-list>ul>li{
+		float:left;
+	}
+	#title{
+	text-align:center;
+	}
+	.log{
+	text-align:right;
+	}
+	.search-wrapper{
+		float: right;
+		margin-right: 10px;
+	}
+	a {
+		color:black;
+		text-decoration: none;
+		
+	}
