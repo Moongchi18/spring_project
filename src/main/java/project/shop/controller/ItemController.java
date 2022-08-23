@@ -238,8 +238,9 @@ public class ItemController {
 		ModelAndView mv = new ModelAndView();
 		String loginId = (String)session.getAttribute("loginId");
 		MemberVO member =  memberService.select(order.getmId());
-		order.setmNum(member.getM_num());
 		
+		order.setmNum(member.getM_num());
+		System.out.println(order);
 		boolean result = orderService.createOrder(order, loginId);
 		if(result) {
 			mv.setViewName("items/purchase-request");

@@ -23,7 +23,7 @@
 			</li>
 			<li>
 				<span class="list-name">상품명</span>
-				<input class="list-content" readonly="readonly" th:value="${item.iName}">
+				<input class="list-content" name="iName" readonly="readonly" th:value="${item.iName}">
 			</li>
 			<li>
 				<span class="list-name">색상</span>
@@ -59,7 +59,7 @@
 			</li>
 		</ul>
 		<input type="hidden" name="mId" th:value="${session.loginId}">
-		<input type="hidden" name="iRegister" th:value="item.iRegister">
+		<input type="hidden" name="iRegister" th:value="${item.iRegister}">
 		<input type="submit" value="구매하기">
 	</form>
 </div>

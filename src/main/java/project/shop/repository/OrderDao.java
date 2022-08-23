@@ -38,4 +38,9 @@ public class OrderDao {
 		return mapper.selectOrderList(loginId, startRow, count);
 	}
 	
+	public List<OrderVO> selectOrderById(String loginId){
+		OrderMapper mapper = session.getMapper(OrderMapper.class);
+		return mapper.selectOrderById(loginId);
+	}
+	
 }

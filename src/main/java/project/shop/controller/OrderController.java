@@ -1,5 +1,7 @@
 package project.shop.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +24,13 @@ public class OrderController {
 	}
 	///////////////////////////////////////
 	@GetMapping("/sales")
-	public ModelAndView createOrder(@RequestParam(defaultValue = "1")int page,OrderVO order, HttpSession session) {
+	public ModelAndView createOrder(@RequestParam(defaultValue = "1")int page, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		String loginId = (String)session.getAttribute("loginId");
-		System.out.println(order);
-		if(order.getiRegister().equals(loginId)){
-			mv.addObject("order", service.makeOrderPage(loginId, page));
-			mv.setViewName("sales/list");
-		} else {
-			mv.addObject("message", "잘못된 접근입니다.");
-			mv.setViewName("member/login_form");
-		}
-		
+		System.out.println("/sales : " + service.selectOrderById(loginId));
+		System.out.println("/sales page : " + service.makeOrderPage(loginId, page));
+		mv.addObject("pageList", service.makeOrderPage(loginId, page));
+		mv.setViewName("sales/list");
 		return mv;
 	}
 	

@@ -29,7 +29,7 @@
 		list-style: none;
 		vertical-align:middle;
 		text-align:center;
-		width:200px;
+		width:150px;
 		height:35px;
 		line-height: 34.2px;
 	}
@@ -122,6 +122,10 @@
 		padding:10px;
 		padding-bottom: 117px;
 	}
+	.search-wrapper{
+		float: right;
+		margin-right: 10px;
+	}
 
 	
 </style>
@@ -137,6 +141,8 @@
 		<li><a th:href="@{/items(iType=2)}">하의</a></li>
 		<li><a th:href="@{/items(iType=3)}">기타</a></li>
 		<li><a href="/reviews">리뷰 게시판</a></li>
+		<li><a href="/sales" th:if="${session.m_type > 2}">판매관리</a></li>
+		
 	</ul>
 </div>
 <div id="log-wrapper">
@@ -145,6 +151,7 @@
 		<ul>
 			<li><a href="logout">로그아웃</a></li>
 			<li><a href="myPage">내정보</a></li>
+			
 		</ul>
 	</div>
 	
@@ -153,20 +160,16 @@
 		<ul>
 			<li><a href="loginForm">로그인</a></li>
 			<li><a href="joinForm">회원가입</a></li>
-		</ul>
+<!-- 			<li><button onclick="search_com()">검색</button></li>
+			<li><input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요" name="search"></li>
+ -->		</ul>
 	</div>
+	<div class="search-wrapper">
+		<input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요" name="search">
+		<button onclick="search_com()">검색</button>
+	</div>
+	
 </div>
-<<<<<<< HEAD
-<div>
-	<a th:href="@{/items(iType=0)}">전체상품</a>
-	<a th:href="@{/items(iType=1)}">상의</a>
-	<a th:href="@{/items(iType=2)}">하의</a>
-	<a th:href="@{/items(iType=3)}">기타</a>
-	<a href="/reviews">리뷰 게시판</a>
-	<a href="/sales" th:if="${session.m_type > 2}">판매관리</a>
-=======
-	<input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요" name="search">
-	<button onclick="search_com()">검색</button>	
 </nav>
 <div id="demo" class="carousel slide" data-ride="carousel">
   <ul class="carousel-indicators">
@@ -194,7 +197,6 @@
     <span class="carousel-control-next-icon"></span>
   </a>
 
->>>>>>> c762ebd40eb65d4333c325a3001d0cea7f6e642c
 </div>
 
 <div class="list-wrapper">

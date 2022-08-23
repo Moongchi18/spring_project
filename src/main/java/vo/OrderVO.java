@@ -7,6 +7,7 @@ public class OrderVO {
 	private int oNum;
 	private Date oDate;
 	private int iNum;
+	private String iName;
 	private String iRegister;
 	private String ioColor;
 	private String ioOption;
@@ -22,6 +23,12 @@ public class OrderVO {
 	private String oDeliveryStatus;
 
 
+	public String getiName() {
+		return iName;
+	}
+	public void setiName(String iName) {
+		this.iName = iName;
+	}
 	public String getiRegister() {
 		return iRegister;
 	}
@@ -120,13 +127,11 @@ public class OrderVO {
 	}
 	@Override
 	public String toString() {
-		return "OrderVO [oNum=" + oNum + ", oDate=" + oDate + ", iNum=" + iNum + ", iRegister=" + iRegister
-				+ ", ioColor=" + ioColor + ", ioOption=" + ioOption + ", mNum=" + mNum + ", mId=" + mId + ", iPrice="
-				+ iPrice + ", oCount=" + oCount + ", oDeliveryFee=" + oDeliveryFee + ", oPrice=" + oPrice
+		return "OrderVO [oNum=" + oNum + ", oDate=" + oDate + ", iNum=" + iNum + ", iName=" + iName + ", iRegister="
+				+ iRegister + ", ioColor=" + ioColor + ", ioOption=" + ioOption + ", mNum=" + mNum + ", mId=" + mId
+				+ ", iPrice=" + iPrice + ", oCount=" + oCount + ", oDeliveryFee=" + oDeliveryFee + ", oPrice=" + oPrice
 				+ ", oAddress=" + oAddress + ", oRequest=" + oRequest + ", oStatus=" + oStatus + ", oDeliveryStatus="
 				+ oDeliveryStatus + "]";
 	}
-	
-	
 
 }

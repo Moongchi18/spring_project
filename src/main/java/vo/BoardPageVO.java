@@ -94,8 +94,9 @@ public class BoardPageVO {
 
 	@Override
 	public String toString() {
-		return "BoardPageVO [boardList=" + boardList + ", itemList=" + itemList + ", currentPage=" + currentPage
-				+ ", startPage=" + startPage + ", endPage=" + endPage + ", totalPage=" + totalPage + "]";
+		return "BoardPageVO [boardList=" + boardList + ", itemList=" + itemList + ", orderList=" + orderList
+				+ ", currentPage=" + currentPage + ", startPage=" + startPage + ", endPage=" + endPage + ", totalPage="
+				+ totalPage + "]";
 	}
 	
 	

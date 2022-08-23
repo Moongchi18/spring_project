@@ -34,6 +34,11 @@ public class OrderService {
 		}
 	}
 	
+	public List<OrderVO> selectOrderById(String loginId){
+		
+		return dao.selectOrderById(loginId);
+	}
+	
 	public boolean createOrder(OrderVO order, String loginId) {
 		
 		boolean result;

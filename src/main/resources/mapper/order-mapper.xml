@@ -8,8 +8,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	
 	<insert id="insertOrder" parameterType="vo.OrderVO">
-		INSERT INTO ORDER_LIST(I_NUM,I_REGISTER,IO_COLOR,IO_OPTION,M_NUM,M_ID,I_PRICE,O_COUNT,O_DELIVERY_FEE,O_PRICE,O_ADDRESS,O_REQUEST,O_STATUS,O_DELIVERY_STATUS)
-					VALUES(#{iNum},#{iRegister},#{ioColor},#{ioOption},#{mNum},#{mId},#{iPrice},#{oCount},#{oDeliveryFee},#{oPrice},#{oAddress},#{oRequest},#{oStatus},#{oDeliveryStatus})
+		INSERT INTO ORDER_LIST(I_NUM,I_NAME,I_REGISTER,IO_COLOR,IO_OPTION,M_NUM,M_ID,I_PRICE,O_COUNT,O_DELIVERY_FEE,O_PRICE,O_ADDRESS,O_REQUEST,O_STATUS,O_DELIVERY_STATUS)
+					VALUES(#{iNum},#{iName},#{iRegister},#{ioColor},#{ioOption},#{mNum},#{mId},#{iPrice},#{oCount},#{oDeliveryFee},#{oPrice},#{oAddress},#{oRequest},#{oStatus},#{oDeliveryStatus})
 	</insert>
 	
 	<select id="selectOrder" resultMap="orderResultMap">
@@ -18,6 +18,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 	<select id="selectOrderCount" resultType="int">
 		SELECT COUNT(*) FROM ORDER_LIST WHERE I_REGISTER=#{loginId}
+	</select>
+	
+	<select id="selectOrderById" resultMap="orderResultMap">
+		SELECT * FROM ORDER_LIST WHERE I_REGISTER=#{loginId} ORDER BY O_NUM DESC LIMIT 1
 	</select>
 	
 	<select id="selectOrderList" resultMap="orderResultMap">
@@ -29,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<result column="o_num" property="oNum" />
 		<result column="o_date" property="oDate" />
 		<result column="i_num" property="iNum" />
+		<result column="i_name" property="iName" />
 		<result column="i_register" property="iRegister" />
 		<result column="io_color" property="ioColor" />
 		<result column="io_option" property="ioOption" />

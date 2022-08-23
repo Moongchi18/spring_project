@@ -6,7 +6,7 @@
 </head>
 <body>
 <div>
-	<table th:each="o : ${order}">
+	<table>
 		<tr>
 			<th>주문번호</th>
 			<th>주문날짜</th>
@@ -18,16 +18,16 @@
 			<th>주문상태</th>
 			<th>배송상태</th>
 		</tr>
-		<tr>
-			<td th:text="o.oNum"></td>
-			<td th:text="o.oDate"></td>
-			<td th:text="o.iNum"></td>
-		<td th:text="iName"></td>
-			<td th:text="o.mId"></td>
-			<td th:text="o.oPrice"></td>
-			<td th:text="o.oAddress"></td>
-			<td th:text="o.oStatus"></td>
-			<td th:text="o.oDeliveryStatus"></td>
+		<tr th:each="o : ${pageList.orderList}">
+			<td th:text="${o.oNum}"></td>
+			<td th:text="${o.oDate}"></td>
+			<td th:text="${o.iNum}"></td>
+			<td th:text="${o.iName}"></td>
+			<td th:text="${o.mId}"></td>
+			<td th:text="${o.oPrice}"></td>
+			<td th:text="${o.oAddress}"></td>
+			<td th:text="${o.oStatus}"></td>
+			<td th:text="${o.oDeliveryStatus}"></td>
 		</tr>
 	</table>
 </div>
