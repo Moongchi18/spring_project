@@ -89,6 +89,15 @@ public class OrderService {
 		}	
 		return result;
 	}
+	public boolean updateOrderRequest(OrderVO order, String loginId) {
+		boolean result=false;
+		
+		if(order.getmId().equals(loginId)) {
+			int update = dao.updateOrderRequest(order);
+			result = update == 1 ? true:false;
+		}	
+		return result;
+	}
 	public BoardPageVO MyOrderPage(String loginId, int currentPage){
 		int totalCount = dao.selectOrderCount(loginId);
 		int totalPage = totalCount / COUNT_PER_PAGE;

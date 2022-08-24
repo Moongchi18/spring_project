@@ -62,6 +62,21 @@ public class OrderController {
 		
 		return mv;
 	}
+	@PostMapping("/myPage/MyOrder/update")
+	public ModelAndView updateOrderRequest(OrderVO order, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String loginId = (String)session.getAttribute("loginId");
+		
+		System.out.println(order);
+		boolean result = service.updateOrderRequest(order, loginId);
+		if(result) {
+			mv.setViewName("redirect:/myPage/MyOrder");
+		}else {
+			mv.addObject("message","잘못된 접근입니다.");
+			mv.setViewName("member/login_form");
+		}
+		return mv;
+	}
 	
 	@GetMapping("sales/read")
 	public ModelAndView readOrder(int oNum, HttpSession session) {

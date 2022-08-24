@@ -8,8 +8,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<!-- 주문내역 작성 -->
 	<insert id="insertOrder" parameterType="vo.OrderVO">
-		INSERT INTO ORDER_LIST(I_NUM,I_NAME,I_REGISTER,IO_COLOR,IO_OPTION,M_NUM,M_ID,I_PRICE,O_COUNT,O_DELIVERY_FEE,O_PRICE,O_ADDRESS,O_REQUEST,O_STATUS,O_DELIVERY_STATUS)
-					VALUES(#{iNum},#{iName},#{iRegister},#{ioColor},#{ioOption},#{mNum},#{mId},#{iPrice},#{oCount},#{oDeliveryFee},#{oPrice},#{oAddress},#{oRequest},#{oStatus},#{oDeliveryStatus})
+		INSERT INTO ORDER_LIST(I_NUM,I_NAME,I_REGISTER,IO_COLOR,IO_OPTION,M_NUM,M_ID,I_PRICE,O_COUNT,O_DELIVERY_FEE,O_PRICE,O_ADDRESS,O_REQUEST,O_STATUS,O_MEMBER_REQUEST)
+					VALUES(#{iNum},#{iName},#{iRegister},#{ioColor},#{ioOption},#{mNum},#{mId},#{iPrice},#{oCount},#{oDeliveryFee},#{oPrice},#{oAddress},#{oRequest},#{oStatus},#{oMemberRequest})
 	</insert>
 	
 	<!-- 주문내역 선택 -->
@@ -30,9 +30,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</select>
 	
 	<update id="updateOrderStatus" parameterType="vo.OrderVO">
-		UPDATE ORDER_LIST SET O_STATUS=#{oStatus}, O_DELIVERY_STATUS=#{oDeliveryStatus} WHERE O_NUM=#{oNum}
+		UPDATE ORDER_LIST SET O_STATUS=#{oStatus} WHERE O_NUM=#{oNum}
 	</update>
 
+	<update id="updateOrderRequest" parameterType="vo.OrderVO">
+		UPDATE ORDER_LIST SET O_MEMBER_REQUEST=#{oMemberRequest} WHERE O_NUM=#{oNum}
+	</update>
 	<!-- 구매자 주문내역 불러오기 -->
  	<select id="selectMyOrderList" resultMap="orderResultMap">
 		SELECT * FROM ORDER_LIST WHERE M_ID=#{loginId} ORDER BY O_NUM DESC LIMIT #{startRow},#{count}
@@ -55,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<result column="o_address" property="oAddress" />
 		<result column="o_request" property="oRequest" />
 		<result column="o_status" property="oStatus" />
-		<result column="o_delivery_status" property="oDeliveryStatus" />
+		<result column="o_member_request" property="oMemberRequest" />
 	</resultMap>
 
 </mapper>

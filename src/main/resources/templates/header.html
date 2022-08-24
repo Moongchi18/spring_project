@@ -40,8 +40,8 @@
 			<!-- 검색기능 -->
 			<div class=log th:unless="${session.loginId==null}">	
 				<ul>
-					<li><a href="logout"><img src="../logo/logout.png" alt=""></a></li>
-					<li><a href="myPage"><img src="../logo/mypage.png" alt=""></a></li>
+					<li><a href="/logout"><img src="../logo/logout.png" alt=""></a></li>
+					<li><a href="/myPage"><img src="../logo/mypage.png" alt=""></a></li>
 					
 				</ul>
 			</div>
@@ -49,8 +49,8 @@
 				
 			<div class=log th:if="${session.loginId==null}">
 				<ul>
-					<li><a href="loginForm"><img src="../logo/login.png" alt=""></a></li>
-					<li><a href="joinForm"><img src="../logo/join.png" alt=""></a></li>
+					<li><a href="/loginForm"><img src="../logo/login.png" alt=""></a></li>
+					<li><a href="/joinForm"><img src="../logo/join.png" alt=""></a></li>
 				</ul>
 			</div>
 			<div class="search-wrapper">

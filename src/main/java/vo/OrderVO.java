@@ -20,7 +20,7 @@ public class OrderVO {
 	private String oAddress;
 	private String oRequest;
 	private String oStatus;
-	private String oDeliveryStatus;
+	private String oMemberRequest;
 
 
 	public String getiName() {
@@ -119,19 +119,19 @@ public class OrderVO {
 	public void setoStatus(String oStatus) {
 		this.oStatus = oStatus;
 	}
-	public String getoDeliveryStatus() {
-		return oDeliveryStatus;
+	public String getoMemberRequest() {
+		return oMemberRequest;
 	}
-	public void setoDeliveryStatus(String oDeliveryStatus) {
-		this.oDeliveryStatus = oDeliveryStatus;
+	public void setoMemberRequest(String oMemberRequest) {
+		this.oMemberRequest = oMemberRequest;
 	}
 	@Override
 	public String toString() {
 		return "OrderVO [oNum=" + oNum + ", oDate=" + oDate + ", iNum=" + iNum + ", iName=" + iName + ", iRegister="
 				+ iRegister + ", ioColor=" + ioColor + ", ioOption=" + ioOption + ", mNum=" + mNum + ", mId=" + mId
 				+ ", iPrice=" + iPrice + ", oCount=" + oCount + ", oDeliveryFee=" + oDeliveryFee + ", oPrice=" + oPrice
-				+ ", oAddress=" + oAddress + ", oRequest=" + oRequest + ", oStatus=" + oStatus + ", oDeliveryStatus="
-				+ oDeliveryStatus + "]";
+				+ ", oAddress=" + oAddress + ", oRequest=" + oRequest + ", oStatus=" + oStatus + ", oMemberRequest="
+				+ oMemberRequest + "]";
 	}
 
 }
