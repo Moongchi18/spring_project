@@ -17,11 +17,18 @@
 </script>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
 <style type="text/css">
+	.link-wrapper{
+		position: relative;
+		top: 60px;
+	}
 	#page{
 		float:left;
 		letter-spacing: 5px;
 	}
 	.list-wrapper{
+		position:relative;
+		top:200px;
+		
 		display:flex;
 		flex-wrap:wrap;
 		padding:15px;
@@ -91,23 +98,24 @@
 </head>
 <body>
 <nav th:replace="/header.html :: fragment-nav"></nav>
-<br>
-<a th:href="@{items(iType=0)}">전체목록</a>
-<br>
-<a class="list_type_item" th:href="@{/items(iType=${allTypeString[0].iType})}" th:text="${allTypeString[0].iTypeString}"></a>
-<br>
-	<a class="list_type_item" th:each="s : ${allTypeString}" th:href="@{items(iType=${s.iType})}" th:text="${s.iTypeString} + '  '" th:if="${s.iType>=10 && s.iType<20}"></a>
-<br>
-<a class="list_type_item" th:href="@{/items(iType=${allTypeString[1].iType})}" th:text="${allTypeString[1].iTypeString}"></a>
-<br>
-	<a class="list_type_item" th:each="s : ${allTypeString}" th:href="@{items(iType=${s.iType})}" th:text="${s.iTypeString} + '  '" th:if="${s.iType>=20 && s.iType<30}"></a>
-<br>
-<a class="list_type_item" th:href="@{/items(iType=${allTypeString[2].iType})}" th:text="${allTypeString[2].iTypeString}"></a>
-<br>
-	<a class="list_type_item" th:each="s : ${allTypeString}" th:href="@{items(iType=${s.iType})}" th:text="${s.iTypeString} + '  '" th:if="${s.iType>=30 && s.iType<40}"></a>
+<div class="link-wrapper">
+	<a th:href="@{items(iType=0)}">전체목록</a>
+	<br>
+	<a class="list_type_item" th:href="@{/items(iType=${allTypeString[0].iType})}" th:text="${allTypeString[0].iTypeString}"></a>
+	<br>
+		<a class="list_type_item" th:each="s : ${allTypeString}" th:href="@{items(iType=${s.iType})}" th:text="${s.iTypeString} + '  '" th:if="${s.iType>=10 && s.iType<20}"></a>
+	<br>
+	<a class="list_type_item" th:href="@{/items(iType=${allTypeString[1].iType})}" th:text="${allTypeString[1].iTypeString}"></a>
+	<br>
+		<a class="list_type_item" th:each="s : ${allTypeString}" th:href="@{items(iType=${s.iType})}" th:text="${s.iTypeString} + '  '" th:if="${s.iType>=20 && s.iType<30}"></a>
+	<br>
+	<a class="list_type_item" th:href="@{/items(iType=${allTypeString[2].iType})}" th:text="${allTypeString[2].iTypeString}"></a>
+	<br>
+		<a class="list_type_item" th:each="s : ${allTypeString}" th:href="@{items(iType=${s.iType})}" th:text="${s.iTypeString} + '  '" th:if="${s.iType>=30 && s.iType<40}"></a>
 
-
+</div>
 <h2 th:text="${typeString==null} ? '전체목록':${typeString.iTypeString}"></h2>
+
 <div class="list-wrapper" >
 	<ul class="list" th:each="i : ${iPage.itemList}">
 		<li class="items-wrapper">
