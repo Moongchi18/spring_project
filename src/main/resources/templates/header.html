@@ -4,14 +4,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<th:block th:fragment="script">
+	<script type="text/javascript">
+		var top_search_text = "test";
+		function top_search_set(){
+			top_search_text = document.getElementById('top-search-text').value;
+		}
+		
+		function top_search_com(){
+			console.log(top_search_text);
+	 		location.href = `/items/search?search=${top_search_text}`;
+	
+		}
+	</script>
+</th:block>
+
 </head>
 <body>
 <header >
 <nav id=menu th:fragment="fragment-nav">
-	<div id=title><h1 style="font-size:0;"><a href="/" style="font-size:35px;">쇼핑몰!</a></h1></div>
 	<div id=topbar-wrapper>
 		<div id="menu-list">
 			<ul>
+				<li id=title><h1><a href="/" >쇼핑몰!</a></h1></li>
 				<li><a th:href="@{/items(iType=0)}">전체상품</a></li>
 				<li><a th:href="@{/items(iType=1)}">상의</a></li>
 				<li><a th:href="@{/items(iType=2)}">하의</a></li>
@@ -25,8 +40,8 @@
 			<!-- 검색기능 -->
 			<div class=log th:unless="${session.loginId==null}">	
 				<ul>
-					<li><a href="logout">로그아웃</a></li>
-					<li><a href="myPage">내정보</a></li>
+					<li><a href="logout"><img src="../logo/logout.png" alt=""></a></li>
+					<li><a href="myPage"><img src="../logo/mypage.png" alt=""></a></li>
 					
 				</ul>
 			</div>
@@ -34,15 +49,13 @@
 				
 			<div class=log th:if="${session.loginId==null}">
 				<ul>
-					<li><a href="loginForm">로그인</a></li>
-					<li><a href="joinForm">회원가입</a></li>
-		<!-- 			<li><button onclick="search_com()">검색</button></li>
-					<li><input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요" name="search"></li>
-		 -->		</ul>
+					<li><a href="loginForm"><img src="../logo/login.png" alt=""></a></li>
+					<li><a href="joinForm"><img src="../logo/join.png" alt=""></a></li>
+				</ul>
 			</div>
 			<div class="search-wrapper">
-				<input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요" name="search">
-				<button onclick="search_com()">검색</button>
+				<input onchange="top_search_set()" id="top-search-text" type="text" placeholder="검색어를 입력하세요">
+				<button onclick="top_search_com()">검색</button>
 			</div>
 			
 		</div>

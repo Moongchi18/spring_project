@@ -132,13 +132,11 @@
 			<a th:text="${p}" th:href="@{/items(iType=${type},page=${p})}"></a>
 		</div>
 		<br>
-	<input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요" name="search">
+	<input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요">
 	<button onclick="search_com()">검색</button>
 		<br>
 		<br>
-	<!-- <a href="/items/write"  th:if="{session.m_type==2}"> -->
- 	<a href="/items/write"></a>
- 	<a href="/items/write" th:if="${session.m_type>1}">
+ 	<a href="/items/write" th:if="${session.m_type>2}">
 		<button>상품등록</button>
 	</a>
 	<br>
