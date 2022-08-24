@@ -4,7 +4,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
-<th:block th:fragment="script">
+
+</head>
+<body>
+<header >
+<nav id=menu th:fragment="fragment-nav">
 	<script type="text/javascript">
 		var top_search_text = "test";
 		function top_search_set(){
@@ -17,12 +21,7 @@
 	
 		}
 	</script>
-</th:block>
-
-</head>
-<body>
-<header >
-<nav id=menu th:fragment="fragment-nav">
+	
 	<div id=topbar-wrapper>
 		<div id="menu-list">
 			<ul>
@@ -40,8 +39,8 @@
 			<!-- 검색기능 -->
 			<div class=log th:unless="${session.loginId==null}">	
 				<ul>
-					<li><a href="logout"><img src="../logo/logout.png" alt=""></a></li>
-					<li><a href="myPage"><img src="../logo/mypage.png" alt=""></a></li>
+					<li><a href="/logout"><img src="../logo/logout.png" alt=""></a></li>
+					<li><a href="/myPage"><img src="../logo/mypage.png" alt=""></a></li>
 					
 				</ul>
 			</div>
@@ -49,8 +48,8 @@
 				
 			<div class=log th:if="${session.loginId==null}">
 				<ul>
-					<li><a href="loginForm"><img src="../logo/login.png" alt=""></a></li>
-					<li><a href="joinForm"><img src="../logo/join.png" alt=""></a></li>
+					<li><a href="/loginForm"><img src="../logo/login.png" alt=""></a></li>
+					<li><a href="/joinForm"><img src="../logo/join.png" alt=""></a></li>
 				</ul>
 			</div>
 			<div class="search-wrapper">

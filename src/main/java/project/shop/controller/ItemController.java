@@ -142,6 +142,7 @@ public class ItemController {
 	
 	@GetMapping("/items/read")
 	public ModelAndView itemRead(int iNum, HttpSession session) {
+		System.out.println(iNum);
 		ModelAndView mv = new ModelAndView();
 		String loginId = (String)session.getAttribute("loginId");
 		ItemVO item = service.read(iNum,loginId);

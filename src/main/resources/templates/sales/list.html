@@ -7,37 +7,35 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script th:inline="javascript">
 var count = '[[${allCount}]]'
+var oNumList = [];
+var oStatusList = [];
 
-var $oNumList = [];
-var $oStatusList = [];
+var selectBoxChange = function(value){
+	for(var i = 0; i<count; i++){
+		
+		oNumList.push($('#oNum'+i).val());
+		oStatusList.push($('#oStatus'+i).val());
+	}	
+}
+
 
 $(document).ready(function(){
-	for(var i = 0; i<count; i++){
-		$oNumList.push($('#oNum'+i).val());
-		$oStatusList.push($('#oStatus'+i).val());
-		console.log($oNumList[i]);
-		console.log($oStatusList[i]);
-
-	}
+	$("#updateAll").on("click", function(){
+		$.ajax({
+			url : "/sales/updateall",
+			type : "post",
+			data : {oNumList : oNumList,
+					oStatusList : oStatusList},
+			success : function(){
+				alert("전체수정에 성공했습니다.")
+			},
+			error : function(){
+				alert("값을 변경한 후 수정해주세요.")
+			}
+		})
+	})
 })
 
-var oNumList = "";
-
-
-$(function(){
-		$("#updateAll").on("click", function(){
-			$.ajax({
-				url : "/sales/updateall",
-				type : "post",
-				data : {oNumList : $oNumList},
-				success : function(){
-					console.log("success")
-				}
-			})
-		})
-		
-		
-	})
 </script>
 <style type="text/css">
 	.order-head-wrapper, .order-value-wrapper{
@@ -76,7 +74,7 @@ $(function(){
 			<span class="order-head">주문금액</span>
 			<span class="order-head">배송지</span>
 			<span class="order-head">주문상태</span>
-			<span class="order-head">배송상태</span>
+			<span class="order-head">고객요청</span>
 			<span class="order-head">수정</span>
 		</li>
 		<li th:each="o,i : ${pageList.OrderList}">
@@ -89,20 +87,15 @@ $(function(){
 				<span class="order-value" th:text="${o.oPrice}"></span>
 				<span class="order-value" th:text="${o.oAddress}"></span>
 				
-				<select class="order-value" th:id="'oStatus'+${i.index}" name="oStatus" th:value="${o.oStatus}">
+				<select class="order-value" th:id="'oStatus'+${i.index}" name="oStatus" th:value="${o.oStatus}" onchange="selectBoxChange(this.value)">
 					<option th:selected="${o.oStatus}=='판매대기'">판매대기</option>
 					<option th:selected="${o.oStatus}=='판매거절'">판매거절</option>
 					<option th:selected="${o.oStatus}=='판매승인'">판매승인</option>
 					<option th:selected="${o.oStatus}=='배송중'">배송중</option>
 					<option th:selected="${o.oStatus}=='판매완료'">판매완료</option>
-					<option th:selected="${o.oStatus}=='반품'">반품</option>
-					<option th:selected="${o.oStatus}=='교환'">교환</option>
+
 				</select>
-				<select class="order-value" id="oDeliveryStatus" name="oDeliveryStatus" th:value="${o.oDeliveryStatus}">
-					<option th:selected="${o.oDeliveryStatus}=='대기'" value="대기">대기</option>
-					<option th:selected="${o.oDeliveryStatus}=='배송시작'" value="배송시작">배송시작</option>
-					<option th:selected="${o.oDeliveryStatus}=='배송완료'" value="배송완료">배송완료</option>
-				</select>
+				<span class="order-value" th:text="${o.oMemberRequest}"></span>
 				
 				<input type="hidden" th:id="'oNum' + ${i.index}" name="oNum" th:value="${o.oNum}">
 				<input type="hidden" name="iNum" th:value="${o.iNum}">
@@ -111,12 +104,12 @@ $(function(){
 				<input type="hidden" name="mId" th:value="${o.mId}">
 				<input type="hidden" name="oPrice" th:value="${o.oPrice}">
 				<input type="hidden" name="oAddress" th:value="${o.oAddress}">
+				<input type="hidden" name="oMemberRequest" th:value="${o.oMemberRequest}">
 				
 				<input type="submit" value="수정하기">
 			</form>
 		</li>
 	</ul>
-	<input id="tt" value="12143">
 	<button id="updateAll">전체 수정</button>
 </div>
 </body>

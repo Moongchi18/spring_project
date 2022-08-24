@@ -1,61 +1,78 @@
 <!DOCTYPE html>
-<html xmlns:th = "http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>내 주문 목록 페이지</title>
-<link th:href="@{/css/nav.css}" rel="stylesheet"/>
-<link th:href="@{/css/index.css}" rel="stylesheet"/>
+<link th:href="@{/css/nav.css}" rel="stylesheet" />
+<link th:href="@{/css/index.css}" rel="stylesheet" />
 <style type="text/css">
-	.order-head-wrapper, .order-value-wrapper{
-		display:flex;
-		width: 1600px;
-		text-align: center;
-		margin: 20px;
-		padding:10px;
-	}
-	.order-head{
-		font-weight:bold;
-		width:150px;
-	}
-	.order-value{
-		width:150px;
-	}
-	li{
-		list-style:none; 
-	}
-	a{
-		text-decoration: none;
-		color:black;
-	}
+.order-head-wrapper, .order-value-wrapper {
+	display: flex;
+	width: 1600px;
+	text-align: center;
+	margin: 20px;
+	padding: 10px;
+}
+
+.order-head {
+	font-weight: bold;
+	width: 150px;
+}
+
+.order-value {
+	width: 150px;
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
 </style>
 </head>
 <body>
-<nav th:replace="/header.html :: fragment-nav"></nav>
-<div id="order-wrapper">
-	<ul>
-		<li class="order-head-wrapper">
-			<span class="order-head" >주문번호</span>
-			<span class="order-head">주문날짜</span>
-			<span class="order-head">상품번호</span>
-			<span class="order-head">상품명</span>
-			<span class="order-head">주문고객Id</span>
-			<span class="order-head">주문금액</span>
-			<span class="order-head">배송지</span>
-			<span class="order-head">주문상태</span>
-			<span class="order-head">배송상태</span>
-		</li>
-		<li class=order-value-wrapper th:each="mo: ${MyOrderList.OrderList}">
-			<span class="order-value" th:text="${mo.oNum}"></span>
-			<span class="order-value" th:text="${#dates.format(mo.oDate, 'yy.MM.dd')}"></span>
-			<span class="order-value" th:text="${mo.iNum}"></span>
-			<a class="order-value" th:text="${mo.iName}" th:href="@{/sales/read(oNum=${mo.oNum})}"></a>
-			<span class="order-value" th:text="${mo.mId}"></span>
-			<span class="order-value" th:text="${mo.oPrice}"></span>
-			<span class="order-value" th:text="${mo.oAddress}"></span>
-			<span class="order-value" th:text="${mo.oStatus}"></span>
-			<span class="order-value" th:text="${mo.oDeliveryStatus}"></span>
-		</li>
-	</ul>
-</div>
+	<nav th:replace="/header.html :: fragment-nav"></nav>
+	<div id="order-wrapper">
+		<ul>
+			<li class="order-head-wrapper">
+				<span class="order-head">주문번호</span>
+				<span class="order-head">주문날짜</span> 
+				<span class="order-head">상품명</span>
+				<span class="order-head">상품가격</span> 
+				<span class="order-head">배송지</span>
+				<span class="order-head">주문상태</span> 
+				<span class="order-head">고객요청</span>
+				<span class="order-head">요청</span>
+			</li>
+			<li th:each="mo: ${MyOrderList.OrderList}">
+				<form class="order-value-wrapper" action="/myPage/MyOrder/update" method="post">
+					<span class="order-value" th:text="${mo.oNum}"></span> 
+					<span class="order-value" th:text="${#dates.format(mo.oDate, 'yy.MM.dd')}"></span> 
+					<a class="order-value" th:text="${mo.iName}" th:href="@{/items/read(iNum=${mo.iNum})}"></a>
+					<span class="order-value" th:text="${mo.oPrice}"></span>
+					<span class="order-value" th:text="${mo.oAddress}"></span>
+					<span class="order-value" th:text="${mo.oStatus}"></span> 
+					
+					<select class="order-value" name="oMemberRequest" th:value="${mo.oMemberRequest}">
+						<option th:selected="${mo.oMemberRequest}=='교환요청'">교환요청</option>
+						<option th:selected="${mo.oMemberRequest}=='반품요청'">반품요청</option>
+					</select> 
+					
+					<input type="hidden" name="oNum" th:value="${mo.oNum}"> 
+					<input type="hidden" name="mId" th:value="${mo.mId}"> 
+					<input type="hidden" name="iNum" th:value="${mo.iNum}"> 
+					<input type="hidden" name="iName" th:value="${mo.iName}"> 
+					<input type="hidden" name="oPrice" th:value="${mo.oPrice}"> 
+					<input type="hidden" name="oAddress" th:value="${mo.oAddress}"> 
+					<input type="hidden" name="oStatus" th:value="${mo.oStatus}"> 
+					<input type="submit" value="수정하기">
+				</form>
+
+			</li>
+		</ul>
+	</div>
 </body>
 </html>

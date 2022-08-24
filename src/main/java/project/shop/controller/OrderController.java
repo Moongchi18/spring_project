@@ -63,18 +63,40 @@ public class OrderController {
 		return mv;
 	}
 	@PostMapping("/sales/updateall")
-	public ModelAndView updateAllOrder(@RequestParam(value = "oNumList[]")ArrayList<Integer> oNumList, HttpSession session) {
-		for(int a : oNumList) {
-			System.out.println(a);
+	public ModelAndView updateAllOrder(@RequestParam(value = "oNumList[]")ArrayList<Integer> oNumList, 
+			@RequestParam(value = "oStatusList[]")ArrayList<String> oStatus, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String loginId = (String)session.getAttribute("loginId");
+		System.out.println(loginId);
+		for(int i=0; i<oNumList.size(); i++) {
+			OrderVO order = service.readOrder(oNumList.get(i), loginId);
+			System.out.println(oStatus.get(i));
+			order.setoStatus(oStatus.get(i));
+			boolean result = service.updateOrderStatus(order, loginId);
+			if(!result) {
+				mv.addObject("message", "잘못된 접근입니다.");
+				mv.setViewName("member/login_form");
+				break;
+			}
 		}
 
-		ModelAndView mv = new ModelAndView();
-//		String loginId = (String)session.getAttribute("loginId");
-//		System.out.println(loginId);
-//		boolean result = service.updateOrderStatus(order, loginId);
-//		
 		mv.setViewName("redirect:/sales");
+		return mv;
+	}
 		
+	@PostMapping("/myPage/MyOrder/update")
+	public ModelAndView updateOrderRequest(OrderVO order, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String loginId = (String)session.getAttribute("loginId");
+		
+		System.out.println(order);
+		boolean result = service.updateOrderRequest(order, loginId);
+		if(result) {
+			mv.setViewName("redirect:/myPage/MyOrder");
+		}else {
+			mv.addObject("message","잘못된 접근입니다.");
+			mv.setViewName("member/login_form");
+		}
 		return mv;
 	}
 	

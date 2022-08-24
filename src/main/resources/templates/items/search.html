@@ -92,7 +92,7 @@
 </head>
 <body>
 <nav th:replace="/header.html :: fragment-nav"></nav>
-<a th:href="@{items(iType=0)}">전체목록</a>
+<a th:href="@{/items(iType=0)}">전체목록</a>
 <br>
 <a class="list_type_item" th:href="@{/items(iType=${allTypeString[0].iType})}" th:text="${allTypeString[0].iTypeString}"></a>
 <br>

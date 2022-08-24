@@ -81,13 +81,9 @@
 			</td>
 		</tr>
 		<tr>
-			<th>배송상태</th>
+			<th>고객 요구사항</th>
 			<td>
-				<select class="order-value" name="oDeliveryStatus" th:value="${o.oDeliveryStatus}">
-					<option th:selected="${o.oDeliveryStatus}=='대기'" value="대기">대기</option>
-					<option th:selected="${o.oDeliveryStatus}=='배송시작'" value="배송시작">배송시작</option>
-					<option th:selected="${o.oDeliveryStatus}=='배송완료'" value="배송완료">배송완료</option>
-				</select>
+				<input class="order-value" th:value="${o.oMemberRequest}" readonly="readonly"></input>
 			</td>
 		</tr>
 	</table>
