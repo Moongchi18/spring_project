@@ -77,7 +77,10 @@ table {
 		text-align:left;
 	    /* font-size: 2.5rem !important; */
 	    margin-bottom: 5px;
-	    font-size: 35px
+	    font-size: 35px;
+		font-family: 'DynaPuff', cursive;
+		font-family: 'Source Sans Pro', sans-serif;
+
 	}
 	#title>a{
 		font-size: 35px;

@@ -30,7 +30,7 @@ public class OrderController {
 	public ModelAndView createOrder(@RequestParam(defaultValue = "1")int page, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		String loginId = (String)session.getAttribute("loginId");
-		
+		mv.addObject("allCount", service.selectOrderCount(loginId));
 		mv.addObject("pageList", service.makeOrderPage(loginId, page));
 		mv.setViewName("sales/list");
 		return mv;
@@ -59,6 +59,21 @@ public class OrderController {
 			mv.addObject("message", "잘못된 접근입니다.");
 			mv.setViewName("member/login_form");
 		}
+		
+		return mv;
+	}
+	@PostMapping("/sales/updateall")
+	public ModelAndView updateAllOrder(@RequestParam(value = "oNumList[]")ArrayList<Integer> oNumList, HttpSession session) {
+		for(int a : oNumList) {
+			System.out.println(a);
+		}
+
+		ModelAndView mv = new ModelAndView();
+//		String loginId = (String)session.getAttribute("loginId");
+//		System.out.println(loginId);
+//		boolean result = service.updateOrderStatus(order, loginId);
+//		
+		mv.setViewName("redirect:/sales");
 		
 		return mv;
 	}
