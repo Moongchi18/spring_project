@@ -4,9 +4,15 @@
 <meta charset="UTF-8">
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
 <title>마이페이지</title>
+<style type="text/css">
+.wrapper{
+	margin-top:100px;
+}
+</style>
 </head>
 <body>
 <nav th:replace="/header.html :: fragment-nav"></nav>
+<div class=wrapper>	
 	<h2>내 정보</h2>
 	
 	<table>
@@ -41,6 +47,7 @@
 		</tr>
 
 	</table>
+	</div>
 	
 		<a href="/">[메인으로]</a>
 		<a href="/logout">[로그아웃]</a>
