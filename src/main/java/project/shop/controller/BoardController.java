@@ -1,5 +1,7 @@
 package project.shop.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.shop.service.BoardService;
 import vo.BoardVO;
+import vo.ReplyVO;
 
 @Controller
 public class BoardController {
@@ -26,8 +30,8 @@ public class BoardController {
 	public ModelAndView board(@RequestParam(defaultValue="1")int page) {
 		ModelAndView mv = new ModelAndView();
 		int bType=2;
-		mv.addObject("bPage", service.makeBoardPage(bType, page));
 
+		mv.addObject("bPage", service.makeBoardPage(bType, page));
 		mv.setViewName("reviews/list");
 		return mv;
 	}
@@ -72,15 +76,38 @@ public class BoardController {
 	}
 	
 	@GetMapping("/reviews/read")
-	public ModelAndView read(@RequestParam("bNum")int bNum, HttpSession session) {
+	public ModelAndView read(@RequestParam("bNum")int bNum,ReplyVO reply, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		String loginId= (String)session.getAttribute("loginId");
 		BoardVO board = service.readNoCount(bNum);
 		service.read(bNum, loginId);
 		service.readNoCount(bNum);
+		
+		mv.addObject("recommend",service.selectRecommendCount(bNum));
+		mv.addObject("replylist", service.readReply(bNum));
 		mv.addObject("board", board);
 		mv.addObject("loginId", loginId);
 		mv.setViewName("reviews/read");
+		return mv;
+	}
+	
+	@PostMapping("/review/read/replyadd")
+	public ModelAndView read(ReplyVO reply, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String loginId=(String)session.getAttribute("loginId");
+//		ReplyVO reply = new ReplyVO();
+//		reply.setB_num(bNum);
+//		reply.setContent(content);
+		
+		if(loginId !=null) {
+			reply.setWriter(loginId);
+			service.writeReply(reply, loginId);
+			mv.setViewName("redirect:/reviews/read?bNum="+reply.getB_num());
+			
+		}else {
+			mv.addObject("message","댓글 작성을 위해서는 로그인이 필요합니다.");
+			mv.setViewName("member/login_form");
+		}
 		return mv;
 	}
 	
@@ -124,5 +151,16 @@ public class BoardController {
 		}
 		return mv;
 	}
+//	@RequestMapping("/reviews/read")
+//	public ModelAndView reply(int bNum, HttpSession session) {
+//		ModelAndView mv = new ModelAndView();
+//		String loginId = (String)session.getAttribute("loginId");
+//		
+//		mv.addObject("replylist", service.readReply(bNum));
+//		System.out.println("댓글 : " + service.readReply(bNum));
+//		mv.addObject("loginId",loginId);
+//		mv.setViewName("/reviews/read");
+//		return mv;
+//	}
 	
 }

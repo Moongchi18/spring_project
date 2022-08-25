@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import vo.BoardVO;
+import vo.ReplyVO;
 
 public interface BoardMapper {
 	
@@ -17,6 +18,8 @@ public interface BoardMapper {
 	public int update(BoardVO board);
 	public int delete(int bNum);
 	public List<BoardVO> selectSearch(int bType, String search1, String search2, int startRow, int count);
-	
-
+	public List<ReplyVO> readReply(int b_num);
+	public int writeReply(ReplyVO reply);
+	public int selectRecommendCount(int b_num);
+	public List<BoardVO> selectbNum();
 }
