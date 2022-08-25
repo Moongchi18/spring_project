@@ -9,7 +9,14 @@ public class CartVO {
 	private String mId; 
 	private int iNum;
 	private Date cDate;
+	private ItemVO item;
 	
+	public ItemVO getItem() {
+		return item;
+	}
+	public void setItem(ItemVO item) {
+		this.item = item;
+	}
 	public CartVO(int mNum, String mId, int iNum) {
 		this.mNum = mNum;
 		this.mId = mId;
@@ -47,7 +54,8 @@ public class CartVO {
 	}
 	@Override
 	public String toString() {
-		return "CartVO [cNum=" + cNum + ", mNum=" + mNum + ", mId=" + mId + ", iNum=" + iNum + ", cDate=" + cDate + "]";
+		return "CartVO [cNum=" + cNum + ", mNum=" + mNum + ", mId=" + mId + ", iNum=" + iNum + ", cDate=" + cDate
+				+ ", item=" + item + "]";
 	}
 	
 	

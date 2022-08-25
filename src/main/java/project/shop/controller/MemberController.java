@@ -1,5 +1,7 @@
 package project.shop.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.shop.service.MemberService;
@@ -48,22 +51,28 @@ public class MemberController {
 		
 			
 	}
-	@RequestMapping("/joincheck")
-	public ModelAndView idchk(String m_id, HttpSession session) {
-		ModelAndView mv = new ModelAndView();
-		int idchk = service.idChk(m_id);
-		System.out.println(idchk);
+	@PostMapping("/joincheck")
+	@ResponseBody
+	public HashMap<String, String> idchk(@RequestParam("m_id")String m_id, HttpSession session) {
+		HashMap<String, String> message = new HashMap<>();
 		System.out.println(m_id);
-		mv.addObject("id", m_id);
+		int idchk = service.idChk(m_id);
 		if(idchk == 1) {
-			mv.addObject("message", "중복된 아이디입니다.");
+			message.put("message", "중복된 아이디입니다.");
 		}else {
-			mv.addObject("message", "사용가능한 아이디입니다..");
+			message.put("message", m_id + " 이 아이디는 사용할 수 있습니다.");
 			session.setAttribute("checkId", "ok");
 		}
-		mv.setViewName("member/join_form");
-		return mv;
+		
+		return message;
 	}
+	
+	@GetMapping("/join/idchange")
+	@ResponseBody
+	public void idChange(@RequestParam("m_id")String m_id, HttpSession session) {
+		session.setAttribute("checkId", "x");
+	}
+	
 	@RequestMapping("/loginForm")
 	public String loginForm() {
 		return "member/login_form";

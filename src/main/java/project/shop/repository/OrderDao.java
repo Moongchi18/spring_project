@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import project.shop.repository.mapper.OrderMapper;
 import vo.CartVO;
+import vo.JoinCartAndItemVO;
 import vo.OrderVO;
 
 @Component
@@ -72,5 +73,9 @@ public class OrderDao {
 	public int deleteCartAll(int mNum) {
 		OrderMapper mapper = session.getMapper(OrderMapper.class);
 		return mapper.deleteCartAll(mNum);
+	}
+	public List<JoinCartAndItemVO> joinItemCart(String mId){
+		OrderMapper mapper = session.getMapper(OrderMapper.class);
+		return mapper.joinItemCart(mId);
 	}
 }

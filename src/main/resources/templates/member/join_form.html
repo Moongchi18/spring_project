@@ -3,18 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <title>쇼핑몰 회원가입</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script th:inline="javascript">
 	var value;
+	var m_id = "";
  	function inputId(){
  		value = document.getElementById("input_id").value;
+ 		console.log(value);
 	}
 	 
 	function sendValue(){
  		location.href=`/joincheck?m_id=${value}`;
  		console.log(value);
 	}
+	
+	$(document).ready(function(){
+		$("#idChk").on("click", function(){
+		value = $("#input_id").val();
+		console.log(value);
+			$.ajax({
+				url : "/joincheck",
+				type : "post",
+				data : {m_id : value},
+				success : function(data){
+					alert(data.message);
+					$("#idChkM").val(data.message);
+					/* $("#idChkId").html(data.message); */
+					$("#idChkM").attr("type", "text");
+					if(data.message!="중복된 아이디입니다."){
+						
+					$("#input_id").attr("readonly", "readonly");
+					}
+				},
+				error : function(){
+					alert("중복체크 실패.")
+				}
+			})
+		})
+	})
+	$(document).ready(function(){
+		$("#idChange").on("click", function(){
+			value = $("#input_id").val();
+			$.ajax({
+				url : "/join/idchange",
+				type : "get",
+				data : {m_id : value},
+				success : function(data){
+					$("#idChkM").val("");
+					$("#idChkM").attr("type", "hidden");
+					$("#input_id").removeAttr("readonly");
+				},
+				error : function(){
+					alert("중복체크 실패.")
+				}
+			})
+		})
+	})
+
+	
     function sample4_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -59,16 +107,18 @@
 				<tr>
 					<td>아이디 : </td>
 					<td><input onchange="inputId()" th:value="${id}" id="input_id" type="text" name="m_id" size="10" required></td>
-					<td><button onclick="sendValue()" class="idChk" type ="button" id="idChk">중복확인</button></td>
+<!-- 					<td><button onclick="sendValue()" class="idChk" type ="button" id="idChk">중복확인</button></td> -->
+					<td><input type="button" class="idChk" id="idChk" value="중복확인"></td>
+					<td><input type="button" class="idChk" id="idChange" value="id바꾸기"></td>
 					
 				</tr>
 				<tr>
-					<td th:text="${id}">ff</td>				
-					<td th:text="${message}">ff</td>				
+					<td></td>				
+					<td><input type="hidden" id="idChkM" readonly="readonly"></td>				
 				</tr>
 				<tr >
 					<td>비밀번호 : </td>
-					<td><input type="text" name="m_pw" size="10" required></td>
+					<td><input type="password" name="m_pw" size="10" required></td>
 				</tr>
 				
 				<tr>
@@ -97,6 +147,5 @@
 			</table>
 		</form>
 	</div>
-
 </body>
 </html>

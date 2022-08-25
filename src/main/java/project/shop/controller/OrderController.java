@@ -138,10 +138,11 @@ public class OrderController {
 	public ModelAndView cartList(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		String loginId = (String)session.getAttribute("loginId");
-		MemberVO member = memberService.select(loginId);
-		int mNum = member.getM_num();
-		List<CartVO> cartList = service.selectCartItem(mNum, loginId);
-		int count = cartList.size();
+		System.out.println(loginId);
+		System.out.println("조인 확인 : " + service.joinItemCart(loginId));
+//		mv.addObject("joinList", service.joinItemCart(loginId));
+		
+		mv.addObject("테스트","테스트");
 		
 		mv.setViewName("sales/cart");
 		return mv;

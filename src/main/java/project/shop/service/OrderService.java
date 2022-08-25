@@ -11,6 +11,7 @@ import project.shop.repository.OrderDao;
 import vo.BoardPageVO;
 import vo.BoardVO;
 import vo.CartVO;
+import vo.JoinCartAndItemVO;
 import vo.MemberVO;
 import vo.OrderVO;
 
@@ -153,6 +154,10 @@ public class OrderService {
 		} else {
 			return result;
 		}
+	}
+	
+	public List<JoinCartAndItemVO> joinItemCart(String loginId){
+		return dao.joinItemCart(loginId);
 	}
 
 }

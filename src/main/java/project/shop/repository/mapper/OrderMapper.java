@@ -3,6 +3,7 @@ package project.shop.repository.mapper;
 import java.util.List;
 
 import vo.CartVO;
+import vo.JoinCartAndItemVO;
 import vo.OrderVO;
 
 public interface OrderMapper {
@@ -20,4 +21,6 @@ public interface OrderMapper {
 	public List<CartVO> selectCartById(int mNum);
 	public int deleteCartItem(int iNum);
 	public int deleteCartAll(int mNum);
+	
+	public List<JoinCartAndItemVO> joinItemCart(String mId);
 }

@@ -75,6 +75,7 @@ public class ItemVO {
 	public void setiExplanation(String iExplanation) {
 		this.iExplanation = iExplanation;
 	}
+	
 	public Date getiDate() {
 		return iDate;
 	}

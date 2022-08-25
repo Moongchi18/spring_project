@@ -63,8 +63,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</delete>
 	
 	<!-- 장바구니 + 상품 join문 -->
-	<select id="joinItemCart" resultMap="orderResultMap">
-		SELECT * FROM CART C RIGHT JOIN ITEM I ON I.I_NUM=C.I_NUM WHERE M_NUM=#{mNum} ORDER BY C.C_DATE DESC
+	<select id="joinItemCart" resultMap="cartResultMap" parameterType="String">
+		SELECT C.C_NUM,C.M_NUM,C.M_ID,C.I_NUM,
+		I.I_BRAND, I.I_TYPE,I.I_REGISTER,I.I_NAME,I.I_PRICE,I.I_IMAGE,I.I_EXPLANATION
+		FROM CART C RIGHT JOIN ITEM I ON I.I_NUM=C.I_NUM WHERE C.M_ID=#{mId} ORDER BY C.C_DATE DESC
 	</select>
 	
 	<resultMap type="vo.OrderVO" id="orderResultMap">
@@ -93,7 +95,27 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<result column="m_id" property="mId" />
 		<result column="i_num" property="iNum"/>
 		<result column="c_date" property="cDate"/>
+		<collection property="item" resultMap="itemResultMap" />
 	</resultMap>
+
+ 	<resultMap type="vo.ItemVO" id="itemResultMap">
+		<result column="i_num" property="iNum"/>
+		<result column="i_brand" property="iBrand"/>
+		<result column="i_register" property="iRegister"/>
+		<result column="i_type" property="iType"/>
+		<result column="i_name" property="iName"/>
+		<result column="i_price" property="iPrice"/>
+		<result column="i_stock" property="iStock"/>
+		<result column="i_image" property="iImage"/>
+		<result column="i_explanation" property="iExplanation"/>
+		<result column="i_readcount" property="iReadCount"/>
+		<result column="i_date" property="iDate"/>
+	</resultMap>
+	
+<!-- 	<resultMap type="vo.JoinCartAndItemVO" id="joinCartItemMap">
+		<collection property="cart" resultMap="cartResultMap" />
+		<collection property="item" resultMap="itemResultMap" />
+	</resultMap> -->
 	
 
 </mapper>
