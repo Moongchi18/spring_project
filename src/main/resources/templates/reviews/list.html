@@ -38,6 +38,7 @@
 							<th scope="col" class="th-writer">작성자</th>
 							<th scope="col" class="th-date">작성일</th>
 							<th scope="col" class="th-readnum">조회수</th>
+							<!-- <th scope="col" class="th-recommend">추천수</th> -->
 						</tr>
 					</thead>
 					<!-- 데이터가 없을 때 -->
@@ -53,6 +54,7 @@
 						<td
 							th:text="${#dates.format(boardVO.bWriteDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
 						<td th:text="${boardVO.bReadCount}"></td>
+						<!-- <td th:text="${recommend}"></td> -->
 					</tr>
 				</table>
 			</div>

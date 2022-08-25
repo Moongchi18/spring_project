@@ -13,6 +13,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		ORDER BY B_NUM DESC LIMIT #{startRow},#{count}
 	</select>
 	
+	
 	<!-- 특정 게시물 번호 조회 -->
 	<select id="select" resultMap="boardResultMap">
 		SELECT * FROM BOARD WHERE B_NUM=#{bNum}
@@ -56,6 +57,23 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<update id="updateReviewReadCount">
 		UPDATE BOARD SET B_READCOUNT=B_READCOUNT+1 WHERE B_NUM=#{bNum}
 	</update>
+	
+	<select id="readReply" resultType="vo.ReplyVO">
+		SELECT R_NUM,CONTENT,WRITER,REGDATE FROM REPLY WHERE B_NUM=#{b_num}
+	</select>
+	
+	<insert id="writeReply" parameterType="vo.ReplyVO">
+		INSERT INTO REPLY(B_NUM,CONTENT,WRITER)
+			VALUES(#{b_num},#{content},#{writer})
+	</insert>
+	
+	<select id="selectRecommendCount" resultType="int">
+		SELECT COUNT(*) FROM RECOMMEND WHERE B_NUM=#{b_num}
+	</select>
+	
+	<select id="selectbNum" resultMap="boardResultMap">
+		SELECT B_NUM FROM BOARD
+	</select>
 	
 
 	<resultMap type="vo.BoardVO" id="boardResultMap">

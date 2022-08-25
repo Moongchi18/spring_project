@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import project.shop.repository.mapper.BoardMapper;
 import vo.BoardVO;
+import vo.ReplyVO;
 
 @Component
 public class BoardDao {
@@ -55,5 +56,20 @@ public class BoardDao {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		return mapper.selectSearch(bType, search, search, startRow, count);
 	}
-
+	public List<ReplyVO> readReply(int b_num){
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		return mapper.readReply(b_num);
+	}
+	public int writeReply(ReplyVO reply) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		return mapper.writeReply(reply);
+	}
+	public int selectRecommendCount(int bNum) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		return mapper.selectRecommendCount(bNum);
+	}
+	public List<BoardVO> selectbNum() {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		return mapper.selectbNum();
+	}
 }

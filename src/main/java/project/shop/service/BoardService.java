@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import project.shop.repository.BoardDao;
 import vo.BoardPageVO;
 import vo.BoardVO;
+import vo.ReplyVO;
 
 @Component
 public class BoardService {
@@ -46,6 +47,7 @@ public class BoardService {
 //		System.out.println(bType + ", " +  startRow + ", " +  totalCount);
 		return new BoardPageVO(null,null,boardList,currentPage,startPage,endPage,totalPage);
 	}
+	
 	
 	public BoardPageVO boardSearch(int bType, String search, int currentPage) {
 		int totalCount = dao.selectSearchTotalCount(bType, search);
@@ -116,5 +118,17 @@ public class BoardService {
 			return false;
 		}
 	}
+	public List<ReplyVO> readReply(int b_num){
+		return dao.readReply(b_num);
+	}
+	public int writeReply(ReplyVO reply, String loginId) {
+		reply.setWriter(loginId);
+		reply.setRegdate(new Date());
+		return dao.writeReply(reply);
+	}
+	public int selectRecommendCount(int bNum) {
+		return dao.selectRecommendCount(bNum);
+	}
 	
 }
+
