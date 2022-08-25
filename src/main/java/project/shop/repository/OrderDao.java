@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project.shop.repository.mapper.OrderMapper;
+import vo.CartVO;
 import vo.OrderVO;
 
 @Component
@@ -54,5 +55,22 @@ public class OrderDao {
 	public int updateOrderRequest(OrderVO order) {
 		OrderMapper mapper = session.getMapper(OrderMapper.class);
 		return mapper.updateOrderRequest(order);
+	}
+	// 장바구니
+	public int insertCartItem(CartVO cart) {
+		OrderMapper mapper = session.getMapper(OrderMapper.class);
+		return mapper.insertCart(cart);
+	}
+	public List<CartVO> selectCart(int mNum) {
+		OrderMapper mapper = session.getMapper(OrderMapper.class);
+		return mapper.selectCartById(mNum);
+	}
+	public int deleteCartItem(int iNum) {
+		OrderMapper mapper = session.getMapper(OrderMapper.class);
+		return mapper.deleteCartItem(iNum);
+	}
+	public int deleteCartAll(int mNum) {
+		OrderMapper mapper = session.getMapper(OrderMapper.class);
+		return mapper.deleteCartAll(mNum);
 	}
 }

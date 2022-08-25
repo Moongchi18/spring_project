@@ -1,5 +1,6 @@
 package project.shop.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import project.shop.repository.MemberDao;
 import project.shop.repository.OrderDao;
 import vo.BoardPageVO;
 import vo.BoardVO;
+import vo.CartVO;
 import vo.MemberVO;
 import vo.OrderVO;
 
@@ -120,6 +122,37 @@ public class OrderService {
 		List<OrderVO> OrderList;
 		OrderList=dao.selectMyOrderList(loginId, startRow,COUNT_PER_PAGE);
 		return new BoardPageVO(OrderList, null, null, currentPage, startPage, endPage, totalPage);
+	}
+	
+	public boolean insertCartItem(CartVO cart) {
+		boolean result=false;
+		result=dao.insertCartItem(cart)==1 ? true:false;
+		
+		return result;
+	}
+	
+	public List<CartVO> selectCartItem(int mNum, String loginId){
+		MemberVO member = memberDao.selectNum(mNum);
+		if(loginId!=null && member.getM_num()==mNum) {
+			return dao.selectCart(mNum);			
+		} else {
+			return null;
+		}
+	}
+	
+	public boolean deleteCartItem(int iNum) {
+		return dao.deleteCartItem(iNum)==1?true:false;
+	}
+	
+	public boolean deleteCartAll(int mNum, String loginId) {
+		boolean result = false;
+		MemberVO member = memberDao.selectNum(mNum);
+		if(loginId!=null && member.getM_num()==mNum) {
+			result = dao.deleteCartAll(mNum) > 0 ? true:false;
+			return result;			
+		} else {
+			return result;
+		}
 	}
 
 }

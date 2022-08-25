@@ -31,19 +31,21 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/join")
-	public String join(MemberVO member, HttpSession session) {
-		if(session.getAttribute("checkId")=="ok"){			
-			if(service.join(member)) {
+	public String join(MemberVO member, String roadAddress, String detailAddress, HttpSession session) {
+		System.out.println(member);
+		System.out.println(roadAddress+detailAddress);
+		member.setM_address(roadAddress + " " + detailAddress);
+		System.out.println(member.getM_address());
+		String checkId = (String)session.getAttribute("checkId");
+		boolean result = service.join(member);
+		if(checkId=="ok" && result){			
 				session.setAttribute("checkId", "x");
 				return "member/join_success";
-			}else {
-				session.setAttribute("checkId", "x");
-				return "member/join_fail";
-			}
-		} else {
+		}else {
 			session.setAttribute("checkId", "x");
 			return "member/join_fail";
 		}
+		
 			
 	}
 	@RequestMapping("/joincheck")

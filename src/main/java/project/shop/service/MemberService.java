@@ -15,7 +15,9 @@ public class MemberService {
 	//회원가입 메소드
 	public boolean join(MemberVO member)  throws DuplicateKeyException{
 		try {
-		if(dao.insert(member) > 0) {
+			int result = dao.insert(member);
+		if(result > 0) {
+			
 			return true;
 		}else {
 			return false;

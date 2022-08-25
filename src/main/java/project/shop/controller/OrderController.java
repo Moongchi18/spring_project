@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import project.shop.service.MemberService;
 import project.shop.service.OrderService;
+import vo.CartVO;
+import vo.MemberVO;
 import vo.OrderVO;
 
 @Controller
@@ -25,6 +28,9 @@ public class OrderController {
 	public OrderController(OrderService service) {
 		this.service = service;
 	}
+	
+	@Autowired
+	private MemberService memberService;
 	///////////////////////////////////////
 	@GetMapping("/sales")
 	public ModelAndView createOrder(@RequestParam(defaultValue = "1")int page, HttpSession session) {
@@ -100,7 +106,7 @@ public class OrderController {
 		return mv;
 	}
 	
-	@GetMapping("sales/read")
+	@GetMapping("/sales/read")
 	public ModelAndView readOrder(int oNum, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		String loginId = (String)session.getAttribute("loginId");
@@ -113,6 +119,31 @@ public class OrderController {
 			mv.setViewName("sales/read");
 		}
 		
+		return mv;
+	}
+	
+	@GetMapping("/cart/additem")
+	public ModelAndView addItemInCart(int iNum, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String loginId = (String)session.getAttribute("loginId");
+		int mNum = memberService.getMemberInfo(loginId).getM_num();
+		System.out.println(new CartVO(mNum,loginId,iNum));
+		service.insertCartItem(new CartVO(mNum,loginId,iNum));
+		
+		mv.setViewName("redirect://localhost:8080/items/read?iNum="+iNum);
+		return mv;
+	}
+	
+	@GetMapping("/cart")
+	public ModelAndView cartList(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String loginId = (String)session.getAttribute("loginId");
+		MemberVO member = memberService.select(loginId);
+		int mNum = member.getM_num();
+		List<CartVO> cartList = service.selectCartItem(mNum, loginId);
+		int count = cartList.size();
+		
+		mv.setViewName("sales/cart");
 		return mv;
 	}
 }
