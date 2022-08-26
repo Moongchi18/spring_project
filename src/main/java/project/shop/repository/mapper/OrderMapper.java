@@ -18,8 +18,8 @@ public interface OrderMapper {
 	public int updateOrderRequest(OrderVO order);
 	
 	public int insertCart(CartVO cart);
-	public List<CartVO> selectCartById(int mNum);
-	public int deleteCartItem(int iNum);
+	public List<CartVO> selectCartById(String mId);
+	public int deleteCartItem(int iNum, String mId);
 	public int deleteCartAll(int mNum);
 	
 	public List<JoinCartAndItemVO> joinItemCart(String mId);

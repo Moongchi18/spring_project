@@ -49,12 +49,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<!-- 장바구니 선택 -->
 	<select id="selectCartById" resultMap="cartResultMap">
-		SELECT * FROM CART WHERE M_NUM=#{mNum}
+		SELECT * FROM CART WHERE M_ID=#{mId}
 	</select>
 
 	<!-- 장바구니 특정 물품 삭제 -->
 	<delete id="deleteCartItem" >
-		DELETE FROM CART WHERE I_NUM=#{iNum} 
+		DELETE FROM CART WHERE I_NUM=#{iNum} and M_ID=#{mId}
 	</delete>
 	
 	<!-- 특정회원 모든 장바구니 물품 삭제 -->
@@ -65,8 +65,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- 장바구니 + 상품 join문 -->
 	<select id="joinItemCart" resultMap="cartResultMap" parameterType="String">
 		SELECT C.C_NUM,C.M_NUM,C.M_ID,C.I_NUM,
-		I.I_BRAND, I.I_TYPE,I.I_REGISTER,I.I_NAME,I.I_PRICE,I.I_IMAGE,I.I_EXPLANATION
-		FROM CART C RIGHT JOIN ITEM I ON I.I_NUM=C.I_NUM WHERE C.M_ID=#{mId} ORDER BY C.C_DATE DESC
+			I.I_BRAND, I.I_TYPE,I.I_REGISTER,I.I_NAME,I.I_PRICE,I.I_IMAGE,I.I_EXPLANATION,
+	        IO.IO_COLOR1, IO.IO_COLOR2, IO.IO_COLOR3, IO.IO_COLOR4, IO.IO_COLOR5,IO.IO1,IO.IO2,IO.IO3,IO.IO4,IO.IO5
+		FROM CART C RIGHT JOIN ITEM I ON I.I_NUM=C.I_NUM RIGHT JOIN ITEM_OPTION IO ON I.I_NUM=IO.I_NUM
+        WHERE C.M_ID=#{mId} ORDER BY C.C_DATE DESC;
 	</select>
 	
 	<resultMap type="vo.OrderVO" id="orderResultMap">
@@ -96,26 +98,37 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<result column="i_num" property="iNum"/>
 		<result column="c_date" property="cDate"/>
 		<collection property="item" resultMap="itemResultMap" />
+		<collection property="itemOption" resultMap="itemOptionMap" />
 	</resultMap>
 
  	<resultMap type="vo.ItemVO" id="itemResultMap">
 		<result column="i_num" property="iNum"/>
+		<result column="i_stock" property="iStock"/>
+		<result column="i_readcount" property="iReadCount"/>
+		<result column="i_date" property="iDate"/>
 		<result column="i_brand" property="iBrand"/>
 		<result column="i_register" property="iRegister"/>
 		<result column="i_type" property="iType"/>
 		<result column="i_name" property="iName"/>
 		<result column="i_price" property="iPrice"/>
-		<result column="i_stock" property="iStock"/>
 		<result column="i_image" property="iImage"/>
 		<result column="i_explanation" property="iExplanation"/>
-		<result column="i_readcount" property="iReadCount"/>
-		<result column="i_date" property="iDate"/>
+
 	</resultMap>
-	
-<!-- 	<resultMap type="vo.JoinCartAndItemVO" id="joinCartItemMap">
-		<collection property="cart" resultMap="cartResultMap" />
-		<collection property="item" resultMap="itemResultMap" />
-	</resultMap> -->
+		<resultMap type="vo.ItemOptionVO" id="itemOptionMap">
+		<result column="i_num" property="iNum" />
+		<result column="i_price" property="iPrice" />
+		<result column="io_color1" property="ioColor1" />
+		<result column="io_color2" property="ioColor2" />
+		<result column="io_color3" property="ioColor3" />
+		<result column="io_color4" property="ioColor4" />
+		<result column="io_color5" property="ioColor5" />
+		<result column="io1" property="io1" />
+		<result column="io2" property="io2" />
+		<result column="io3" property="io3" />
+		<result column="io4" property="io4" />
+		<result column="io5" property="io5" />
+	</resultMap>
 	
 
 </mapper>

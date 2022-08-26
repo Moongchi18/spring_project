@@ -2,6 +2,8 @@ package vo;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
 public class ItemVO {
 	private int iNum;
 	private String iBrand;

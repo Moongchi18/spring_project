@@ -132,17 +132,12 @@ public class OrderService {
 		return result;
 	}
 	
-	public List<CartVO> selectCartItem(int mNum, String loginId){
-		MemberVO member = memberDao.selectNum(mNum);
-		if(loginId!=null && member.getM_num()==mNum) {
-			return dao.selectCart(mNum);			
-		} else {
-			return null;
-		}
+	public List<CartVO> selectCartItem(String loginId){
+			return dao.selectCart(loginId);			
 	}
 	
-	public boolean deleteCartItem(int iNum) {
-		return dao.deleteCartItem(iNum)==1?true:false;
+	public boolean deleteCartItem(int iNum, String mId) {
+		return dao.deleteCartItem(iNum, mId)==1?true:false;
 	}
 	
 	public boolean deleteCartAll(int mNum, String loginId) {

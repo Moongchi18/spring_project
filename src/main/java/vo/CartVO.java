@@ -2,7 +2,12 @@ package vo;
 
 import java.util.Date;
 
-public class CartVO {
+import org.springframework.stereotype.Component;
+
+import vo.ItemVO;
+import vo.ItemOptionVO;
+
+public class CartVO{
 
 	private int cNum;
 	private int mNum;
@@ -10,7 +15,21 @@ public class CartVO {
 	private int iNum;
 	private Date cDate;
 	private ItemVO item;
+	private ItemOptionVO itemOption;
 	
+	public CartVO() {
+		this.item = new ItemVO();
+		this.itemOption = new ItemOptionVO();
+	}
+	
+	public ItemOptionVO getItemOption() {
+		return itemOption;
+	}
+
+	public void setItemOption(ItemOptionVO itemOption) {
+		this.itemOption = itemOption;
+	}
+
 	public ItemVO getItem() {
 		return item;
 	}
@@ -55,7 +74,7 @@ public class CartVO {
 	@Override
 	public String toString() {
 		return "CartVO [cNum=" + cNum + ", mNum=" + mNum + ", mId=" + mId + ", iNum=" + iNum + ", cDate=" + cDate
-				+ ", item=" + item + "]";
+				+ ", item=" + item + ", itemOption=" + itemOption + "]";
 	}
 	
 	

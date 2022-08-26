@@ -1,6 +1,7 @@
 package project.shop.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.shop.service.MemberService;
@@ -140,11 +142,31 @@ public class OrderController {
 		String loginId = (String)session.getAttribute("loginId");
 		System.out.println(loginId);
 		System.out.println("조인 확인 : " + service.joinItemCart(loginId));
-//		mv.addObject("joinList", service.joinItemCart(loginId));
+		
+		mv.addObject("deliveryFee", memberService.select(loginId).getM_type()==2 ? 0:3000);
+		
+		mv.addObject("joinList", service.joinItemCart(loginId));
 		
 		mv.addObject("테스트","테스트");
 		
 		mv.setViewName("sales/cart");
 		return mv;
 	}
+	
+	@GetMapping("/cart/deleteone")
+	@ResponseBody
+	public HashMap<String, String> deleteCartOne(@RequestParam("iNum")int iNum, HttpSession session){
+		System.out.println("delete : " + iNum);
+		HashMap<String, String> map = new HashMap<>();
+		String loginId = (String)session.getAttribute("loginId");
+		
+		boolean result = service.deleteCartItem(iNum, loginId);
+		if(result) {
+			map.put("message", "1개 삭제 성공");
+		} else {
+			map.put("message", "삭제 실패");
+		}
+		return map;
+	}
+	
 }

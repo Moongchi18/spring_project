@@ -3,7 +3,152 @@
 <head>
 <meta charset="UTF-8">
 <title>내 장바구니</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script th:inline="javascript">
+		var total = 0;
+		var deliveryFee=0;
+	$(document).ready(function(){
+		deliveryFee = '[[${deliveryFee}]]';
+		deliveryFee *= 1;
+		$(".iPrice").each(function(){
+	        if(!Number.isNaN($(this).val())){
+	            // CASE 값에 문자가 없는 경우 (숫자인 경우만 합산)
+	            total += parseInt($(this).val());
+	        }				
+		})
+		total = total + deliveryFee;
+		$("#total").val(total);	
+		
+		var count = $(".iPrice").length;
+		var text = "구매하기(" + count + ")";
+		$("#submit").val(text);
+	})
+	
+	$(function(){
+		$("#allcheck").click(function(){
+			console.log($("#allcheck").is(":checked"));
+			if($("#allcheck").is(":checked")){
+				$(".check").prop("checked", true);
+				console.log($("#allcheck").val());
+			} 
+			if(!$("#allcheck").is(":checked")){
+				$(".check").prop("checked", false);
+				console.log($("#allcheck").val());
+			}
+		})
+	})
+	$(function(){
+		$(".check").click(function(){
+			var totalArr = $(".check").length;
+			var checked = $(".check:checked").length;
+
+			if(totalArr==checked){
+				$("#allcheck").prop("checked", true);
+			} else {
+				$("#allcheck").prop("checked", false);
+			}
+		})
+	})
+	$(function(){
+		$("input[type=number]").click(function(){
+			var count = $(this).val();
+			var perPrice = $(this).closest("tr").find("input[name='perPrice']").val();
+			$(this).closest("tr").find(".iPrice").val(count*perPrice);
+			
+			total=0;
+			$(".iPrice").each(function(){
+		        if(!Number.isNaN($(this).val())){
+		            // CASE 값에 문자가 없는 경우 (숫자인 경우만 합산)
+		            total += parseInt($(this).val());
+		        }
+			})
+			console.log(total);
+			deliveryFee = '[[${deliveryFee}]]';
+			deliveryFee *= 1;
+			total += deliveryFee;
+			$("#total").val(total)
+			console.log(total)
+		})
+	})
+	$(function(){
+		$("#deleteOne").click(function(){
+			var iNum = $(this).closest("tr").find("input[name='iNum']").val();
+			console.log(iNum);
+			$.ajax({
+				url : "/cart/deleteone?iNum="+iNum,
+				type : "get",
+				data : {iNum: iNum},
+				success : function(data){
+					alert(data.message);
+					var count = $(".iPrice").length;
+					$("#bodywrapper").load("/cart #bodywrapper");
+					var text = "구매하기(" + count + ")";
+					$("#submit").val(text);
+				},
+				error : function(){
+					alert("알수없는 오류 발생")
+				}
+			})
+
+		})
+	})
+
+</script>
 </head>
 <body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
+<div id="bodywrapper">
+	<form action="/cart/purchase" method="post">
+		<table>
+			<tr>
+				<td><input type="checkbox" id="allcheck"></td>
+				<td>상품명</td>
+				<td>색상</td>
+				<td>옵션</td>
+				<td>개수</td>
+				<td>가격</td>
+				<td>제거</td>
+			</tr>
+			<tr th:each="i,index : ${joinList}" id="list">
+				<td><input type="checkbox" class="check" ></td>
+				<td th:text="${i.item.iName}" class="iName"></td>
+				
+				<td><select name="color">
+					<option th:value="${i.itemOption.ioColor1}" th:text="${i.itemOption.ioColor1}" selected="selected"></option>
+					<option th:value="${i.itemOption.ioColor2}" th:text="${i.itemOption.ioColor2}" th:if="${i.itemOption.ioColor2!=''}"></option>
+					<option th:value="${i.itemOption.ioColor3}" th:text="${i.itemOption.ioColor3}" th:if="${i.itemOption.ioColor3!=''}"></option>
+					<option th:value="${i.itemOption.ioColor4}" th:text="${i.itemOption.ioColor4}" th:if="${i.itemOption.ioColor4!=''}"></option>
+					<option th:value="${i.itemOption.ioColor5}" th:text="${i.itemOption.ioColor5}" th:if="${i.itemOption.ioColor5!=''}"></option>
+				</select>
+				</td>
+				<td>
+				<select name="option">
+					<option th:value="${i.itemOption.io1}" th:text="${i.itemOption.io1}" selected="selected"></option>
+					<option th:value="${i.itemOption.io2}" th:text="${i.itemOption.io2}" th:if="${i.itemOption.io2!=''}"></option>
+					<option th:value="${i.itemOption.io3}" th:text="${i.itemOption.io3}" th:if="${i.itemOption.io3!=''}"></option>
+					<option th:value="${i.itemOption.io4}" th:text="${i.itemOption.io4}" th:if="${i.itemOption.io4!=''}"></option>
+					<option th:value="${i.itemOption.io5}" th:text="${i.itemOption.io5}" th:if="${i.itemOption.io5!=''}"></option>
+				</select>
+				</td>
+				<td><input type="number" value="1" min="1"></td>
+				<td>
+					<input type="hidden" name="perPrice" th:value="${i.item.iPrice}" style="display: none;">
+					<input type="text" class="iPrice" th:value="${i.item.iPrice}" >
+					<input type="hidden" name="count" th:value="${index.size}" style="display: none;">
+				</td>
+				<td>
+					<input type="hidden" name="iNum" th:value="${i.item.iNum}">
+					<button type="button" id="deleteOne">제거</button>
+				</td>
+			</tr>
+		</table>
+		<button>전체제거</button>
+		<br>
+		택배비 : <input type="text" id="deliveryFee" th:value="${deliveryFee}">
+		<br>
+		합계 : <input type="text" id="total"> <input type="submit" id="submit">
+	</form>
+</div>
 </body>
 </html>

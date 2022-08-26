@@ -62,13 +62,13 @@ public class OrderDao {
 		OrderMapper mapper = session.getMapper(OrderMapper.class);
 		return mapper.insertCart(cart);
 	}
-	public List<CartVO> selectCart(int mNum) {
+	public List<CartVO> selectCart(String mId) {
 		OrderMapper mapper = session.getMapper(OrderMapper.class);
-		return mapper.selectCartById(mNum);
+		return mapper.selectCartById(mId);
 	}
-	public int deleteCartItem(int iNum) {
+	public int deleteCartItem(int iNum, String mId) {
 		OrderMapper mapper = session.getMapper(OrderMapper.class);
-		return mapper.deleteCartItem(iNum);
+		return mapper.deleteCartItem(iNum, mId);
 	}
 	public int deleteCartAll(int mNum) {
 		OrderMapper mapper = session.getMapper(OrderMapper.class);
