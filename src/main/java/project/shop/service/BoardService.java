@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import project.shop.repository.BoardDao;
 import vo.BoardPageVO;
 import vo.BoardVO;
+import vo.RecommendVO;
 import vo.ReplyVO;
 
 @Component
@@ -128,6 +129,15 @@ public class BoardService {
 	}
 	public int selectRecommendCount(int bNum) {
 		return dao.selectRecommendCount(bNum);
+	}
+	public int recommend(RecommendVO recommend) {
+		return dao.Recommend(recommend);
+	}
+	public int deleteRecommend(int b_num,int m_num) {
+		return dao.deleteRecommend(b_num, m_num);
+	}
+	public int selectRecommend(int b_num,int m_num) {
+		return dao.selectRecommend(b_num, m_num);
 	}
 	
 }

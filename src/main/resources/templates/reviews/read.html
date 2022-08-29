@@ -11,6 +11,15 @@
 		}
 		return false;
 	}
+	function recommend(){
+		var m_id = '[[${session.loginId}]]';
+		console.log(m_id);
+ 		if(m_id=="null"){
+ 			alter("로그인이 필요합니다.")
+ 		}else{
+ 			recommend = document.getElemnetById('m_id').value;
+ 		}
+	}
 </script>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
 <style type="text/css">
@@ -137,6 +146,9 @@ li {
 				<td th:text="${recommend}">
 			</tr>
 		</table>
+	<div class=rec th:unless="${session.loginId==null}">
+		<a th:href="@{/reviews/recommend(bNum=${board.bNum})}"><button>추천</button></a>
+	</div>
 		<br>
 		<br>
 		<a href="/reviews">목록</a> 
