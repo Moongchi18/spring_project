@@ -11,7 +11,17 @@ public class BoardVO {
 	private String bWriter;
 	private Date bWriteDate;
 	private int bReadCount;
+	private RecommendVO recommendVO;
 	
+	public BoardVO() {
+		this.recommendVO=new RecommendVO();
+	}
+	public RecommendVO getRecommendVO() {
+		return recommendVO;
+	}
+	public void setRecommendVO(RecommendVO recommendVO) {
+		this.recommendVO = recommendVO;
+	}
 	public int getbNum() {
 		return bNum;
 	}
@@ -58,7 +68,8 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [bNum=" + bNum + ", bType=" + bType + ", bTitle=" + bTitle + ", bContent=" + bContent
-				+ ", bWriter=" + bWriter + ", bWriteDate=" + bWriteDate + ", bReadCount=" + bReadCount + "]";
+				+ ", bWriter=" + bWriter + ", bWriteDate=" + bWriteDate + ", bReadCount=" + bReadCount
+				+ ", recommendVO=" + recommendVO + "]";
 	}
 	
 	

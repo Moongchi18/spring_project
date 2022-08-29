@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 글 목록</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script th:inline="javascript">
 	var search = "test";
 	function search_set(){
@@ -13,6 +14,38 @@
 		location.href = `/reviews/search?search=${search}`;
 
 	}
+	
+	/* <td th:id="'recommend'+${i.index}"></td> */
+	
+	$(document).ready(function(){
+		var bNumArr = [];
+		for(var i =0; i<10; i++){
+			var bName="bNum" + i;
+			bNumArr.push($('#'+bName).text());	
+		}
+		
+		$.ajax({
+			url : "/reviews/recommend",
+			type : "post",
+			data : {bNumArr:bNumArr},
+			dataType : "json",
+			success : function(data){
+					var i=0;
+					$.each(data, function(index, item){
+						console.log(index + " / " + item);
+							var target = "recommend" + i
+							$('#'+target).text(item);
+							console.log('#'+target);
+							console.log(i);
+							i++;
+					})
+
+			},
+			error : function(){
+				alert("값을 변경한 후 수정해주세요.")
+			}
+		})
+	})
 </script>
 <link href="css/nav.css" rel="stylesheet" type="text/css"/>
 <link href="css/review.css" rel="stylesheet" type="text/css"/>
@@ -38,7 +71,7 @@
 							<th scope="col" class="th-writer">작성자</th>
 							<th scope="col" class="th-date">작성일</th>
 							<th scope="col" class="th-readnum">조회수</th>
-							<!-- <th scope="col" class="th-recommend">추천수</th> -->
+							<th scope="col" class="th-recommend">추천수</th>
 						</tr>
 					</thead>
 					<!-- 데이터가 없을 때 -->
@@ -46,15 +79,16 @@
 						<td colspan="5">작성된 게시글이 존재하지 않습니다.</td>
 					</tr>
 					<tr th:if="${!#lists.isEmpty(bPage.boardList)}"
-						th:each="boardVO : ${bPage.boardList}">
-						<td th:text="${boardVO.bNum}"></td>
+						th:each="boardVO,i : ${bPage.boardList}">
+						<td th:text="${boardVO.bNum}" th:id="'bNum'+${i.index}"></td>
 						<td><a th:href="@{/reviews/read(bNum=${boardVO.bNum})}"
 							th:text="${boardVO.bTitle}"></a></td>
 						<td th:text="${boardVO.bWriter}"></td>
 						<td
 							th:text="${#dates.format(boardVO.bWriteDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
 						<td th:text="${boardVO.bReadCount}"></td>
-						<!-- <td th:text="${recommend}"></td> -->
+						<td th:id="'recommend'+${i.index}"></td>
+						<!-- <td th:text="${boardVO.RecommendVO.recommend}"></td> -->
 					</tr>
 				</table>
 			</div>

@@ -68,8 +68,8 @@ public class BoardDao {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		return mapper.selectRecommendCount(bNum);
 	}
-	public List<BoardVO> selectbNum() {
+	public List<BoardVO> joinRecommendBoard(int bType, int startRow, int count){
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
-		return mapper.selectbNum();
+		return mapper.joinRecommendBoard(bType, startRow, count);
 	}
 }

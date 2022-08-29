@@ -43,7 +43,7 @@ public class BoardService {
 		
 		int startRow=(currentPage-1)*COUNT_PER_PAGE;
 		
-		List<BoardVO> boardList=dao.selectList(bType, startRow, COUNT_PER_PAGE);
+		List<BoardVO> boardList=dao.joinRecommendBoard(bType, startRow, COUNT_PER_PAGE);
 //		System.out.println(bType + ", " +  startRow + ", " +  totalCount);
 		return new BoardPageVO(null,null,boardList,currentPage,startPage,endPage,totalPage);
 	}

@@ -4,6 +4,15 @@ public class RecommendVO {
 
 	private String b_num;
 	private String m_num;
+	private int recommend;
+	
+	
+	public int getCount() {
+		return recommend;
+	}
+	public void setCount(int count) {
+		this.recommend = count;
+	}
 	public String getB_num() {
 		return b_num;
 	}
@@ -18,7 +27,7 @@ public class RecommendVO {
 	}
 	@Override
 	public String toString() {
-		return "RecommendVO [b_num=" + b_num + ", m_num=" + m_num + "]";
+		return "RecommendVO [b_num=" + b_num + ", m_num=" + m_num + ", count=" + recommend + "]";
 	}
 	
 	

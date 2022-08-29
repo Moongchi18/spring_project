@@ -75,6 +75,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		SELECT B_NUM FROM BOARD
 	</select>
 	
+	<select id="joinRecommendBoard"  resultMap="boardResultMap">
+		SELECT * FROM BOARD B LEFT JOIN RECOMMEND R ON B.B_NUM=R.B_NUM 
+		WHERE B.B_TYPE=#{bType} GROUP BY B.B_NUM
+		ORDER BY B.B_NUM DESC LIMIT #{startRow},#{count};
+	</select>
+	
 
 	<resultMap type="vo.BoardVO" id="boardResultMap">
 		<result column="B_NUM" property="bNum" />
@@ -84,6 +90,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<result column="B_WRITER" property="bWriter" />
 		<result column="B_WRITEDATE" property="bWriteDate" />
 		<result column="B_READCOUNT" property="bReadCount" />
+		<collection property="recommendVO" resultMap="recommendMap" />
+	</resultMap>
+	
+	<resultMap type="vo.RecommendVO" id="recommendMap">
+		<result column="b_num" property="b_num" />
+		<result column="m_num" property="m_num" />
+		<result column="recommend" property="recommend"/>
 	</resultMap>
 
 
