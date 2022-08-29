@@ -21,5 +21,5 @@ public interface BoardMapper {
 	public List<ReplyVO> readReply(int b_num);
 	public int writeReply(ReplyVO reply);
 	public int selectRecommendCount(int b_num);
-	public List<BoardVO> selectbNum();
+	public List<BoardVO> joinRecommendBoard(@Param("bType")int bType,@Param("startRow")int startRow,@Param("count")int count);
 }
