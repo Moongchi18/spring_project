@@ -2,6 +2,7 @@ package project.shop.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -166,6 +167,42 @@ public class OrderController {
 		} else {
 			map.put("message", "삭제 실패");
 		}
+		return map;
+	}
+	
+	@PostMapping("/cart/deleteall")
+	@ResponseBody
+	public HashMap<String, String> deleteCartAll(@RequestParam("iNumArr[]")int[] iNumArr, HttpSession session){
+		System.out.println("delete : " + iNumArr[0]);
+		HashMap<String, String> map = new HashMap<>();
+		String loginId = (String)session.getAttribute("loginId");
+		ArrayList<Integer> iNumList = new ArrayList<Integer>();
+		for(int i=0; i<iNumArr.length; i++) {
+			iNumList.add(iNumArr[i]);
+		}
+		HashMap<Integer, Integer> duplicate_count = new HashMap<>();
+		for(int i = 0; i<iNumList.size(); i++) {
+			if(duplicate_count.containsKey(iNumList.get(i))){
+				duplicate_count.put(iNumList.get(i), duplicate_count.get(iNumList.get(i)) +1);
+			} else {
+				duplicate_count.put(iNumList.get(i), 1);
+			}
+		}
+		
+		ArrayList<Integer> result = new ArrayList<>();
+		for(int i = 0; i<duplicate_count.size(); i++) {
+			if(duplicate_count.get(iNumList.get(i)) % 2 == 1){
+				result.add(iNumList.get(i));
+			}
+		}
+		
+		for(int i = 0; i<result.size(); i++) {
+			boolean res = service.deleteCartItem(result.get(i), loginId);
+			System.out.println(res);
+		}
+		
+		map.put("message", result.size() + "개의 장바구니 상품을 삭제했습니다.");
+		
 		return map;
 	}
 	
