@@ -71,6 +71,12 @@ section.notice {
 #page{
 	text-align:center;
 }
+
+#page-num{
+	text-align:center;
+	float:left;	
+}
+
 #board-search .search-window {
 	padding: 15px 0;
 	background-color: #f9f7f9;

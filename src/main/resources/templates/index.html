@@ -57,7 +57,7 @@
   </a>
 
 </div>
-
+<h3 class="recent-item">최근 등록 상품</h3>
 <div class="list-wrapper">
 	<ul class="list" th:each="i : ${itemlist}">
 		<li class="items-wrapper">
@@ -79,7 +79,6 @@
 	</ul>
 </div>
 <h3 class="best-item">인기상품</h3>
-<div class="best-item">
 	<a class="item-click" th:href="@{/items/read(iNum=${readcountbest.iNum})}" ></a>
 			<div class="item-wrapper">
 				<div class="item-picture" >
@@ -94,7 +93,6 @@
 					</div>
 				</div>
 			</div>
-</div>
 
  </body>
 </html>
