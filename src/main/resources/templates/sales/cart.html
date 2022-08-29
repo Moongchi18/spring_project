@@ -16,7 +16,7 @@
 			deliveryFee *= 1;
 			total=0;
 			$(".iPrice").each(function(){
-		        if(!Number.isNaN($(this).val())){
+		        if(!Number.isNaN($(this).val()) && $(this).closest('tr').find('.check:checked')){
 		            // CASE 값에 문자가 없는 경우 (숫자인 경우만 합산)
 		            total += parseInt($(this).val());
 		        }				
@@ -41,6 +41,8 @@
 		console.log($('#allcheck:checked').val());
 		if($('#allcheck:checked').val()=='on'){
 			iNumArr = [];
+			loadTotal();
+			Total();
 			for(var i = 0; i<iNumCount; i++){
 				var checkName = "check"+i;
 				console.log(checkName);
