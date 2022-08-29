@@ -81,6 +81,17 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		ORDER BY B.B_NUM DESC LIMIT #{startRow},#{count};
 	</select>
 	
+	<insert id="recommend" parameterType="vo.RecommendVO">
+		INSERT INTO RECOMMEND(B_NUM,M_NUM) VALUES(#{b_num},#{m_num})
+	</insert>
+	
+	<select id="selectRecommend" resultType="int">
+		SELECT COUNT(*) FROM RECOMMEND WHERE B_NUM=#{b_num} and M_NUM=#{m_num}
+	</select>
+	
+	<delete id="deleteRecommend">
+		DELETE FROM RECOMMEND WHERE B_NUM=#{b_num} and M_NUM=#{m_num}
+	</delete>
 
 	<resultMap type="vo.BoardVO" id="boardResultMap">
 		<result column="B_NUM" property="bNum" />

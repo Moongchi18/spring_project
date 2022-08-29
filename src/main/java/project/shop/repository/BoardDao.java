@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import project.shop.repository.mapper.BoardMapper;
 import vo.BoardVO;
+import vo.RecommendVO;
 import vo.ReplyVO;
 
 @Component
@@ -71,5 +72,17 @@ public class BoardDao {
 	public List<BoardVO> joinRecommendBoard(int bType, int startRow, int count){
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		return mapper.joinRecommendBoard(bType, startRow, count);
+	}
+	public int Recommend(RecommendVO recommend) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		return mapper.recommend(recommend);
+	}
+	public int deleteRecommend(int b_num,int m_num) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		return mapper.deleteRecommend(b_num, m_num);
+	}
+	public int selectRecommend(int b_num,int m_num) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		return mapper.selectRecommend(b_num, m_num);
 	}
 }

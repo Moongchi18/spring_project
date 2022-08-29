@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import vo.BoardVO;
+import vo.RecommendVO;
 import vo.ReplyVO;
 
 public interface BoardMapper {
@@ -22,4 +23,7 @@ public interface BoardMapper {
 	public int writeReply(ReplyVO reply);
 	public int selectRecommendCount(int b_num);
 	public List<BoardVO> joinRecommendBoard(@Param("bType")int bType,@Param("startRow")int startRow,@Param("count")int count);
+	public int recommend(RecommendVO recommend);
+	public int deleteRecommend(int b_num,int m_num);
+	public int selectRecommend(int b_num,int m_num);
 }

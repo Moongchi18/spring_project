@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.shop.service.BoardService;
+import project.shop.service.MemberService;
 import vo.BoardVO;
+import vo.MemberVO;
+import vo.RecommendVO;
 import vo.ReplyVO;
 
 @Controller
@@ -28,6 +31,9 @@ public class BoardController {
 	public BoardController(BoardService service) {
 		this.service = service;
 	}
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@GetMapping("/reviews")
 	public ModelAndView board(@RequestParam(defaultValue="1")int page) {
@@ -79,7 +85,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/reviews/read")
-	public ModelAndView read(@RequestParam("bNum")int bNum,ReplyVO reply, HttpSession session) {
+	public ModelAndView read(@RequestParam("bNum")int bNum,ReplyVO reply,RecommendVO recommend, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		String loginId= (String)session.getAttribute("loginId");
 		BoardVO board = service.readNoCount(bNum);
@@ -91,6 +97,27 @@ public class BoardController {
 		mv.addObject("board", board);
 		mv.addObject("loginId", loginId);
 		mv.setViewName("reviews/read");
+		return mv;
+	}
+	@GetMapping("/reviews/recommend")
+	public ModelAndView read(int bNum, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String loginId= (String)session.getAttribute("loginId");
+		MemberVO member = memberService.getMemberInfo(loginId);
+		
+		RecommendVO recommend = new RecommendVO();
+		recommend.setB_num(bNum);
+		recommend.setM_num(member.getM_num());
+		
+		if(service.selectRecommend(bNum, member.getM_num())==0) {
+			service.recommend(recommend);
+		}else {
+			service.deleteRecommend(bNum, member.getM_num());
+		}
+		
+		mv.addObject(recommend);
+		mv.addObject("loginId", loginId);
+		mv.setViewName("redirect:/reviews/read?bNum="+bNum);
 		return mv;
 	}
 	
