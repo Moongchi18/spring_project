@@ -70,11 +70,19 @@ section.notice {
 }
 #page{
 	text-align:center;
+	width:1900px;
+	height:100px;
+	margin:auto;
+}
+#pagenum{
+	margin:auto;
+	width:200px;
 }
 
 #page-num{
 	text-align:center;
 	float:left;	
+	margin:8px;
 }
 
 #board-search .search-window {
