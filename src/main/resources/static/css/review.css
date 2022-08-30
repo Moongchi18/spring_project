@@ -70,13 +70,24 @@ section.notice {
 }
 #page{
 	text-align:center;
+<<<<<<< HEAD
+	width:1900px;
+	height:100px;
+	margin:auto;
+}
+#pagenum{
+	margin:auto;
+	width:200px;
+=======
 	
+>>>>>>> 033f7d05392be99d538e9fc27d70ae2d084da09c
 }
 
 #page-num{
 	
 	text-align:center;
 	float:left;	
+	margin:8px;
 }
 
 #board-search .search-window {
