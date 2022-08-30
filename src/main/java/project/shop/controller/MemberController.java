@@ -84,7 +84,7 @@ public class MemberController {
 		if(service.login(m_id, m_pw)) {
 			session.setAttribute("loginId", m_id);
 			session.setAttribute("m_type", member.getM_type());
-
+			System.out.println("success");
 			return "redirect:/";
 		}else {
 			return "member/login_fail";

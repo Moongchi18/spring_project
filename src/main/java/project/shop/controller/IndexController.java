@@ -30,6 +30,7 @@ public class IndexController {
 	public ModelAndView index(@RequestParam(defaultValue = "0")int iType) {
 		ModelAndView mv = new ModelAndView();
 		
+		System.out.println("test : " + itemService.selectReadCount());
 		mv.addObject("readcountbest", itemService.selectReadCount());
 		mv.addObject("itemlist", itemService.mainItempage(iType));	
 		mv.setViewName("index");
