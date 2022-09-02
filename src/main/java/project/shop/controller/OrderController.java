@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -133,7 +134,7 @@ public class OrderController {
 		System.out.println(new CartVO(mNum,loginId,iNum));
 		service.insertCartItem(new CartVO(mNum,loginId,iNum));
 		
-		mv.setViewName("redirect://localhost:8080/items/read?iNum="+iNum);
+		mv.setViewName("redirect://192.168.0.3:8080/items/read?iNum="+iNum);
 		return mv;
 	}
 	
@@ -202,6 +203,17 @@ public class OrderController {
 		}
 		
 		map.put("message", result.size() + "개의 장바구니 상품을 삭제했습니다.");
+		
+		return map;
+	}
+	
+	@GetMapping("/carts")
+	@ResponseBody
+	@Async
+	public HashMap<String, String> test(){
+		HashMap<String, String> map = new HashMap<>();
+		
+		map.put("text", "테스트");
 		
 		return map;
 	}

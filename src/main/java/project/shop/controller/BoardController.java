@@ -160,7 +160,7 @@ public class BoardController {
 		String loginId = (String)session.getAttribute("loginId");
 		boolean result = service.update(board, loginId);
 		if (result) {
-			return "redirect://localhost:8080/reviews/read?bNum="+board.getbNum();
+			return "redirect://192.168.0.3:8080/reviews/read?bNum="+board.getbNum();
 		} else {
 			model.addAttribute("bNum", board.getbNum());
 			return "reviews/update-fail";

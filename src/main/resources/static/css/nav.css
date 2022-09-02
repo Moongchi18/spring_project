@@ -55,6 +55,8 @@ body{
 
 	#fragment-nav{
 		margin-bottom: 60px;
+		width: 100%;
+		background-color: white;
 	}
 	#menu{
 		position:fixed;
@@ -62,7 +64,10 @@ body{
 		width:1920px;
 		height:60px;
 		z-index: 500;
-		margin-bottom: 30px;
+		/* margin-bottom: 30px; */
+		margin:0 auto 30px;
+		left:0;
+		right:0;
 	}
 	#menu ul li{
 		list-style: none;

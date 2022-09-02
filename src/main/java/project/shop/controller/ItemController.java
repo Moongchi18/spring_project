@@ -155,7 +155,27 @@ public class ItemController {
 			mv.addObject("item", item);
 			mv.addObject("io",io);
 			mv.addObject("iTypeString",service.selectTypeString(item.getiType()));
-			mv.setViewName("items/read");
+			mv.setViewName("items/read2");
+		}
+		return mv;
+	}
+	
+	@GetMapping("/test/item")
+	public ModelAndView testItemRead(int iNum, HttpSession session) {
+		System.out.println(iNum);
+		ModelAndView mv = new ModelAndView();
+		String loginId = (String)session.getAttribute("loginId");
+		ItemVO item = service.read(iNum,loginId);
+		ItemOptionVO io = service.readOption(iNum);
+		System.out.println(io);
+		
+		if (item==null) {
+			mv.setViewName("redirect:/test/item?iType=0");
+		} else {
+			mv.addObject("item", item);
+			mv.addObject("io",io);
+			mv.addObject("iTypeString",service.selectTypeString(item.getiType()));
+			mv.setViewName("test/read");
 		}
 		return mv;
 	}
@@ -182,7 +202,7 @@ public class ItemController {
 		boolean result = service.update(item, loginId);
 		System.out.println(item);
 		if(result) {
-			mv.setViewName("redirect://localhost:8080/items/read?iNum=" + item.getiNum());
+			mv.setViewName("redirect://192.168.0.3:8080/items/read?iNum=" + item.getiNum());
 		} else {
 			mv.addObject("message", "잘못된 접근입니다. 로그인 정보를 확인하세요");
 			mv.setViewName("member/login_form");
@@ -205,7 +225,7 @@ public class ItemController {
 		if(result) {
 			mv.setViewName("redirect:/items?iType="+iType);
 		} else {
-			mv.setViewName("redirect://localhost:8080/items/read?iNum="+iNum);
+			mv.setViewName("redirect://192.168.0.3:8080/items/read?iNum="+iNum);
 		}
 		return mv;
 	}
@@ -251,5 +271,5 @@ public class ItemController {
 		
 		return mv;
 	}
-
+	
 }
