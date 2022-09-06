@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
 </head>
 <body>
 <nav th:replace="/header.html :: fragment-nav"></nav>
@@ -31,6 +32,7 @@
 	<a href="FindIdForm">아이디 찾기</a>
 	<a href="FindPasswordForm">비밀번호 찾기</a>
 	</div>
-
+<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
 </body>
 </html>

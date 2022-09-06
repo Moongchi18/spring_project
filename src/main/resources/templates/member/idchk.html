@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>중복체크창</title>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
 <script th:inline="javascript">
 	var idchk="[[${inputValue}]]"
 	
@@ -23,5 +24,7 @@
 	<form action="idchk" method=post>
 		
 	</form>
+	<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
 </body>
 </html>

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
 </head>
 <body>
 <nav th:replace="/header.html :: fragment-nav"></nav>
@@ -14,6 +15,7 @@
 	<input type="submit" value="예">
 	<a href="myPage">돌아가기</a>
 </form>
-
+<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
 </body>
 </html>

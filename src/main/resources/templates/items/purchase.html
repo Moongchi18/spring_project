@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>상품 구입</title>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
 </head>
 <body>
 <nav th:replace="/header.html :: fragment-nav"></nav>
@@ -65,6 +66,7 @@
 		<input type="submit" value="구매하기">
 	</form>
 </div>
-
+<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
 </body>
 </html>

@@ -49,6 +49,7 @@
 </script>
 <link href="css/nav.css" rel="stylesheet" type="text/css"/>
 <link href="css/review.css" rel="stylesheet" type="text/css"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
 <style type="text/css">
 </style>
 </head>
@@ -120,5 +121,6 @@
 		<a href="/reviews/write"><button>글쓰기</button></a> 
 		<br> <a href="/">메인으로 돌아가기</a>
 	</section>
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
 </body>
 </html>

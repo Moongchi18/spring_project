@@ -16,145 +16,73 @@
 	}
 </script>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
+<link th:href="@{css/styles.css}" rel="stylesheet" />
 <style type="text/css">
-	.link-wrapper{
-		position: relative;
-		top: 60px;
-	}
-	#page{
-		float:left;
-		letter-spacing: 5px;
-	}
-	.list-wrapper{
-		position:relative;
-		top:200px;
-		
-		display:flex;
-		flex-wrap:wrap;
-		padding:15px;
-		}
-	.list{
-		border:1px solid black;
-		margin-left:6px;
-		margin-right:6px;
-		padding:0;
-		font-size:14px;
-	}
-	.items-wrapper{
-		width:calc(33.333%);
-		padding: 0 11px;
-		margin-bottom:20px;
-		position:relative;
-		margin:0;
-	    list-style: none;
 
-	}
-	.item-wrapper{
-		height:100%;
-		padding-bottom:117px;
-	}
-	.item-picture{
-		position:relative;
-		width:410px;
-		height: 410px;
-		text-align: center;
-		vertical-align: middle;
-		
-		
-	}
-	.item-picture>img{
-		position:relative;
-		width:410px;
-		height: 410px;
-		
-	}
-	.item-explain{
-		left:0;
-		margin:0;
-		padding:0;
-		width:433px;
-		height:auto;
-		border-top : 1px solid black;
-	    text-align: center;
-	    position: absolute;
-
-		}
-	a {
-		color:black;
-		text-decoration: none;
-	}
-	
-	.item-click{
-		z-index:15;
-		position:absolute;
-		display:inherit;
-		width: 400px;
-		height:400px;
-		padding:10px;
-		padding-bottom: 117px;
-	}
-	
-	#title-name{
-		position: relative;
-		top:120px;
-		font-size: 20px;
-		font-weight: bold;
-	}
 	#footer{
 		margin-top: 230px;
+		text-align: center;
 	}
 
 </style>
 </head>
 <body>
 <nav th:replace="/header.html :: fragment-nav"></nav>
-<div class="link-wrapper">
-	<a th:href="@{items(iType=0)}">전체목록</a>
-	<br>
-	<a class="list_type_item" th:href="@{/items(iType=${allTypeString[0].iType})}" th:text="${allTypeString[0].iTypeString}"></a>
-	<br>
-		<a class="list_type_item" th:each="s : ${allTypeString}" th:href="@{items(iType=${s.iType})}" th:text="${s.iTypeString} + '  '" th:if="${s.iType>=10 && s.iType<20}"></a>
-	<br>
-	<a class="list_type_item" th:href="@{/items(iType=${allTypeString[1].iType})}" th:text="${allTypeString[1].iTypeString}"></a>
-	<br>
-		<a class="list_type_item" th:each="s : ${allTypeString}" th:href="@{items(iType=${s.iType})}" th:text="${s.iTypeString} + '  '" th:if="${s.iType>=20 && s.iType<30}"></a>
-	<br>
-	<a class="list_type_item" th:href="@{/items(iType=${allTypeString[2].iType})}" th:text="${allTypeString[2].iTypeString}"></a>
-	<br>
-		<a class="list_type_item" th:each="s : ${allTypeString}" th:href="@{items(iType=${s.iType})}" th:text="${s.iTypeString} + '  '" th:if="${s.iType>=30 && s.iType<40}"></a>
 
-</div>
 <div id="title-name">
-	<h2 th:text="${typeString==null} ? '전체목록':${typeString.iTypeString}"></h2>
+	<h3 style=text-align:center th:text="${typeString==null} ? '전체목록':${typeString.iTypeString}"></h3>
 </div>
 
-<div class="list-wrapper" >
-	<ul class="list" th:each="i : ${iPage.itemList}">
-		<li class="items-wrapper">
-			<a class="item-click" th:href="@{/items/read(iNum=${i.iNum})}"></a>
-			<div class="item-wrapper">
-				<div class="item-picture" >
-					<img th:src="@{${'../img/'+i.iImage+'.png'}}" alt=" ">
-				</div>
-				<div class="item-explain">
-					<div class="item-name">
-						<a th:text="${i.iName}"></a>
+		<div class="container px-4 px-lg-5 mt-5">
+			<div
+				class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" >
+				<div class="col mb-5"  th:each="i : ${iPage.itemList}">
+					<div class="card h-100">
+						<!-- Product image-->
+						<img class="card-img-top"
+							th:src="@{${'../img/'+i.iImage+'.png'}}" alt=" " />
+					
+						<!-- Product details-->
+						<div class="card-body p-4">
+							<div class="text-center">
+								<!-- Product name-->
+								<a class="fw-bolder" th:text="${i.iName}" th:href="@{/items/read(iNum=${i.iNum})}"></a>
+							</div>
+							<div class="item-price" style = text-align:center;>
+							<a th:text="${i.iPrice}"></a>
 					</div>
-					<div class="item-price">
-						<a th:text="${i.iPrice}"></a>
+						</div>
+						<!-- Product actions-->
+						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+							<div class="text-center">
+								<a class="btn btn-outline-dark mt-auto" th:href="@{/items/read(iNum=${i.iNum})}">상품 상세보기
+									</a>
+							</div>
+						</div>
 					</div>
 				</div>
+
 			</div>
-		</li>
-	</ul>
-</div>
+		</div>
 <div id="footer">
 		<div id="page" th:each="p : ${#numbers.sequence(iPage.startPage,iPage.endPage)}">
 			<a th:text="${p}" th:href="@{/items(iType=${type},page=${p})}"></a>
 		</div>
 		<br>
 	<input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요">
-	<button onclick="search_com()">검색</button>
+	<button style="    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+    background-color:#343a40;
+    color:white;"
+			onclick="search_com()">검색</button>
 		<br>
 		<br>
  	<a href="/items/write" th:if="${session.m_type>2}">
@@ -163,5 +91,7 @@
 	<br>
 	<a href="/">메인으로 돌아가기</a>
 </div>
+<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
 </body>
 </html>

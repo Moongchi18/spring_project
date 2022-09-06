@@ -15,7 +15,7 @@
 	}
 </script>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
-
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
 <style type="text/css">
 #page {
 	float: center;
@@ -271,5 +271,7 @@ section.notice {
 		<button>글쓰기</button>
 		<br>
 	</section>
+		<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
 </body>
 </html>

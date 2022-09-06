@@ -4,9 +4,11 @@
 <meta charset="UTF-8">
 <title>리뷰 게시글 수정</title>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
 </head>
 <body>
 <nav th:replace="/header.html :: fragment-nav"></nav>
+
 <form action="/reviews/update" method="post">
 	<table border="1">
 		<tr>
@@ -39,6 +41,7 @@
 	</table>
 	
 </form>
-
+	<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
 </body>
 </html>

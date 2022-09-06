@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>update_result</title>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
 <script th:inline="javascript">
 
 	var updateResult="[[${updateResult}]]";
@@ -21,5 +22,7 @@
 </head>
 <body>
 <nav th:replace="/header.html :: fragment-nav"></nav>
+<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
 </body>
 </html>

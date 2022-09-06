@@ -4,11 +4,13 @@
 <meta charset="UTF-8">
 <title>아이디 찾기 완료</title>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
 </head>
 <body>
 <nav th:replace="/header.html :: fragment-nav"></nav>
 	<h2>회원님의 비밀번호는</h2>
 	<div th:text="${findpwsuccess.m_pw}"></div>
-	
+	<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
 </body>
 </html>

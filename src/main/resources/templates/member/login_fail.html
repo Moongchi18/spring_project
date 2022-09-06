@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>로그인 실패 페이지</title>
 <link th:href="@{/css/nav.css}" rel="stylesheet"/>
-
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
 </head>
 <body>
 <nav th:replace="/header.html :: fragment-nav"></nav>
@@ -12,5 +12,7 @@
 <h4>아이디와 패스워드를 확인해 주세요.</h4>
 <a href="loginForm">[다시 로그인]</a>
 <a href="joinForm">[회원 가입]</a>
+<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
 </body>
 </html>
