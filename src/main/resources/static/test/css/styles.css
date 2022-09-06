@@ -4608,7 +4608,7 @@ textarea.form-control-lg {
 .card-img,
 .card-img-top,
 .card-img-bottom {
-  width: 100%;
+  width: 550px;
 }
 
 .card-img,
@@ -11297,5 +11297,9 @@ textarea.form-control-lg {
   }
   #item-image{
   	  background-color: lightgray;
+  }
+  
+  #form-item1{
+  	margin-bottom: 5px;
   }
 }

@@ -55,22 +55,22 @@
                         <div class="d-flex">
         <div> </div>
   		<form action="/items/purchase" method="post" th:unless="${session.loginId==item.iRegister}">
-			<select name="color" class="form-select">
+			<select name="color" class="form-select" id="form-item1" style="margin-bottom: 5px;">
 				<option th:value="${io.ioColor1}" th:text="${io.ioColor1}" selected="selected"></option>
 				<option th:value="${io.ioColor2}" th:text="${io.ioColor2}" th:if="${io.ioColor2!=null}"></option>
 				<option th:value="${io.ioColor3}" th:text="${io.ioColor3}" th:if="${io.ioColor3!=''}"></option>
 				<option th:value="${io.ioColor4}" th:text="${io.ioColor4}" th:if="${io.ioColor4!=''}"></option>
 				<option th:value="${io.ioColor5}" th:text="${io.ioColor5}" th:if="${io.ioColor5!=''}"></option>
 			</select>
-			<select name="option" class="form-select">
+			<select name="option" class="form-select" id="form-item2" style="margin-bottom: 5px;">
 				<option th:value="${io.io1}" th:text="${io.io1}" selected="selected"></option>
 				<option th:value="${io.io2}" th:text="${io.io2}" th:if="${io.io2!=null}"></option>
 				<option th:value="${io.io3}" th:text="${io.io3}" th:if="${io.io3!=''}"></option>
 				<option th:value="${io.io4}" th:text="${io.io4}" th:if="${io.io4!=''}"></option>
 				<option th:value="${io.io5}" th:text="${io.io5}" th:if="${io.io5!=''}"></option>
 			</select>
-			<input type="hidden" name="iNum" th:value="${item.iNum}">
-			<input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" name="count" min="1" style="max-width: 3rem" />
+			<input type="hidden" name="iNum" th:value="${item.iNum}" id="form-item3" style="margin-bottom: 5px;">
+			<input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" name="count" min="1" style="max-width: 3rem; margin-bottom: 5px;" />
 			<button type="submit" >구매하기</button>
 		</form>
 
