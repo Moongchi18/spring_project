@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project.shop.repository.mapper.OrderMapper">
+	
+	<!-- 주문내역 작성 -->
+	<insert id="insertOrder" parameterType="vo.OrderVO">
+		INSERT INTO ORDER_LIST(I_NUM,I_NAME,I_REGISTER,IO_COLOR,IO_OPTION,M_NUM,M_ID,I_PRICE,O_COUNT,O_DELIVERY_FEE,O_PRICE,O_ADDRESS,O_REQUEST,O_STATUS,O_MEMBER_REQUEST)
+					VALUES(#{iNum},#{iName},#{iRegister},#{ioColor},#{ioOption},#{mNum},#{mId},#{iPrice},#{oCount},#{oDeliveryFee},#{oPrice},#{oAddress},#{oRequest},#{oStatus},#{oMemberRequest})
+	</insert>
+	
+	<!-- 주문내역 선택 -->
+	<select id="selectOrder" resultMap="orderResultMap">
+		SELECT * FROM ORDER_LIST WHERE O_NUM=#{oNum}
+	</select>
+
+	<select id="selectOrderCount" resultType="int">
+		SELECT COUNT(*) FROM ORDER_LIST WHERE I_REGISTER=#{loginId}
+	</select>
+	
+	<select id="selectOrderById" resultMap="orderResultMap">
+		SELECT * FROM ORDER_LIST WHERE I_REGISTER=#{loginId} ORDER BY O_NUM DESC LIMIT 1
+	</select>
+	
+	<select id="selectOrderList" resultMap="orderResultMap">
+		SELECT * FROM ORDER_LIST WHERE I_REGISTER=#{loginId} ORDER BY O_NUM DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<update id="updateOrderStatus" parameterType="vo.OrderVO">
+		UPDATE ORDER_LIST SET O_STATUS=#{oStatus} WHERE O_NUM=#{oNum}
+	</update>
+
+	<update id="updateOrderRequest" parameterType="vo.OrderVO">
+		UPDATE ORDER_LIST SET O_MEMBER_REQUEST=#{oMemberRequest} WHERE O_NUM=#{oNum}
+	</update>
+	<!-- 구매자 주문내역 불러오기 -->
+ 	<select id="selectMyOrderList" resultMap="orderResultMap">
+		SELECT * FROM ORDER_LIST WHERE M_ID=#{loginId} ORDER BY O_NUM DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<!-- 장바구니 추가 -->
+	<insert id="insertCart" parameterType="vo.CartVO">
+		INSERT INTO CART(M_NUM,M_ID,I_NUM)
+					VALUES(#{mNum},#{mId},#{iNum})
+	</insert>
+	
+	<!-- 장바구니 선택 -->
+	<select id="selectCartById" resultMap="cartResultMap">
+		SELECT * FROM CART WHERE M_ID=#{mId}
+	</select>
+
+	<!-- 장바구니 특정 물품 삭제 -->
+	<delete id="deleteCartItem" >
+		DELETE FROM CART WHERE I_NUM=#{iNum} and M_ID=#{mId}
+	</delete>
+	
+	<!-- 특정회원 모든 장바구니 물품 삭제 -->
+	<delete id="deleteCartAll">
+		DELETE FROM CART WHERE M_NUM=#{mNum}
+	</delete>
+	
+	<!-- 장바구니 + 상품 join문 -->
+	<select id="joinItemCart" resultMap="cartResultMap" parameterType="String">
+		SELECT C.C_NUM,C.M_NUM,C.M_ID,C.I_NUM,
+			I.I_BRAND, I.I_TYPE,I.I_REGISTER,I.I_NAME,I.I_PRICE,I.I_IMAGE,I.I_EXPLANATION,
+	        IO.IO_COLOR1, IO.IO_COLOR2, IO.IO_COLOR3, IO.IO_COLOR4, IO.IO_COLOR5,IO.IO1,IO.IO2,IO.IO3,IO.IO4,IO.IO5
+		FROM CART C RIGHT JOIN ITEM I ON I.I_NUM=C.I_NUM RIGHT JOIN ITEM_OPTION IO ON I.I_NUM=IO.I_NUM
+        WHERE C.M_ID=#{mId} ORDER BY C.C_DATE DESC;
+	</select>
+	
+	<resultMap type="vo.OrderVO" id="orderResultMap">
+		<result column="o_num" property="oNum" />
+		<result column="o_date" property="oDate" />
+		<result column="i_num" property="iNum" />
+		<result column="i_name" property="iName" />
+		<result column="i_register" property="iRegister" />
+		<result column="io_color" property="ioColor" />
+		<result column="io_option" property="ioOption" />
+		<result column="m_num" property="mNum" />
+		<result column="m_id" property="mId" />
+		<result column="i_price" property="iPrice" />
+		<result column="o_count" property="oCount" />
+		<result column="o_delivery_fee" property="oDeliveryFee" />
+		<result column="o_price" property="oPrice" />
+		<result column="o_address" property="oAddress" />
+		<result column="o_request" property="oRequest" />
+		<result column="o_status" property="oStatus" />
+		<result column="o_member_request" property="oMemberRequest" />
+	</resultMap>
+	
+	<resultMap type="vo.CartVO" id="cartResultMap">
+		<result column="c_num" property="cNum"/>
+		<result column="m_num" property="mNum"/>
+		<result column="m_id" property="mId" />
+		<result column="i_num" property="iNum"/>
+		<result column="c_date" property="cDate"/>
+		<collection property="item" resultMap="itemResultMap" />
+		<collection property="itemOption" resultMap="itemOptionMap" />
+	</resultMap>
+
+ 	<resultMap type="vo.ItemVO" id="itemResultMap">
+		<result column="i_num" property="iNum"/>
+		<result column="i_stock" property="iStock"/>
+		<result column="i_readcount" property="iReadCount"/>
+		<result column="i_date" property="iDate"/>
+		<result column="i_brand" property="iBrand"/>
+		<result column="i_register" property="iRegister"/>
+		<result column="i_type" property="iType"/>
+		<result column="i_name" property="iName"/>
+		<result column="i_price" property="iPrice"/>
+		<result column="i_image" property="iImage"/>
+		<result column="i_explanation" property="iExplanation"/>
+
+	</resultMap>
+		<resultMap type="vo.ItemOptionVO" id="itemOptionMap">
+		<result column="i_num" property="iNum" />
+		<result column="i_price" property="iPrice" />
+		<result column="io_color1" property="ioColor1" />
+		<result column="io_color2" property="ioColor2" />
+		<result column="io_color3" property="ioColor3" />
+		<result column="io_color4" property="ioColor4" />
+		<result column="io_color5" property="ioColor5" />
+		<result column="io1" property="io1" />
+		<result column="io2" property="io2" />
+		<result column="io3" property="io3" />
+		<result column="io4" property="io4" />
+		<result column="io5" property="io5" />
+	</resultMap>
+	
+
+</mapper>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
+<title>마이페이지</title>
+<style type="text/css">
+.wrapper{
+	margin-top:100px;
+}
+</style>
+</head>
+<body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
+<div class=wrapper>	
+	<h2>내 정보</h2>
+	
+	<table>
+		<tr>
+			<td>고객번호 : </td>
+			<td th:text="${memberInfo.m_num}"></td>
+		</tr>
+		
+		<tr>
+			<td>아이디 : </td>
+			<td th:text="${memberInfo.m_id}"></td>
+		</tr>
+		
+		<tr>
+			<td>비밀번호 : </td>
+			<td th:text="${memberInfo.m_pw}"></td>
+		</tr>
+		
+		<tr>
+			<td>전화번호 : </td>
+			<td th:text="${memberInfo.m_phone}"></td>
+		</tr>
+		
+		<tr>
+			<td>e-mail : </td>
+			<td th:text="${memberInfo.m_email}"></td>
+		</tr>
+		
+		<tr>
+			<td>주소 : </td>
+			<td th:text="${memberInfo.m_address}"></td>
+		</tr>
+
+	</table>
+	</div>
+	
+		<a href="/">[메인으로]</a>
+		<a href="/logout">[로그아웃]</a>
+		<a href="/myPage/MyOrder">[내 주문목록]</a>
+		<form action="/updateForm" method="post">
+			<input type="hidden" name="m_num" th:value="${memberInfo.m_num}">
+			<input type="submit" value="수정하기">
+<!-- 			<a th:href="@{/updateForm(m_num=${memberInfo.m_num})}">[수정하기]</a> -->
+		</form>
+		<form action="/deleteform" method="post">
+			<input type="hidden" name="memberInfo" th:value="${memberInfo}">
+			<a href="/deleteform">[회원탈퇴]</a>
+		</form>
+		<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
+</body>
+</html>

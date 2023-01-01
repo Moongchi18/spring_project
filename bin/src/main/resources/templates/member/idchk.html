@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>중복체크창</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
+<script th:inline="javascript">
+	var idchk="[[${inputValue}]]"
+	
+	var inputValue;
+ 	function inputId(){
+		inputValue = document.getElementById("input_id").value;
+	}
+	 
+	function sendValue(){
+ 		window.open(`/idchk?id=${inputValue}`);
+ 		console.log(inputValue);
+	}
+</script>
+</head>
+<body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
+	<form action="idchk" method=post>
+		
+	</form>
+	<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>update_result</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
+<script th:inline="javascript">
+
+	var updateResult="[[${updateResult}]]";
+	
+	
+	if(updateResult > 0){
+		alert('[[${updateResult}]]' + "수정완료!");
+	}else{
+		alert("수정하기 작업 실패!!");
+	}
+	
+	location.href="myPage";
+	
+</script>
+</head>
+<body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
+<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
+</body>
+</html>

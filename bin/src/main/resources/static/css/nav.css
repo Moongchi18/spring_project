@@ -1,0 +1,143 @@
+@charset "EUC-KR";
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;700&family=Kalam:wght@300;700&display=swap');
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+head{
+	height: 0;
+	
+}
+
+body{
+	position: absolute;
+}
+
+	#fragment-nav{
+		margin-bottom: 60px;
+		width: 100%;
+		background-color: white;
+	}
+	#menu{
+		position:fixed;
+		background-color:white;
+		width:1920px;
+		height:60px;
+		z-index: 500;
+		/* margin-bottom: 30px; */
+		margin:0 auto 30px;
+		left:0;
+		right:0;
+	}
+	#menu ul li{
+		list-style: none;
+		vertical-align:middle;
+		text-align:center;
+		width:150px;
+		height:35px;
+		line-height: 34.2px;
+	}
+	#menu ul li a {
+		font-family: 'DynaPuff', cursive;
+		font-weight: 400;
+		font-size:28px;
+		
+	}
+	#menu .link{
+		width:190px;
+		text-decoration:none;
+		display:block;
+		color:#fff;
+		font-weight:bold;
+	}
+	#menu .link:hover{
+		background-color:#666;
+		color:#ff42e7;
+	}
+	#log-wrapper>div>ul>li{
+		float:right;
+	
+		width:50px;
+	}
+	#menu-list>ul>li{
+		float:left;
+	}
+	#title{
+		text-align:left;
+	    /* font-size: 2.5rem !important; */
+
+	   
+	    margin-bottom: 5px;
+		font-family: 'DynaPuff', cursive;
+		font-family: 'Source Sans Pro', sans-serif;
+
+	}
+	#title>a{
+		font-size: 35px;
+	}
+	
+	.log{
+	text-align:right;
+	margin-right: 20px;
+	}
+	.search-wrapper{
+		float: right;
+		margin-right: 10px;
+		margin-top:16px;
+	}
+	a {
+		color:black;
+		text-decoration: none;	
+	}
+	a:hover {
+		color:black;
+		text-decoration: none;
+	}
+	#topbar-wrapper{
+		display: block;
+		z-index: 50;
+	}
+	.log>ul>li>a>img{
+		width:30px;
+		height:30px;
+	}

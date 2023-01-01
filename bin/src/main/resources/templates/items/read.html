@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상품 상세 페이지</title>
+<script th:inline="javascript">
+	function del_item(){
+		var item_delete = confirm("정말로 상품을 삭제하시겠습니까?")
+		if(item_delete){
+			location.href=`/items/delete?iNum=[[${item.iNum}]]`;
+		} else {
+			return false;
+		}
+	}
+	function list(){
+		var iType = '[[${item.iType}]]'
+		if(iType>=10){
+			iType=parseInt(iType/10);
+		}
+		location.href=`/items?iType=${iType}`;
+	}
+</script>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
+<style type="text/css">
+	.item-wrapper{
+		text-align: center;
+	}
+	.top-explanation{
+		width:70%;
+		height:1000px;
+		margin:100px;
+		border: 1px solid black;
+		
+	}
+	.image{
+		float:left;
+		width:500px;
+		height:500px;
+	}
+	.explanation1{
+		float:left;
+		width:700px;
+		height:500px;
+		text-align: center;
+		vertical-align: middle;
+	}
+	.explanation-detail{
+		
+		position:relative;
+		width:1200px;
+		height:auto;
+		border: 1px solid black;
+		
+	}
+	
+</style>
+</head>
+<body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
+<div class="item-wrapper" th:each="i : ${item}">
+	<div class="top-explanation">
+		<div class="image">
+			<img th:src="@{${'../img/'+i.iImage+'.png'}}" alt=" ">
+		</div>
+		<div class="explanation1">
+			<table>
+				<tr>
+					<th>상품번호</th>
+					<td th:text="${i.iNum}"></td>
+				</tr>
+				<tr>
+					<th>판매자</th>
+					<td th:text="${i.iRegister}"></td>
+				</tr>
+				<tr>
+					<th>브랜드</th>
+					<td th:text="${i.iBrand}"></td>
+				</tr>
+				<tr>
+					<th>상품종류</th>
+					<td th:text="${iTypeString.iTypeString}"></td>
+				</tr>
+				<tr>
+					<th>상품명</th>
+					<td th:text="${i.iName}"></td>
+				</tr>
+				<tr>
+					<th>가격</th>
+					<td th:text="${i.iPrice}"></td>
+				</tr>
+				<tr>
+					<th>재고</th>
+					<td th:text="${i.iStock}"></td>
+				</tr>
+				<tr>
+					<th>등록일</th>
+					<td th:text="${i.iDate}"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<button onclick="list()">목록</button>
+	<a href="/sales" th:if="${session.loginId==i.iRegister}"><button>판매관리</button></a>
+	<a th:href="@{/items/update(iNum=${i.iNum})}" th:if="${session.loginId==i.iRegister}"><button>수정</button></a>
+	<button th:onclick="del_item()" th:if="${session.loginId==i.iRegister}">삭제</button>
+	<a href="/"><button>메인 페이지</button></a>
+	<hr>
+	<div class="explanation-detail">
+		<div th:text="${i.iExplanation}"></div>
+	</div>
+	<div>
+		<form action="/items/purchase" method="post" th:unless="${session.loginId==i.iRegister}">
+			<select name="color">
+				<option th:value="${io.ioColor1}" th:text="${io.ioColor1}" selected="selected"></option>
+				<option th:value="${io.ioColor2}" th:text="${io.ioColor2}" th:if="${io.ioColor2!=null}"></option>
+				<option th:value="${io.ioColor3}" th:text="${io.ioColor3}" th:if="${io.ioColor3!=''}"></option>
+				<option th:value="${io.ioColor4}" th:text="${io.ioColor4}" th:if="${io.ioColor4!=''}"></option>
+				<option th:value="${io.ioColor5}" th:text="${io.ioColor5}" th:if="${io.ioColor5!=''}"></option>
+			</select>
+			<select name="option">
+				<option th:value="${io.io1}" th:text="${io.io1}" selected="selected"></option>
+				<option th:value="${io.io2}" th:text="${io.io2}" th:if="${io.io2!=null}"></option>
+				<option th:value="${io.io3}" th:text="${io.io3}" th:if="${io.io3!=''}"></option>
+				<option th:value="${io.io4}" th:text="${io.io4}" th:if="${io.io4!=''}"></option>
+				<option th:value="${io.io5}" th:text="${io.io5}" th:if="${io.io5!=''}"></option>
+			</select>
+			<input type="number" name="count" value="1">
+			<input type="hidden" name="iNum" th:value="${item.iNum}">
+			<input type="submit" value="구매하기">
+		</form>
+		<a th:href="@{/cart/additem(iNum=${item.iNum})}" th:unless="${session.loginId==i.iRegister}"><button>장바구니에 담기</button></a>
+	</div>
+</div>
+<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
+</body>
+</html>

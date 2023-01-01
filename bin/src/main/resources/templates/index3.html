@@ -1,0 +1,20 @@
+<div class="list-wrapper" >
+	<ul class="list" th:each="i : ${iPage.itemList}">
+		<li class="items-wrapper">
+			<a class="item-click" th:href="@{/items/read(iNum=${i.iNum})}"></a>
+			<div class="item-wrapper">
+				<div class="item-picture" >
+					<img th:src="@{${'../img/'+i.iImage+'.png'}}" alt=" ">
+				</div>
+				<div class="item-explain">
+					<div class="item-name">
+						<a th:text="${i.iName}"></a>
+					</div>
+					<div class="item-price">
+						<a th:text="${i.iPrice}"></a>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상품 목록</title>
+<script th:inline="javascript">
+
+	var search_text = "test";
+	function search_set(){
+		search_text = document.getElementById('search-text').value;
+	}
+	
+	function search_com(){
+		location.href = `/items/search?search=${search_text}`;
+
+	}
+</script>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
+<link th:href="@{css/styles.css}" rel="stylesheet" />
+<style type="text/css">
+
+	#footer{
+		margin-top: 230px;
+		text-align: center;
+	}
+
+</style>
+</head>
+<body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
+
+<div id="title-name">
+	<h3 style=text-align:center th:text="${typeString==null} ? '전체목록':${typeString.iTypeString}"></h3>
+</div>
+
+		<div class="container px-4 px-lg-5 mt-5">
+			<div
+				class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" >
+				<div class="col mb-5"  th:each="i : ${iPage.itemList}">
+					<div class="card h-100">
+						<!-- Product image-->
+						<img class="card-img-top"
+							th:src="@{${'../img/'+i.iImage+'.png'}}" alt=" " />
+					
+						<!-- Product details-->
+						<div class="card-body p-4">
+							<div class="text-center">
+								<!-- Product name-->
+								<a class="fw-bolder" th:text="${i.iName}" th:href="@{/items/read(iNum=${i.iNum})}"></a>
+							</div>
+							<div class="item-price" style = text-align:center;>
+							<a th:text="${i.iPrice}"></a>
+					</div>
+						</div>
+						<!-- Product actions-->
+						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+							<div class="text-center">
+								<a class="btn btn-outline-dark mt-auto" th:href="@{/items/read(iNum=${i.iNum})}">상품 상세보기
+									</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+<div id="footer">
+		<div id="page" th:each="p : ${#numbers.sequence(iPage.startPage,iPage.endPage)}">
+			<a th:text="${p}" th:href="@{/items(iType=${type},page=${p})}"></a>
+		</div>
+		<br>
+	<input onchange="search_set()" id="search-text" type="text" placeholder="검색어를 입력하세요">
+	<button style="    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+    background-color:#343a40;
+    color:white;"
+			onclick="search_com()">검색</button>
+		<br>
+		<br>
+ 	<a href="/items/write" th:if="${session.m_type>2}">
+		<button>상품등록</button>
+	</a>
+	<br>
+	<a href="/">메인으로 돌아가기</a>
+</div>
+<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>리뷰 게시글 수정</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
+</head>
+<body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
+
+<form action="/reviews/update" method="post">
+	<table border="1">
+		<tr>
+			<td>제목</td>
+			<td><input type="text" th:value="${original.bTitle}" name="bTitle"></td>
+		</tr>
+		<tr>
+			<td>작성자</td>
+			<td><input type="text" th:value="${original.bWriter}" name="bWriter" disabled="disabled"></td>
+		</tr>
+		<tr>
+			<td>작성날짜</td>
+			<td><input type="text" th:value="${original.bWriteDate}" name="bWriteDate" disabled="disabled"></td>
+		</tr>
+		<tr>
+			<td>조회수</td>
+			<td><input type="text" th:value="${original.bReadCount}" name="bReadCount" disabled="disabled"></td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td><textarea th:value="${original.bContent}" th:text="${original.bContent}" name="bContent"></textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="hidden" name="bNum" th:value="${original.bNum}">
+				<input type="submit" value="수정완료">
+			</td>
+		</tr>
+		
+	</table>
+	
+</form>
+	<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
+</body>
+</html>

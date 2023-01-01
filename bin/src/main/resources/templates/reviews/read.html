@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>리뷰 상세페이지</title>
+<script th:inline="javascript">
+	function del() {
+		var result = confirm("정말로 삭제하시겠습니까?")
+		if (result) {
+			location.href = `delete?bNum=[[${board.bNum}]]`
+		}
+		return false;
+	}
+	function recommend(){
+		var m_id = '[[${session.loginId}]]';
+		console.log(m_id);
+ 		if(m_id=="null"){
+ 			alter("로그인이 필요합니다.")
+ 		}else{
+ 			recommend = document.getElemnetById('m_id').value;
+ 		}
+	}
+</script>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
+<style type="text/css">
+body{
+	width:1900px;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+section.notice {
+	padding: 80px 0;
+	width:1200px;
+	margin-left:350px;
+}
+
+.board-table {
+	font-size: 13px;
+	width: 100%;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+.board-table a {
+	color: #333;
+	display: inline-block;
+	line-height: 1.4;
+	word-break: break-all;
+	vertical-align: middle;
+}
+
+.board-table a:hover {
+	text-decoration: underline;
+}
+
+.board-table th {
+	text-align: center;
+}
+
+.board-table .th-num {
+	width: 100px;
+	text-align: center;
+}
+
+.board-table .th-date {
+	width: 200px;
+}
+
+.board-table th, .board-table td {
+	padding: 14px 0;
+}
+
+.board-table tbody td {
+	border-top: 1px solid #e7e7e7;
+	text-align: center;
+	border: 1px solid #444444;
+}
+
+.board-table tbody th {
+	padding-left: 28px;
+	padding-right: 14px;
+	border-top: 1px solid #e7e7e7;
+	text-align: left;
+}
+
+.board-table tbody th p {
+	display: none;
+}
+.rep-head-wrapper, .rep-value-wrapper {
+	display: flex;
+	width: 1600px;
+	text-align: center;
+	margin: 20px;
+	padding: 10px;
+}
+
+.rep-head {
+	font-weight: bold;
+	width: 150px;
+}
+.rep-head-content{
+	width:600px;
+}
+.rep-value-content{
+	width:600px;
+}
+
+.rep-value {
+	width: 150px;
+}
+
+li {
+	list-style: none;
+}
+
+</style>
+</head>
+<body>
+<nav th:replace="/header.html :: fragment-nav"></nav>	<section class="notice">
+		<table class="board-table">
+			<tr>
+				<td>제목</td>
+				<td th:text="${board.bTitle}">
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td th:text="${board.bWriter}">
+			</tr>
+			<tr>
+				<td>작성날짜</td>
+				<td th:text="${#dates.format(board.bWriteDate, 'yy.MM.dd hh:mm:ss')}">
+			</tr>
+			<tr>
+				<td>조회수</td>
+				<td th:text="${board.bReadCount}">
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td th:text="${board.bContent}">
+			</tr>
+			<tr>
+				<td>추천수</td>
+				<td th:text="${recommend}">
+			</tr>
+		</table>
+	<div class=rec th:unless="${session.loginId==null}">
+		<a th:href="@{/reviews/recommend(bNum=${board.bNum})}"><button>추천</button></a>
+	</div>
+		<br>
+		<br>
+		<a href="/reviews">목록</a> 
+		<a th:href="@{/reviews/update(bNum=${board.bNum})}"
+			th:if="${loginId==board.bWriter}">수정</a> 
+			<a th:onclick="del()" href="#" th:if="${loginId==board.bWriter}">삭제</a>
+		<div>
+			<ul>
+				<li class="rep-head-wrapper">
+					<span class="rep-head">작성자</span>
+					<span class="rep-head-content">내용</span>
+					<span class="rep-head">작성날짜</span>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<ul>
+				<li class="rep-value-wrapper" th:each="rep : ${replylist}">
+					<span class="rep-value" th:text="${rep.writer}"></span>
+					<span class="rep-value-content" th:text="${rep.content}"></span>
+					<span class="rep-value" th:text="${#dates.format(rep.regdate, 'yy.MM.dd hh:mm')}"></span>
+				</li>
+			</ul>
+		</div>
+		<form action="/review/read/replyadd" method="post">
+		<table>
+			<tr>
+				<td>내용 : </td>
+				<td>
+					<input type="text" name="content" size="30">
+					<input type="hidden" name="b_num" th:value="${board.bNum}">
+				</td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="작성완료"></td>
+			</tr>
+		</table>
+		</form>
+	</section>
+		<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
+</body>
+</html>

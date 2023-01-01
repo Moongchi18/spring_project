@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상품 등록</title>
+<link th:href="@{/css/nav.css}" rel="stylesheet"/>
+<link th:href="@{/css/Footer.css}" rel="stylesheet"/>
+<style type="text/css">
+	/* input, textarea{
+		position:relative;
+		left:120px;
+	} */
+	input[name], textarea[name]{
+		position:absolute;
+		left:120px;
+	}
+	.input-list{
+		padding-top: 10px;
+	}
+	.input-submit{
+		padding-left:180px;
+		padding-top:30px;
+	}
+</style>
+</head>
+<body>
+<nav th:replace="/header.html :: fragment-nav"></nav>
+<form action="/items/write" method="post">
+	<div class="input-wrapper">
+		<div class="input-list">
+			판매자 : <input type="text" name="iRegister" th:value="${session.loginId}" readonly="readonly">
+
+		</div>
+		<div class="input-list">
+			브랜드 : <input type="text" name="iBrand">
+		</div>
+		<div class="input-list">
+			상품종류 : <input type="text" name="iType">
+		</div>
+		<div class="input-list">
+			상품명 : <input type="text" name="iName">
+		</div>
+		<div class="input-list">
+			재고 : <input type="text" name="iStock">
+		</div>
+		<div class="input-list">
+			가격 : <input type="text" name="iPrice">
+		</div>
+		<div class="input-list">
+			대표사진 : <input type="text" name="iImage">
+		</div>
+		<div class="input-list">
+			상품설명 : <textarea name="iExplanation"></textarea>
+		</div>
+		<div class="input-submit">
+			<input type="submit" value="상품 등록">
+		</div>
+	</div>
+</form>
+<!-- Footer-->
+	<footer th:replace="/Footer.html :: fragment-footer"></footer>
+</body>
+</html>

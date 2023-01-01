@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project.shop.repository.mapper.BoardMapper">
+
+	<!-- 전체 게시글 조회 -->
+	<select id="selectList" resultMap="boardResultMap">
+		SELECT B_NUM,B_TITLE,B_WRITER,B_WRITEDATE,B_READCOUNT FROM BOARD 
+		WHERE B_TYPE=#{bType} 
+		ORDER BY B_NUM DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	
+	<!-- 특정 게시물 번호 조회 -->
+	<select id="select" resultMap="boardResultMap">
+		SELECT * FROM BOARD WHERE B_NUM=#{bNum}
+	</select>
+	
+	<!-- 특정 키워드로 특정 게시글 검색 -->
+ 	<select id="selectSearch" resultMap="boardResultMap">
+		SELECT * FROM BOARD WHERE B_TYPE=#{bType} and 
+		(B_TITLE like CONCAT('%',#{search1},'%') or B_CONTENT like CONCAT('%',#{search2},'%'))
+		ORDER BY B_NUM DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<!-- 특정타입 게시글 수 구하기 -->
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE B_TYPE=#{bType}
+	</select>
+
+	<!-- 특정타입, 특정검색어 게시글 수 구하기 -->
+	<select id="selectSearchTotalCount" resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE B_TYPE=#{bType} and (B_TITLE like CONCAT('%',#{search1},'%') or B_CONTENT like CONCAT('%',#{search2},'%'))
+	</select>
+	
+	<!-- 게시글 입력 -->
+	<insert id="insert" parameterType="vo.BoardVO">
+		INSERT INTO BOARD(B_TYPE,B_TITLE,B_CONTENT,B_WRITEDATE,B_WRITER)
+					VALUES(#{bType},#{bTitle},#{bContent},#{bWriteDate},#{bWriter})
+	</insert>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delete">
+		DELETE FROM BOARD WHERE B_NUM=#{bNum}
+	</delete>
+	
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="vo.BoardVO">
+		UPDATE BOARD SET B_TITLE=#{bTitle}, B_CONTENT=#{bContent}, B_WRITEDATE=#{bWriteDate} 
+		WHERE B_NUM=#{bNum}
+	</update>
+	
+	<!-- 조회수 -->
+	<update id="updateReviewReadCount">
+		UPDATE BOARD SET B_READCOUNT=B_READCOUNT+1 WHERE B_NUM=#{bNum}
+	</update>
+	
+	<select id="readReply" resultType="vo.ReplyVO">
+		SELECT R_NUM,CONTENT,WRITER,REGDATE FROM REPLY WHERE B_NUM=#{b_num}
+	</select>
+	
+	<insert id="writeReply" parameterType="vo.ReplyVO">
+		INSERT INTO REPLY(B_NUM,CONTENT,WRITER)
+			VALUES(#{b_num},#{content},#{writer})
+	</insert>
+	
+	<select id="selectRecommendCount" resultType="int">
+		SELECT COUNT(*) FROM RECOMMEND WHERE B_NUM=#{b_num}
+	</select>
+	
+	<select id="selectbNum" resultMap="boardResultMap">
+		SELECT B_NUM FROM BOARD
+	</select>
+	
+	<select id="joinRecommendBoard"  resultMap="boardResultMap">
+		SELECT * FROM BOARD B LEFT JOIN RECOMMEND R ON B.B_NUM=R.B_NUM 
+		WHERE B.B_TYPE=#{bType} GROUP BY B.B_NUM
+		ORDER BY B.B_NUM DESC LIMIT #{startRow},#{count};
+	</select>
+	
+	<insert id="recommend" parameterType="vo.RecommendVO">
+		INSERT INTO RECOMMEND(B_NUM,M_NUM) VALUES(#{b_num},#{m_num})
+	</insert>
+	
+	<select id="selectRecommend" resultType="int">
+		SELECT COUNT(*) FROM RECOMMEND WHERE B_NUM=#{b_num} and M_NUM=#{m_num}
+	</select>
+	
+	<delete id="deleteRecommend">
+		DELETE FROM RECOMMEND WHERE B_NUM=#{b_num} and M_NUM=#{m_num}
+	</delete>
+
+	<resultMap type="vo.BoardVO" id="boardResultMap">
+		<result column="B_NUM" property="bNum" />
+		<result column="B_TYPE" property="bType" />
+		<result column="B_TITLE" property="bTitle" />
+		<result column="B_CONTENT" property="bContent" />
+		<result column="B_WRITER" property="bWriter" />
+		<result column="B_WRITEDATE" property="bWriteDate" />
+		<result column="B_READCOUNT" property="bReadCount" />
+		<collection property="recommendVO" resultMap="recommendMap" />
+	</resultMap>
+	
+	<resultMap type="vo.RecommendVO" id="recommendMap">
+		<result column="b_num" property="b_num" />
+		<result column="m_num" property="m_num" />
+		<result column="recommend" property="recommend"/>
+	</resultMap>
+
+
+</mapper>
